@@ -41,7 +41,7 @@ if (isset($_GET["API_KEY"])) {
 } else {
     $data = [
         'status' => '200',
-        'msg' => '密碼錯誤',
+        'msg' => '參數錯誤',
     ];
 }
 echo json_encode($data);
