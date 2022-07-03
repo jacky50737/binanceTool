@@ -12,5 +12,7 @@
             "email": "jacky50737@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-mysqli": "*"
+    }
 }
