@@ -1,0 +1,16 @@
+{
+    "name": "user/binance-tool",
+    "description": "binance-tool-api",
+    "autoload": {
+        "psr-4": {
+            "User\\BinanceTool\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jacky",
+            "email": "jacky50737@gmail.com"
+        }
+    ],
+    "require": {}
+}
