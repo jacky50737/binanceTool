@@ -17,6 +17,7 @@ if (isset($_GET["API_KEY"])) {
     $rowData['symbol'] = $_GET['symbol'];
     $rowData['orderId'] = $_GET['orderId'];
     $rowData['orderSide'] = $_GET['orderSide'];
+    $rowData['positionSide'] = $_GET['positionSide'];
     $rowData['orderStatus'] = $_GET['orderStatus'];
     $rowData['averagePrice'] = $_GET['averagePrice'];
     $rowData['originalQuantity'] = $_GET['originalQuantity'];
