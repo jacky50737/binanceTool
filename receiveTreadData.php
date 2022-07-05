@@ -12,7 +12,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 header('Content-Type: application/json');
 
-if (isset($_GET["API_KEY"])) {
+if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
     $rowData = [];
     $rowData['symbol'] = $_GET['symbol'];
     $rowData['orderId'] = $_GET['orderId'];

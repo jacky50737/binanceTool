@@ -13,7 +13,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 header('Content-Type: application/json');
 
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GAS") {
-    
+
 } else {
     $data = [
         'status' => '400',
