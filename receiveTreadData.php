@@ -23,42 +23,20 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
     $rowData['originalQuantity'] = $_GET['originalQuantity'];
     $db = DataBaseTool::getInstance();
     $lineTool = new LineNotify();
+    $binanceTool = new BinanceTool();
     try {
         $accessToken = $db->getLineToken($_GET["API_KEY"]);
         $lineTool->setToken($accessToken);
-        $orderStatus = "異常";
-        switch ($rowData['orderSide']){
-            case 'BUY':
-                switch ($rowData['positionSide']){
-                    case 'LONG':
-                        $orderStatus = '開多';
-                        break;
-                    case 'SHORT':
-                        $orderStatus = '平多';
-                        break;
-                }
-                break;
-            case 'SELL':
-                switch ($rowData['positionSide']){
-                    case 'LONG':
-                        $orderStatus = '開空';
-                        break;
-                    case 'SHORT':
-                        $orderStatus = '平空';
-                        break;
-                }
-                break;
-        }
+        $orderStatus = $binanceTool->transferStockStatus($rowData['orderSide'],$rowData['positionSide']);
         $notifyString  = "幣種：".$rowData['symbol'];
         $notifyString .= "\n狀態：".$orderStatus;
         $notifyString .= "\n成交均價：".$rowData['averagePrice'];
         $notifyString .= "\n成交數量：".$rowData['originalQuantity'];
         $logStatus = "NEW";
-        if($lineTool->doLineNotify()){
+        if($lineTool->doLineNotify($notifyString)){
             $logStatus = "SEND";
         }
         $db->upLoadTreadLog($_GET["API_KEY"], $rowData,$logStatus);
-
         $data = [
             'status' => '200',
             'msg' => '新增完成',
@@ -70,6 +48,7 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
             'error' => $e->getMessage()
         ];
     }
+    $db->closeDB();
 } else {
     $data = [
         'status' => '200',
