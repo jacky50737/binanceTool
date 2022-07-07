@@ -164,6 +164,24 @@ class DataBaseTool
     }
 
     /**
+     * 取的API的KEY跟SECRET
+     * @param string $apiKey
+     * @return bool|array
+     */
+    public function getNickName(string $apiKey): bool|string
+    {
+        $sqlQuery = "SELECT NICK_NAME FROM BINANCE_API_KEY WHERE API_KEY = '" . strval($apiKey) . "';";
+
+        if ($this->connection->query($sqlQuery)) {
+            $rows = $this->connection->query($sqlQuery)->fetch_all()[0];
+            if (is_array($rows)) {
+                return $rows[0];
+            }
+        }
+        return false;
+    }
+
+    /**
      * 寫入交易並回傳成功與否
      * @param string $apiKey
      * @param array $data

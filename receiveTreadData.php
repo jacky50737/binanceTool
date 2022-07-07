@@ -26,8 +26,10 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
     $binanceTool = new BinanceTool();
     try {
         $accessToken = $db->getLineToken($_GET["API_KEY"]);
+        $nickName = $db->getNickName($_GET["API_KEY"]);
         $lineTool->setToken($accessToken);
         $orderStatus = $binanceTool->transferStockStatus($rowData['orderSide'],$rowData['positionSide']);
+        $notifyString  = "\n帳戶名稱：".$nickName;
         $notifyString  = "\n幣種：".$rowData['symbol'];
         $notifyString .= "\n狀態：".$orderStatus;
         $notifyString .= "\n成交均價：".$rowData['averagePrice'];
