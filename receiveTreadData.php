@@ -37,10 +37,17 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
             $logStatus = "SEND";
         }
         $db->upLoadTreadLog($_GET["API_KEY"], $rowData,$logStatus);
-        $data = [
-            'status' => '200',
-            'msg' => '新增完成',
-        ];
+        if($logStatus == "SEND"){
+            $data = [
+                'status' => '201',
+                'msg' => '完全新增完成',
+            ];
+        }else{
+            $data = [
+                'status' => '200',
+                'msg' => '新增完成，但未發送成功',
+            ];
+        }
     } catch (Exception $e) {
         $data = [
             'status' => '400',
