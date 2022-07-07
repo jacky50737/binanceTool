@@ -146,12 +146,31 @@ class DataBaseTool
     }
 
     /**
+     * 取的API的KEY跟SECRET
+     * @param string $lineId
+     * @return bool|array
+     */
+    public function getLineToken(string $apiKey): bool|string
+    {
+        $sqlQuery = "SELECT ACCESS_TOKEN FROM BINANCE_API_KEY WHERE API_KEY = '" . strval($apiKey) . "';";
+
+        if ($this->connection->query($sqlQuery)) {
+            $rows = $this->connection->query($sqlQuery)->fetch_all()[0];
+            if (is_array($rows)) {
+                return $rows[0];
+            }
+        }
+        return false;
+    }
+
+    /**
      * 寫入交易並回傳成功與否
      * @param string $apiKey
      * @param array $data
+     * @param string $status
      * @return bool
      */
-    public function upLoadTreadLog(string $apiKey, array $data): bool
+    public function upLoadTreadLog(string $apiKey, array $data,string $status = "NEW"): bool
     {
         $sqlQuery = "INSERT INTO TREAD_LOG" .
             "(SYMBOL, ORDER_ID,ORDER_SIDE, POSITION_SIDE,ORDER_STATUS, ORDER_PRICE, ORDER_QTY, API_KEY, LOG_STATUS)" .
@@ -162,7 +181,8 @@ class DataBaseTool
             strval($data['orderStatus']) . "', '" .
             strval($data['averagePrice']) . "',' " .
             strval($data['originalQuantity']) . "', '" .
-            strval($apiKey) . "',' " . "NEW" . "')";
+            strval($apiKey) . "',' " .
+            strval($status) . "')";
 
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery) == TRUE) {
