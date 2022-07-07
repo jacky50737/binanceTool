@@ -4,5 +4,7 @@
 
 require_once __DIR__ . '/composer/autoload_real.php';
 require_once __DIR__ . '/../class/DataBaseTool.php';
+require_once __DIR__ . '/../class/LineNotify.php';
+require_once __DIR__ . '/../class/CurlTool.php';
 
 return ComposerAutoloaderInit794e04965d6acc87361df4a1208b9c43::getLoader();
