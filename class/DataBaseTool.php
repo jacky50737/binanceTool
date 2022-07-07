@@ -110,16 +110,17 @@ class DataBaseTool
      * @param string $lineId
      * @return bool
      */
-    public function inputUser(string $apiKey, string $apiSecret, string $lineId): bool
+    public function inputUser(string $apiKey, string $apiSecret, string $lineId, string $accessToken): bool
     {
         $sqlQuery = "INSERT INTO BINANCE_API_KEY" .
-            "(API_KEY, API_SECRET,LINE_ID)" .
+            "(API_KEY, API_SECRET, LINE_ID, ACCESS_TOKEN)" .
             " VALUES ('" . strval($apiKey) . "', '" .
             strval($apiSecret) . "', '" .
-            strval($lineId) . "')";
+            strval($lineId) .  "', '" .
+            strval($accessToken) . "')";
 
         for ($i = 0; $i < 5; $i++) {
-            if ($this->connection->query($sqlQuery) == TRUE) {
+            if ($this->connection->query($sqlQuery)) {
                 return true;
             }
         }
