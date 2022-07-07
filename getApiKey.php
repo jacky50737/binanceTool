@@ -1,12 +1,10 @@
 <?php
 /**
  * 開發者 User
- * 創建於 2022/7/4
+ * 創建於 2022/7/5
  * 使用   PhpStorm
  * 專案名稱binanceTool
  */
-
-declare(strict_types=1);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -14,10 +12,10 @@ header('Content-Type: application/json');
 
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
-    $arrLog = $db->getTreadLog($_GET['API_KEY']);
+    $arrKey = $db->getApiKey($_GET['LINE_ID']);
     $data = [
         'status' => '200',
-        'msg' => '資料',
+        'msg' => $arrKey,
     ];
 } else {
     $data = [

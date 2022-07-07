@@ -55,6 +55,97 @@ class DataBaseTool
     }
 
     /**
+     * 拿交易紀錄(最多一次一百筆)
+     * @param string $apiKey
+     * @return bool
+     */
+    public function getTreadLog(string $apiKey){
+        $sqlQuery = "SELECT * FROM TREAD_LOG WHERE API_KEY = '" . strval($apiKey) . "' and LOG_STATUS = 'NEW' Order By ID ASC LIMIT 100;";
+
+        if ($this->connection->query($sqlQuery)) {
+            if ($this->connection->query($sqlQuery)->fetch_all()[0]) {
+                var_dump($this->connection->query($sqlQuery)->fetch_array());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 標記已發送的交易紀錄
+     * @param string $orderId
+     * @return bool
+     */
+    public function tagTreadLog(string $orderId){
+        $sqlQuery = "UPDATE TREAD_LOG SET LOG_STATUS='SEND' WHERE ORDER_ID='" . $orderId . "'";
+        for ($i = 0; $i < 5; $i++) {
+            if ($this->connection->query($sqlQuery) == TRUE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 檢查使用者是否已存在
+     * @param string $lineId
+     * @return bool
+     */
+    public function checkUser(string $lineId): bool
+    {
+        $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "';";
+
+        if ($this->connection->query($sqlQuery)) {
+            if ($this->connection->query($sqlQuery)->fetch_all()[0]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 寫入使用者
+     * @param string $apiKey
+     * @param string $apiSecret
+     * @param string $lineId
+     * @return bool
+     */
+    public function inputUser(string $apiKey, string $apiSecret, string $lineId): bool
+    {
+        $sqlQuery = "INSERT INTO BINANCE_API_KEY" .
+            "(API_KEY, API_SECRET,LINE_ID)" .
+            " VALUES ('" . strval($apiKey) . "', '" .
+            strval($apiSecret) . "', '" .
+            strval($lineId) . "')";
+
+        for ($i = 0; $i < 5; $i++) {
+            if ($this->connection->query($sqlQuery) == TRUE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 取的API的KEY跟SECRET
+     * @param string $lineId
+     * @return bool|array
+     */
+    public function getApiKey(string $lineId): bool|array
+    {
+        $sqlQuery = "SELECT API_KEY, API_SECRET FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "';";
+
+        if ($this->connection->query($sqlQuery)) {
+            $rows = $this->connection->query($sqlQuery)->fetch_all()[0];
+            if (is_array($rows)) {
+                return ['API_KEY' => $rows[0], 'API_SECRET' => $rows[1]];
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 寫入交易並回傳成功與否
      * @param string $apiKey
      * @param array $data
      * @return bool
@@ -63,14 +154,14 @@ class DataBaseTool
     {
         $sqlQuery = "INSERT INTO TREAD_LOG" .
             "(SYMBOL, ORDER_ID,ORDER_SIDE, POSITION_SIDE,ORDER_STATUS, ORDER_PRICE, ORDER_QTY, API_KEY, LOG_STATUS)" .
-            " VALUES ('" .strval($data['symbol']) . "', '" .
+            " VALUES ('" . strval($data['symbol']) . "', '" .
             strval($data['orderId']) . "', '" .
             strval($data['orderSide']) . "', '" .
             strval($data['positionSide']) . "', '" .
             strval($data['orderStatus']) . "', '" .
             strval($data['averagePrice']) . "',' " .
             strval($data['originalQuantity']) . "', '" .
-            strval($apiKey) . "',' " . "NEW"."')";
+            strval($apiKey) . "',' " . "NEW" . "')";
 
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery) == TRUE) {
