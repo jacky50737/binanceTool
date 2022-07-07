@@ -22,11 +22,43 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
     $rowData['averagePrice'] = $_GET['averagePrice'];
     $rowData['originalQuantity'] = $_GET['originalQuantity'];
     $db = DataBaseTool::getInstance();
+    $lineTool = new LineNotify();
     try {
-        $db->upLoadTreadLog($_GET["API_KEY"], $rowData);
-//        $response = json_decode(file_get_contents($url_all));
-//        $data = ['price' => (double)$response->price];
-//        $data = $rowData["order"]["symbol"];
+        $accessToken = $db->getLineToken($_GET["API_KEY"]);
+        $lineTool->setToken($accessToken);
+        $orderStatus = "異常";
+        switch ($rowData['orderSide']){
+            case 'BUY':
+                switch ($rowData['positionSide']){
+                    case 'LONG':
+                        $orderStatus = '開多';
+                        break;
+                    case 'SHORT':
+                        $orderStatus = '平多';
+                        break;
+                }
+                break;
+            case 'SELL':
+                switch ($rowData['positionSide']){
+                    case 'LONG':
+                        $orderStatus = '開空';
+                        break;
+                    case 'SHORT':
+                        $orderStatus = '平空';
+                        break;
+                }
+                break;
+        }
+        $notifyString  = "幣種：".$rowData['symbol'];
+        $notifyString .= "\n狀態：".$orderStatus;
+        $notifyString .= "\n成交均價：".$rowData['averagePrice'];
+        $notifyString .= "\n成交數量：".$rowData['originalQuantity'];
+        $logStatus = "NEW";
+        if($lineTool->doLineNotify()){
+            $logStatus = "SEND";
+        }
+        $db->upLoadTreadLog($_GET["API_KEY"], $rowData,$logStatus);
+
         $data = [
             'status' => '200',
             'msg' => '新增完成',
@@ -45,3 +77,4 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
     ];
 }
 echo json_encode($data);
+exit(0);
