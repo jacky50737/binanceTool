@@ -10,7 +10,7 @@ class LineNotify
 {
     private string $token = "";
 
-    public function set_token(string $token): bool
+    public function setToken(string $token): bool
     {
         $this->token = $token;
 
