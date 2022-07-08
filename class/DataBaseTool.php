@@ -33,8 +33,10 @@ class DataBaseTool
         $this->password = $configs['password'];
         $this->dbname = $configs['dbname'];
 
-        # 連接 MySQL/MariaDB 資料庫
+        //連接 MySQL/MariaDB 資料庫
         $this->connection = new mysqli($this->server, $this->user, $this->password, $this->dbname);
+        // 設定語言編碼為UTF8
+        $this->connection->set_charset("utf8");
     }
 
     /**
