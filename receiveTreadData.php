@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 
 if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
     $rowData = [];
