@@ -13,7 +13,7 @@ header('Content-Type: application/json');
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
     if($db->checkUser($_GET['LINE_ID'])){
-        if ($db->inputUser($_GET['API_KEY'], $_GET['API_SECRET'], $_GET['LINE_ID'], $_GET['ACCESS_TOKEN'])){
+        if ($db->inputUser($_GET['NICK_NAME'], $_GET['API_KEY'], $_GET['API_SECRET'], $_GET['LINE_ID'], $_GET['ACCESS_TOKEN'])){
             $data = [
                 'status' => '200',
                 'msg' => '使用者新增成功!',
