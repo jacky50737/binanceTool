@@ -7,7 +7,8 @@
  */
 
 class BinanceTool{
-    public function transferStockStatus(string $orderSide, string $positionSide){
+    public function transferStockStatus(string $orderSide, string $positionSide): string
+    {
         $orderStatus = "異常";
         switch ($orderSide){
             case 'BUY':

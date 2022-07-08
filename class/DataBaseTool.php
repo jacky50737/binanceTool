@@ -107,16 +107,20 @@ class DataBaseTool
 
     /**
      * 寫入使用者
+     * @param string $nickName
      * @param string $apiKey
      * @param string $apiSecret
      * @param string $lineId
+     * @param string $accessToken
      * @return bool
      */
-    public function inputUser(string $apiKey, string $apiSecret, string $lineId, string $accessToken): bool
+    public function inputUser(string $nickName, string $apiKey, string $apiSecret, string $lineId, string $accessToken): bool
     {
         $sqlQuery = "INSERT INTO BINANCE_API_KEY" .
-            "(API_KEY, API_SECRET, LINE_ID, ACCESS_TOKEN)" .
-            " VALUES ('" . strval($apiKey) . "', '" .
+            "(NICK_NAME, API_KEY, API_SECRET, LINE_ID, ACCESS_TOKEN)" .
+            " VALUES ('" .
+            strval($nickName) . "', '" .
+            strval($apiKey) . "', '" .
             strval($apiSecret) . "', '" .
             strval($lineId) .  "', '" .
             strval($accessToken) . "')";
