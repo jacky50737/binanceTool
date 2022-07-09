@@ -17,17 +17,17 @@ class BinanceTool{
                         $orderStatus = '開多';
                         break;
                     case 'SHORT':
-                        $orderStatus = '平多';
+                        $orderStatus = '平空';
                         break;
                 }
                 break;
             case 'SELL':
                 switch ($positionSide){
                     case 'LONG':
-                        $orderStatus = '開空';
+                        $orderStatus = '平多';
                         break;
                     case 'SHORT':
-                        $orderStatus = '平空';
+                        $orderStatus = '開空';
                         break;
                 }
                 break;
