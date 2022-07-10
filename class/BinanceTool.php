@@ -6,13 +6,14 @@
  * 專案名稱binanceTool
  */
 
-class BinanceTool{
+class BinanceTool
+{
     public function transferStockStatus(string $orderSide, string $positionSide): string
     {
         $orderStatus = "異常";
-        switch ($orderSide){
+        switch ($orderSide) {
             case 'BUY':
-                switch ($positionSide){
+                switch ($positionSide) {
                     case 'LONG':
                         $orderStatus = '開多';
                         break;
@@ -22,7 +23,7 @@ class BinanceTool{
                 }
                 break;
             case 'SELL':
-                switch ($positionSide){
+                switch ($positionSide) {
                     case 'LONG':
                         $orderStatus = '平多';
                         break;
@@ -33,5 +34,10 @@ class BinanceTool{
                 break;
         }
         return $orderStatus;
+    }
+
+    public function checkBinanceApi(string $apiKey, string $apiSecret)
+    {
+
     }
 }
