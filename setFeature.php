@@ -15,6 +15,7 @@ header('Content-Type: application/json; charset=utf-8');
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
     if($db->checkUserFeature($_GET['API_KEY'],$_GET['FEATURE_NAME'])){
+        var_dump(77777);
         if($db->updateUserFeature($_GET['API_KEY'], $_GET['FEATURE_NAME'], $_GET['STATUS'], $_GET['EXPIRED DAY'])){
             $data = [
                 'status' => '200',
