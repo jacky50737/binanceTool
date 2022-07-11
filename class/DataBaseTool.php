@@ -84,7 +84,10 @@ class DataBaseTool
      */
     public function updateUserFeature(string $apiKey, string $featureName, string $status, string $expiredDay): bool
     {
-        $sqlQuery = "UPDATE ACCOUNT_FEATURE SET STATUS=".$status." AND EXPIRED_DAY =".$expiredDay." WHERE ACCOUNT_KEY=" . $apiKey . " AND FEATURE_NAME=".$featureName.";";
+        $sqlQuery = "UPDATE ACCOUNT_FEATURE SET STATUS='".$status.
+            "' AND EXPIRED_DAY ='".$expiredDay.
+            "' WHERE ACCOUNT_KEY='" . $apiKey .
+            "' AND FEATURE_NAME='".$featureName."';";
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery)) {
                 return true;
@@ -110,8 +113,7 @@ class DataBaseTool
             strval($featureName) . "', '" .
             strval($status) . "', '" .
             strval($expiredDay) .  "')";
-var_dump($this->connection->query($sqlQuery));
-exit(0);
+
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery)) {
                 return true;
