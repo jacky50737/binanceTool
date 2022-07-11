@@ -27,17 +27,17 @@ try {
                 ];
 //            }
         } else {
-            if ($db->insertUserFeature($_GET['API_KEY'], $_GET['FEATURE_NAME'], $_GET['STATUS'], $_GET['EXPIRED DAY'])) {
-                $data = [
-                    'status' => '201',
-                    'msg' => '資料新增完成',
-                ];
-            } else {
+//            if ($db->insertUserFeature($_GET['API_KEY'], $_GET['FEATURE_NAME'], $_GET['STATUS'], $_GET['EXPIRED DAY'])) {
+//                $data = [
+//                    'status' => '201',
+//                    'msg' => '資料新增完成',
+//                ];
+//            } else {
                 $data = [
                     'status' => '400',
                     'msg' => '尚未順利新增',
                 ];
-            }
+//            }
         }
 
 //        $data = [
