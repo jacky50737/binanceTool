@@ -110,9 +110,8 @@ class DataBaseTool
             strval($featureName) . "', '" .
             strval($status) . "', '" .
             strval($expiredDay) .  "')";
-
+var_dump($sqlQuery);
         for ($i = 0; $i < 5; $i++) {
-            var_dump($this->connection->query($sqlQuery));
             if ($this->connection->query($sqlQuery)) {
                 return true;
             }
