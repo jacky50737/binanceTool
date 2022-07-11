@@ -84,13 +84,12 @@ class DataBaseTool
      */
     public function updateUserFeature(string $apiKey, string $featureName, string $status, string $expiredDay): bool
     {
-        $sqlQuery = "UPDATE ACCOUNT_FEATURE SET STATUS='".$status.
-            "' AND EXPIRED_DAY ='".$expiredDay.
+        $sqlQuery = "UPDATE ACCOUNT_FEATURE SET STATUS='".$status."' , EXPIRED_DAY ='".$expiredDay.
             "' WHERE ACCOUNT_KEY='" . $apiKey .
             "' AND FEATURE_NAME='".$featureName."';";
-        var_dump($sqlQuery);
+
         for ($i = 0; $i < 5; $i++) {
-            var_dump($this->connection->query($sqlQuery));
+
             if ($this->connection->query($sqlQuery)) {
                 return true;
             }
