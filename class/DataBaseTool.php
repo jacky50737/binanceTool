@@ -84,7 +84,7 @@ class DataBaseTool
         $sqlQuery = "SELECT ACCOUNT_KEY FROM ACCOUNT_FEATURE WHERE FEATURE_NAME ='".$featureName."' AND STATUS ='ENABLE' AND EXPIRED_DAY > CURRENT_TIMESTAMP;";
 
         if ($this->connection->query($sqlQuery)) {
-            $rows = $this->connection->query($sqlQuery)->fetch_row();
+            $rows = $this->connection->query($sqlQuery)->fetch_all();
             if (is_array($rows)) {
                 return $rows;
             }
