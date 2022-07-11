@@ -112,6 +112,7 @@ class DataBaseTool
             strval($expiredDay) .  "')";
 
         for ($i = 0; $i < 5; $i++) {
+            var_dump($this->connection->query($sqlQuery));
             if ($this->connection->query($sqlQuery)) {
                 return true;
             }
