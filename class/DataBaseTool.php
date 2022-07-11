@@ -67,6 +67,7 @@ class DataBaseTool
         $sqlQuery = "SELECT * FROM ACCOUNT_FEATURE WHERE ACCOUNT_KEY = " . $apiKey . " AND FEATURE_NAME =".$featureName.";";
 
         if ($this->connection->query($sqlQuery)) {
+            var_dump($this->connection->query($sqlQuery)->fetch_row());
             if (!is_null($this->connection->query($sqlQuery)->fetch_row())) {
                 return true;
             }
