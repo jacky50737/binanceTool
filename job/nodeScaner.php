@@ -8,6 +8,10 @@
 
 require_once '/home/cryptoharvester/public_html/binanceToolApi/vendor/autoload.php';
 
+$db = DataBaseTool::getInstance();
+$onListData = $db->checkUserFeatureStatus("AUTO_ORDER_NOTIFY");
+var_dump($onListData);
+
 $listRows = shell_exec('npx forever list');
 $listRows = explode(" ", $listRows);
 $arrForeverList = [];

@@ -75,6 +75,25 @@ class DataBaseTool
     }
 
     /**
+     * 查詢特定功能的合法列表
+     * @param string $featureName
+     * @return array|bool
+     */
+    public function checkUserFeatureStatus(string $featureName): bool|array
+    {
+        $sqlQuery = "SELECT ACCOUNT_KEY FROM ACCOUNT_FEATURE WHERE FEATURE_NAME ='".$featureName."' AND STATUS ='ENABLE' AND EXPIRED_DAY > CURRENT_TIMESTAMP;";
+
+        if ($this->connection->query($sqlQuery)) {
+            $rows = $this->connection->query($sqlQuery)->fetch_row();
+            if (is_array($rows)) {
+                return $rows;
+            }
+        }
+        return false;
+    }
+
+
+    /**
      * 更新使用者功能設定檔
      * @param string $apiKey
      * @param string $featureName
