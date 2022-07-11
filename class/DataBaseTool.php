@@ -65,6 +65,7 @@ class DataBaseTool
     public function checkUserFeature(string $apiKey, string $featureName): bool
     {
         $sqlQuery = "SELECT * FROM ACCOUNT_FEATURE WHERE ACCOUNT_KEY = " . $apiKey . " AND FEATURE_NAME =".$featureName.";";
+        var_dump($sqlQuery);
 var_dump($this->connection->query($sqlQuery));
         if ($this->connection->query($sqlQuery)) {
             var_dump($this->connection->query($sqlQuery)->fetch_row());
