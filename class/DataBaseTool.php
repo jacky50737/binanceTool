@@ -57,6 +57,69 @@ class DataBaseTool
     }
 
     /**
+     * 驗證使用者功能設定檔是否存在(true存在 false不存在)
+     * @param string $apiKey
+     * @param string $featureName
+     * @return bool
+     */
+    public function checkUserFeature(string $apiKey, string $featureName): bool
+    {
+        $sqlQuery = "SELECT * FROM ACCOUNT_FEATURE WHERE ACCOUNT_KEY = " . $apiKey . " AND FEATURE_NAME =".$featureName.";";
+
+        if ($this->connection->query($sqlQuery)) {
+            if (!is_null($this->connection->query($sqlQuery)->fetch_row())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 更新使用者功能設定檔
+     * @param string $apiKey
+     * @param string $featureName
+     * @param string $status
+     * @param string $expiredDay
+     * @return bool
+     */
+    public function updateUserFeature(string $apiKey, string $featureName, string $status, string $expiredDay): bool
+    {
+        $sqlQuery = "UPDATE ACCOUNT_FEATURE SET STATUS=".$status." AND EXPIRED_DAY =".$expiredDay." WHERE ACCOUNT_KEY=" . $apiKey . " AND FEATURE_NAME=".$featureName.";";
+        for ($i = 0; $i < 5; $i++) {
+            if ($this->connection->query($sqlQuery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 新增使用者功能設定檔
+     * @param string $apiKey
+     * @param string $featureName
+     * @param string $status
+     * @param string $expiredDay
+     * @return bool
+     */
+    public function insertUserFeature(string $apiKey, string $featureName, string $status, string $expiredDay): bool
+    {
+        $sqlQuery = "INSERT INTO ACCOUNT_FEATURE" .
+            "(ACCOUNT_KEY, FEATURE_NAME, STATUS, EXPIRED_DAY)" .
+            " VALUES ('" .
+            strval($apiKey) . "', '" .
+            strval($featureName) . "', '" .
+            strval($status) . "', '" .
+            strval($expiredDay) .  "')";
+
+        for ($i = 0; $i < 5; $i++) {
+            if ($this->connection->query($sqlQuery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 拿交易紀錄(最多一次一百筆)
      * @param string $apiKey
      * @return bool
@@ -81,7 +144,7 @@ class DataBaseTool
     public function tagTreadLog(string $orderId){
         $sqlQuery = "UPDATE TREAD_LOG SET LOG_STATUS='SEND' WHERE ORDER_ID='" . $orderId . "'";
         for ($i = 0; $i < 5; $i++) {
-            if ($this->connection->query($sqlQuery) == TRUE) {
+            if ($this->connection->query($sqlQuery)) {
                 return true;
             }
         }
