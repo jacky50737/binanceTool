@@ -11,44 +11,51 @@ declare(strict_types=1);
 require_once __DIR__ . '/vendor/autoload.php';
 
 header('Content-Type: application/json; charset=utf-8');
+try {
+    if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
+        $db = DataBaseTool::getInstance();
+        if ($db->checkUserFeature($_GET['API_KEY'], $_GET['FEATURE_NAME'])) {
+            var_dump(77777);
+            if ($db->updateUserFeature($_GET['API_KEY'], $_GET['FEATURE_NAME'], $_GET['STATUS'], $_GET['EXPIRED DAY'])) {
+                $data = [
+                    'status' => '200',
+                    'msg' => '資料更新完成',
+                ];
+            } else {
+                $data = [
+                    'status' => '400',
+                    'msg' => '尚未順利更新',
+                ];
+            }
+        } else {
+            if ($db->insertUserFeature($_GET['API_KEY'], $_GET['FEATURE_NAME'], $_GET['STATUS'], $_GET['EXPIRED DAY'])) {
+                $data = [
+                    'status' => '201',
+                    'msg' => '資料新增完成',
+                ];
+            } else {
+                $data = [
+                    'status' => '400',
+                    'msg' => '尚未順利新增',
+                ];
+            }
+        }
 
-if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
-    $db = DataBaseTool::getInstance();
-    if($db->checkUserFeature($_GET['API_KEY'],$_GET['FEATURE_NAME'])){
-        var_dump(77777);
-        if($db->updateUserFeature($_GET['API_KEY'], $_GET['FEATURE_NAME'], $_GET['STATUS'], $_GET['EXPIRED DAY'])){
-            $data = [
-                'status' => '200',
-                'msg' => '資料更新完成',
-            ];
-        }else{
-            $data = [
-                'status' => '400',
-                'msg' => '尚未順利更新',
-            ];
-        }
-    }else{
-        if($db->insertUserFeature($_GET['API_KEY'], $_GET['FEATURE_NAME'], $_GET['STATUS'], $_GET['EXPIRED DAY'])){
-            $data = [
-                'status' => '201',
-                'msg' => '資料新增完成',
-            ];
-        }else{
-            $data = [
-                'status' => '400',
-                'msg' => '尚未順利新增',
-            ];
-        }
+        $data = [
+            'status' => '200',
+            'msg' => '資料',
+        ];
+    } else {
+        $data = [
+            'status' => '400',
+            'msg' => '密碼錯誤',
+        ];
     }
-
-    $data = [
-        'status' => '200',
-        'msg' => '資料',
-    ];
-} else {
+    echo json_encode($data);
+} catch (Exception $e) {
     $data = [
         'status' => '400',
-        'msg' => '密碼錯誤',
+        'msg' => $e->getMessage(),
     ];
+    echo json_encode($data);
 }
-echo json_encode($data);
