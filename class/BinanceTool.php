@@ -8,6 +8,24 @@
 
 class BinanceTool
 {
+    private string $apiSecret;
+    private string $apiKey;
+    private string $futuresUrl = "https://fapi.binance.com";
+    private CurlTool $curlTool;
+
+    public function __construct()
+    {
+        $this->curlTool = new CurlTool();
+    }
+
+    public function setApiKey(string $apiKey)
+    {
+        $this->apiKey = $apiKey;
+    }
+
+    public function setApiSecret(string $apiSecret){
+        $this->apiSecret = $apiSecret;
+    }
     public function transferStockStatus(string $orderSide, string $positionSide): string
     {
         $orderStatus = "異常";
@@ -36,8 +54,27 @@ class BinanceTool
         return $orderStatus;
     }
 
-    public function checkBinanceApi(string $apiKey, string $apiSecret)
+    public function checkBinanceApi()
     {
+        $rows = $this->getAccountInfo();
+        var_dump($rows);
 
+        return false;
+    }
+
+    public function getAccountInfo()
+    {
+        $uri = "/fapi/v2/account";
+        $timeStamp = strval("signature".time());
+        $url = $this->futuresUrl.$uri."?".$timeStamp;
+        $signature = $this->getSignature($this->futuresUrl.$uri."&".$timeStamp);
+        $header = ['X-MBX-APIKEY:'.$this->apiKey];
+        $data = $this->curlTool->doGet($url."&".$signature,$header);
+
+        return $data;
+    }
+
+    private function getSignature($queryString){
+        return hash_hmac('sha256', $queryString, $this->apiSecret);
     }
 }
