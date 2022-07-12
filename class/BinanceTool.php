@@ -10,7 +10,7 @@ class BinanceTool
 {
     private string $apiSecret;
     private string $apiKey;
-    private string $futuresUrl = "https://fapi.binance.com";
+    private string $baseUrl = "https://fapi.binance.com";
     private CurlTool $curlTool;
 
     public function __construct()
@@ -69,19 +69,35 @@ class BinanceTool
 
     public function getAccountInfo()
     {
-        $uri = "/fapi/v2/account";
-        $timeStamp = strval("timestamp=".$this->getTimestamp());
-        $url = $this->futuresUrl.$uri."?".$timeStamp;
-        $signature = "signature=".$this->getSignature($url);
-        $url .="&".$signature;
-        $header = ['X-MBX-APIKEY:'.$this->apiKey];
-        var_dump($url);
-        $data = $this->curlTool->doGet($url,$header);
-
-        return $data;
+        $response = $this->signedRequest('GET', 'fapi/v2/account');
+        return json_encode($response);
     }
 
-    private function getSignature($queryString){
+    private function signature($queryString){
         return hash_hmac('sha256', $queryString, $this->apiSecret);
+    }
+
+    private function signedRequest(string $method, string $path, array $parameters = []) {
+
+        $parameters['timestamp'] = round(microtime(true) * 1000);
+        $query = $this->buildQuery($parameters);
+        $signature = $this->signature($query);
+        return $this->curlTool->binanceSendRequest($method, "${path}?${query}&signature=${signature}",$this->apiKey,$this->baseUrl);
+    }
+
+
+    private function buildQuery(array $params)
+    {
+        $query_array = array();
+        foreach ($params as $key => $value) {
+            if (is_array($value)) {
+                $query_array = array_merge($query_array, array_map(function ($v) use ($key) {
+                    return urlencode($key) . '=' . urlencode($v);
+                }, $value));
+            } else {
+                $query_array[] = urlencode($key) . '=' . urlencode($value);
+            }
+        }
+        return implode('&', $query_array);
     }
 }

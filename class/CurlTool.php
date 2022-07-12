@@ -51,6 +51,7 @@ class CurlTool
 
     /**
      * @param string $url
+     * @param array $header
      * @return object
      */
     public function doGet(string $url,array $header=[]): object
@@ -97,5 +98,29 @@ class CurlTool
             }
         }
         return $headers;
+    }
+
+    function binanceSendRequest($method, $path, $KEY,$BASE_URL)
+    {
+        set_time_limit(0);
+
+        $url = "${BASE_URL}${path}";
+
+//        echo "requested URL: ". PHP_EOL;
+//        echo $url. PHP_EOL;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-MBX-APIKEY:'.$KEY));
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, $method == "POST");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $execResult = curl_exec($ch);
+        $response = curl_getinfo($ch);
+
+        // if you wish to print the response headers
+        // echo print_r($response);
+
+        curl_close ($ch);
+        return json_decode($execResult, true);
     }
 }
