@@ -81,12 +81,18 @@ class DataBaseTool
      */
     public function checkUserFeatureStatus(string $featureName): bool|array
     {
-        $sqlQuery = "SELECT ACCOUNT_KEY FROM ACCOUNT_FEATURE WHERE FEATURE_NAME ='".$featureName."' AND STATUS ='ENABLE' AND EXPIRED_DAY > CURRENT_TIMESTAMP;";
+        $sqlQuery = "SELECT ACCOUNT_KEY FROM ACCOUNT_FEATURE WHERE FEATURE_NAME ='" . $featureName . "' AND STATUS ='ENABLE' AND EXPIRED_DAY > CURRENT_TIMESTAMP;";
 
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
             if (is_array($rows)) {
-                return $rows;
+                $data = [];
+                foreach ($rows as $row) {
+                    if (is_string($row[0])) {
+                        $data[] = $row[0];
+                    }
+                }
+                return $data;
             }
         }
         return false;
