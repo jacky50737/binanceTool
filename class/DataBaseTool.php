@@ -191,6 +191,7 @@ class DataBaseTool
 
         if ($this->connection->query($sqlQuery)) {
             if (!empty($this->connection->query($sqlQuery)->fetch_all()[0])) {
+                var_dump(empty($this->connection->query($sqlQuery)->fetch_all()[0]));
                 return true;
             }
         }
