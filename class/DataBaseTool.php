@@ -202,9 +202,9 @@ class DataBaseTool
      * @param string $lineId
      * @return bool
      */
-    public function checkUserNickName(string $lineId,string $nickName): bool
+    public function checkUserNickName(string $lineId, string $nickName): bool
     {
-        $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "' AND NICK_NAME = '".strval($nickName)."';";
+        $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "' AND NICK_NAME = '" . strval($nickName) . "';";
 
         if ($this->connection->query($sqlQuery)) {
             if ($this->connection->query($sqlQuery)->fetch_row()[0] >= 1) {
