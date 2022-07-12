@@ -52,6 +52,12 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
                 ],
             ];
             break;
+        default:
+            $data = [
+                'status' => '400',
+                'msg' =>'未攜帶參數[TYPE]或值不合法',
+            ];
+            break;
     }
 
 } else {
