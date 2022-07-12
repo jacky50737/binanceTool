@@ -190,8 +190,7 @@ class DataBaseTool
         $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "';";
 
         if ($this->connection->query($sqlQuery)) {
-            if ($this->connection->query($sqlQuery)->fetch_all()[0]) {
-                var_dump($this->connection->query($sqlQuery)->fetch_all()[0]);
+            if (!empty($this->connection->query($sqlQuery)->fetch_all()[0])) {
                 return true;
             }
         }
