@@ -190,9 +190,7 @@ class DataBaseTool
         $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "';";
 
         if ($this->connection->query($sqlQuery)) {
-            var_dump($this->connection->query($sqlQuery)->fetch_row());
-            if (!is_null($this->connection->query($sqlQuery)->fetch_row())) {
-
+            if ($this->connection->query($sqlQuery)->fetch_row()[0] >= 1) {
                 return true;
             }
         }
@@ -209,7 +207,7 @@ class DataBaseTool
         $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "' AND NICK_NAME = '".strval($nickName)."';";
 
         if ($this->connection->query($sqlQuery)) {
-            if (!is_null($this->connection->query($sqlQuery)->fetch_row())) {
+            if ($this->connection->query($sqlQuery)->fetch_row()[0] >= 1) {
                 return true;
             }
         }
