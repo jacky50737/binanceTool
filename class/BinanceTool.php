@@ -72,7 +72,7 @@ class BinanceTool
         var_dump($header);
         var_dump($timeStamp);
         var_dump($url."&".$signature);
-        $data = $this->curlTool->doGet($url."&".$signature,$header);
+        $data = $this->curlTool->doGet($url."&".$signature."&".$timeStamp,$header);
 
         return $data;
     }
