@@ -65,13 +65,13 @@ class BinanceTool
     public function getAccountInfo()
     {
         $uri = "/fapi/v2/account";
-        $timeStamp = strval("signature=".time());
+        $timeStamp = strval("timestamp=".time());
         $url = $this->futuresUrl.$uri."?".$timeStamp;
-        $signature = $this->getSignature($this->futuresUrl.$uri."&".$timeStamp);
+        $signature = "signature=".$this->getSignature($this->futuresUrl.$uri."&".$timeStamp);
         $header = ['X-MBX-APIKEY:'.$this->apiKey];
         var_dump($header);
         var_dump($timeStamp);
-        var_dump($url."&".$signature);
+        var_dump($url."&".$signature."&".$timeStamp);
         $data = $this->curlTool->doGet($url."&".$signature."&".$timeStamp,$header);
 
         return $data;
