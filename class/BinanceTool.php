@@ -10,7 +10,7 @@ class BinanceTool
 {
     private string $apiSecret;
     private string $apiKey;
-    private string $baseUrl = "https://fapi.binance.com";
+    private string $baseUrl = "https://fapi.binance.com/";
     private CurlTool $curlTool;
 
     public function __construct()
