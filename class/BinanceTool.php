@@ -73,11 +73,10 @@ class BinanceTool
         $timeStamp = strval("timestamp=".$this->getTimestamp());
         $url = $this->futuresUrl.$uri."?".$timeStamp;
         $signature = "signature=".$this->getSignature($this->futuresUrl.$uri."&".$timeStamp);
+        $url .="&".$signature;
         $header = ['X-MBX-APIKEY:'.$this->apiKey];
-        var_dump($header);
-        var_dump($timeStamp);
-        var_dump($url."&".$signature."&".$timeStamp);
-        $data = $this->curlTool->doGet($url."&".$signature."&".$timeStamp,$header);
+        var_dump($url);
+        $data = $this->curlTool->doGet($url,$header);
 
         return $data;
     }
