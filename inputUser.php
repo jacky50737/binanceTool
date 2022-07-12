@@ -13,7 +13,7 @@ header('Content-Type: application/json');
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
     $binance = new BinanceTool();
-    if($db->checkUser($_GET['LINE_ID'])){
+    if(!$db->checkUser($_GET['LINE_ID'])){
         $binance->setApiKey($_GET['API_KEY']);
         $binance->setApiSecret($_GET['API_SECRET']);
         if($binance->checkBinanceApi()){
