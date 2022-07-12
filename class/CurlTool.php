@@ -119,7 +119,7 @@ class CurlTool
 
         // if you wish to print the response headers
         // echo print_r($response);
-var_dump($response);
+
         curl_close ($ch);
         return json_decode($execResult, true);
     }
