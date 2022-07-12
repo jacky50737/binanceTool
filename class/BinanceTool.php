@@ -69,9 +69,7 @@ class BinanceTool
 
     public function getAccountInfo()
     {
-        $response = $this->signedRequest('GET', 'fapi/v2/account');
-        var_dump($response);
-        return json_encode($response);
+        return $this->signedRequest('GET', 'fapi/v2/account');
     }
 
     private function signature($queryString){
