@@ -72,7 +72,7 @@ class BinanceTool
         $uri = "/fapi/v2/account";
         $timeStamp = strval("timestamp=".$this->getTimestamp());
         $url = $this->futuresUrl.$uri."?".$timeStamp;
-        $signature = "signature=".$this->getSignature($this->futuresUrl.$uri."&".$timeStamp);
+        $signature = "signature=".$this->getSignature($url);
         $url .="&".$signature;
         $header = ['X-MBX-APIKEY:'.$this->apiKey];
         var_dump($url);
