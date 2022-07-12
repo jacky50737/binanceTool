@@ -190,7 +190,24 @@ class DataBaseTool
         $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "';";
 
         if ($this->connection->query($sqlQuery)) {
-            if ($this->connection->query($sqlQuery)->fetch_all()[0]) {
+            if (!is_null($this->connection->query($sqlQuery)->fetch_row())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 檢查使用者是否已存在
+     * @param string $lineId
+     * @return bool
+     */
+    public function checkUserNickName(string $lineId,string $nickName): bool
+    {
+        $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "' AND NICK_NAME = '".strval($nickName)."';";
+
+        if ($this->connection->query($sqlQuery)) {
+            if (!is_null($this->connection->query($sqlQuery)->fetch_row())) {
                 return true;
             }
         }

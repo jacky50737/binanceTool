@@ -18,17 +18,14 @@ class BinanceTool
         $this->curlTool = new CurlTool();
     }
 
-    public function setApiKey(string $apiKey)
+    public function setApiKey(string $apiKey): void
     {
         $this->apiKey = $apiKey;
     }
 
-    public function setApiSecret(string $apiSecret){
+    public function setApiSecret(string $apiSecret): void
+    {
         $this->apiSecret = $apiSecret;
-    }
-
-    private function getTimestamp(){
-        return round(microtime(true) * 1000);
     }
 
     public function transferStockStatus(string $orderSide, string $positionSide): string
@@ -59,11 +56,12 @@ class BinanceTool
         return $orderStatus;
     }
 
-    public function checkBinanceApi()
+    public function checkBinanceApi(): bool
     {
         $rows = $this->getAccountInfo();
-        var_dump($rows);
-
+        if (!empty($rows)) {
+            return true;
+        }
         return false;
     }
 
@@ -72,7 +70,8 @@ class BinanceTool
         return $this->signedRequest('GET', 'fapi/v2/account');
     }
 
-    private function signature($queryString){
+    private function signature($queryString): bool|string
+    {
         return hash_hmac('sha256', $queryString, $this->apiSecret);
     }
 
@@ -85,7 +84,7 @@ class BinanceTool
     }
 
 
-    private function buildQuery(array $params)
+    private function buildQuery(array $params): string
     {
         $query_array = array();
         foreach ($params as $key => $value) {
