@@ -289,15 +289,19 @@ class DataBaseTool
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all()[0];
             if (is_array($rows)) {
-                return ['API_KEY' => $rows[0], 'API_SECRET' => $rows[1]];
+                $data = [];
+                foreach ($rows as $row){
+                    $data[] = ['API_KEY' => $row[0], 'API_SECRET' => $row[1]];
+                }
+                return $data;
             }
         }
         return false;
     }
 
     /**
-     * 取的API的KEY跟SECRET
-     * @param string $lineId
+     * 取得Line ID
+     * @param string $apiKey
      * @return bool|array
      */
     public function getLineToken(string $apiKey): bool|string
