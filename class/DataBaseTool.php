@@ -300,13 +300,31 @@ class DataBaseTool
     }
 
     /**
-     * 取得Line ID
+     * 取得Line TOKEN
      * @param string $apiKey
      * @return bool|array
      */
     public function getLineToken(string $apiKey): bool|string
     {
         $sqlQuery = "SELECT ACCESS_TOKEN FROM BINANCE_API_KEY WHERE API_KEY = '" . strval($apiKey) . "';";
+
+        if ($this->connection->query($sqlQuery)) {
+            $rows = $this->connection->query($sqlQuery)->fetch_all()[0];
+            if (is_array($rows)) {
+                return $rows[0];
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 取得Line ID
+     * @param string $apiKey
+     * @return bool|array
+     */
+    public function getLineId(string $apiKey): bool|string
+    {
+        $sqlQuery = "SELECT LINE_ID FROM BINANCE_API_KEY WHERE API_KEY = '" . strval($apiKey) . "';";
 
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all()[0];
