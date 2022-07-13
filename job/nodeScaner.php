@@ -52,14 +52,9 @@ foreach ($liveAccountList as $row){
 foreach ($onListData as $row){
     $userData['API_KEY'] = $row;
     $userData['API_SECRET'] = "";
-    var_dump($row);
     $userData['LINE_ID'] = $db->getLineId($row);
-    var_dump($userData['LINE_ID']);
     $arrData = $db->getApiKey($userData['LINE_ID']);
-    var_dump($arrData);
     foreach ($arrData as $data){
-        var_dump($row);
-        var_dump($data['API_KEY']);
         if($row == $data['API_KEY']){
             $userData['API_SECRET'] = $data['API_SECRET'];
         }
