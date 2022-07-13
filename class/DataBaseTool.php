@@ -288,6 +288,7 @@ class DataBaseTool
 
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
+            var_dump($rows);
             if (is_array($rows)) {
                 $data = [];
                 foreach ($rows as $row){
