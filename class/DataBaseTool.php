@@ -181,7 +181,7 @@ class DataBaseTool
     }
 
     /**
-     * 檢查使用者是否已存在
+     * 檢查使用者Line ID是否已存在
      * @param string $lineId
      * @return bool
      */
@@ -198,13 +198,31 @@ class DataBaseTool
     }
 
     /**
-     * 檢查使用者是否已存在
+     * 檢查使用者暱稱是否已存在
      * @param string $lineId
+     * @param string $nickName
      * @return bool
      */
     public function checkUserNickName(string $lineId, string $nickName): bool
     {
         $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "' AND NICK_NAME = '" . strval($nickName) . "';";
+
+        if ($this->connection->query($sqlQuery)) {
+            if ($this->connection->query($sqlQuery)->fetch_row()[0] >= 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 檢查使用者API KEY是否已存在
+     * @param string $apiKey
+     * @return bool
+     */
+    public function checkApiKey(string $apiKey): bool
+    {
+        $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE API_KEY = '" . strval($apiKey) . "';";
 
         if ($this->connection->query($sqlQuery)) {
             if ($this->connection->query($sqlQuery)->fetch_row()[0] >= 1) {
@@ -233,6 +251,23 @@ class DataBaseTool
             strval($apiSecret) . "', '" .
             strval($lineId) .  "', '" .
             strval($accessToken) . "')";
+
+        for ($i = 0; $i < 5; $i++) {
+            if ($this->connection->query($sqlQuery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 刪除使用者帳戶
+     * @param string $apiKey
+     * @return bool
+     */
+    public function deleteUser(string $apiKey): bool
+    {
+        $sqlQuery = "DELETE FROM BINANCE_API_KEY WHERE API_KEY='" . strval($apiKey) . "'";
 
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery)) {
