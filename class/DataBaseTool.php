@@ -287,7 +287,7 @@ class DataBaseTool
         $sqlQuery = "SELECT API_KEY, API_SECRET FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "';";
 
         if ($this->connection->query($sqlQuery)) {
-            $rows = $this->connection->query($sqlQuery)->fetch_all()[0];
+            $rows = $this->connection->query($sqlQuery)->fetch_all();
             if (is_array($rows)) {
                 $data = [];
                 foreach ($rows as $row){
