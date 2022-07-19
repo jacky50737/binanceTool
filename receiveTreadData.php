@@ -21,6 +21,9 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
     $rowData['orderStatus'] = $_GET['orderStatus'];
     $rowData['averagePrice'] = $_GET['averagePrice'];
     $rowData['originalQuantity'] = $_GET['originalQuantity'];
+    $rowData['commissionAmount'] = $_GET['commissionAmount'];
+    $rowData['realisedProfit'] = $_GET['realisedProfit'];
+
     $db = DataBaseTool::getInstance();
     $lineTool = new LineNotify();
     $binanceTool = new BinanceTool();
@@ -34,6 +37,8 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
         $notifyString .= "\n狀態：".$orderStatus;
         $notifyString .= "\n成交均價：".$rowData['averagePrice'];
         $notifyString .= "\n成交數量：".$rowData['originalQuantity'];
+        $notifyString .= "\n交易手續費：".$rowData['commissionAmount'];
+        $notifyString .= "\n實現利潤：".$rowData['realisedProfit'];
         $logStatus = "NEW";
         if($lineTool->doLineNotify($notifyString)){
             $logStatus = "SEND";

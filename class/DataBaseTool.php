@@ -363,7 +363,7 @@ class DataBaseTool
     public function upLoadTreadLog(string $apiKey, array $data,string $status = "NEW"): bool
     {
         $sqlQuery = "INSERT INTO TREAD_LOG" .
-            "(SYMBOL, ORDER_ID,ORDER_SIDE, POSITION_SIDE,ORDER_STATUS, ORDER_PRICE, ORDER_QTY, API_KEY, LOG_STATUS)" .
+            "(SYMBOL, ORDER_ID,ORDER_SIDE, POSITION_SIDE,ORDER_STATUS, ORDER_PRICE, ORDER_QTY, ORDER_COMMISSION, ORDER_PROFIT, API_KEY, LOG_STATUS)" .
             " VALUES ('" . strval($data['symbol']) . "', '" .
             strval($data['orderId']) . "', '" .
             strval($data['orderSide']) . "', '" .
@@ -371,6 +371,8 @@ class DataBaseTool
             strval($data['orderStatus']) . "', '" .
             strval($data['averagePrice']) . "',' " .
             strval($data['originalQuantity']) . "', '" .
+            strval($data['commissionAmount']) . "', '" .
+            strval($data['realisedProfit']) . "', '" .
             strval($apiKey) . "',' " .
             strval($status) . "')";
 
