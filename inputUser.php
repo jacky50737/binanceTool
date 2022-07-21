@@ -10,7 +10,6 @@ require_once __DIR__ . '/class/autoload.php';
 
 header('Content-Type: application/json');
 
-var_dump($_GET);
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
     $binance = new BinanceTool();
