@@ -46,6 +46,10 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "GCP") {
                 'Expiration' => '2022-12-31',
             ],
         ],
+        '4' => [
+            'status' => '200',
+            'NickName' => 'abc777gg',
+        ],
         default => [
             'status' => '400',
             'msg' => 'The parameter [TYPE] is not carried or the value is invalid',
