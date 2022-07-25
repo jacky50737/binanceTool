@@ -16,46 +16,46 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "GCP") {
         '1' => [
             'status' => '200',
             'msg' => [
-                '帳戶資產' => 7777,
-                '錢包餘額' => 9999,
-                '保證金率' => 8,
-                '當前浮虧' => 2333,
-                '可用金額' => 6666,
+                'AccountAssets' => 7777,
+                'walletBalance' => 9999,
+                'MarginRate' => 8,
+                'CurrentFloatingLoss' => 2333,
+                'AmountAvailable' => 6666,
             ],
         ],
         '2' => [
             'status' => '200',
             'msg' => [
-                '帳號' => 'abc777gg',
-                '密碼' => 'djqwjiojcioawewjoid',
-                '使用者名稱' => '阿銘',
-                '生日' => '1980-12-32',
-                '點卡餘額' => 8888,
+                'NickName' => 'abc777gg',
+                'Username' => 'MingRay888777',
+                'Password' => 'djqwjiojcioawewjoid',
+                'Birthday' => '1980-12-32',
+                'PointCardBalance' => 8888,
             ],
         ],
         '3' => [
             'status' => '200',
             'msg' => [
-                '會員功能' => [
-                    '自動開平倉' => true,
-                    '倉位自動通知' => false,
+                'MemberFunction' => [
+                    'AutomaticallyPositions' => true,
+                    'PositionAutomaticNotification' => false,
                 ],
-                '加值功能' => [
-                    '保證金率通知' => true,
+                'AddedFunction' => [
+                    'MarginRateNotification' => true,
                 ],
-                '過期時間' => '2022-12-31',
+                'Expiration' => '2022-12-31',
             ],
         ],
         default => [
             'status' => '400',
-            'msg' => '未攜帶參數[TYPE]或值不合法',
+            'msg' => 'The parameter [TYPE] is not carried or the value is invalid',
         ],
     };
 
 } else {
     $data = [
         'status' => '400',
-        'msg' => '密碼錯誤',
+        'msg' => 'Password Error!!',
     ];
 }
 echo json_encode($data);
