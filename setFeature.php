@@ -11,7 +11,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/class/autoload.php';
 
 header('Content-Type: application/json; charset=utf-8');
-
+var_dump($_GET);
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     if(in_array($_GET['STATUS'],['ENABLE','DISABLE', '開', '關'])){
         $status_chinese = "無狀態";
