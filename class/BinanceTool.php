@@ -59,6 +59,7 @@ class BinanceTool
     public function checkBinanceApi(): bool
     {
         $rows = $this->getAccountInfo();
+        var_dump($rows);
         if (is_array($rows)) {
             if(isset($rows['msg'])){
                 if($rows['msg'] == "API-key format invalid."){
