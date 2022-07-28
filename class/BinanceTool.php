@@ -59,6 +59,7 @@ class BinanceTool
     public function checkBinanceApi(): bool
     {
         $rows = $this->getAccountInfo();
+        var_dump($rows);
         if (!empty($rows)) {
             return true;
         }
