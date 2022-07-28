@@ -54,7 +54,7 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
             } else {
                 $data = [
                     'status' => '400',
-                    'msg' => '尚未順利更新，請確認是否有權限，或洽詢管理員。',
+                    'msg' => '尚未順利建立，請確認是否有權限，或洽詢管理員。',
                 ];
             }
         }
