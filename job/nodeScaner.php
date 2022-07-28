@@ -71,8 +71,4 @@ while(date('s')< 58){
     }
 }
 $db->closeDB();
-
-
-
-
-
+exit(0);
