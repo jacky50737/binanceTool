@@ -37,12 +37,6 @@ foreach ($liveAccountList as $row) {
     $liveAccountListOnlyKey[] = $row['API_KEY'];
 }
 
-//取出本機Key為後續判斷使用
-$liveAccountListOnlyKey = [];
-foreach ($liveAccountList as $row) {
-    $liveAccountListOnlyKey[] = $row['API_KEY'];
-}
-
 //var_dump($liveAccountList);
 //關閉已被停用的執行並刪除檔案
 foreach ($liveAccountList as $row) {
