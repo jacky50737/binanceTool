@@ -13,7 +13,7 @@ require_once __DIR__ . '/class/autoload.php';
 header('Content-Type: application/json; charset=utf-8');
 
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
-    if(in_array($_GET['STATUS'],['ENABLE','DISABLE', '開', '關'])){
+    if(in_array($_GET['STATUS'],['ENABLE','DISABLE', '開', '關']) and (strlen($_GET['API_KEY']) == 64)){
         $status_chinese = "無狀態";
         switch ($_GET['STATUS']){
             case 'ENABLE':
