@@ -8,7 +8,7 @@
 
 require_once '/home/cryptoharvester/public_html/binanceToolApi/class/autoload.php';
 
-try{
+try {
     //撈DB中的執行名單
     $db = DataBaseTool::getInstance();
     $onListData = $db->checkUserFeatureStatus("AUTO_ORDER_NOTIFY");
@@ -38,18 +38,12 @@ try{
         $liveAccountListOnlyKey[] = $row['API_KEY'];
     }
 
-//取出本機Key為後續判斷使用
-    $liveAccountListOnlyKey = [];
-    foreach ($liveAccountList as $row) {
-        $liveAccountListOnlyKey[] = $row['API_KEY'];
-    }
-
 //var_dump($liveAccountList);
 //關閉已被停用的執行並刪除檔案
     foreach ($liveAccountList as $row) {
         if (!in_array($row['API_KEY'], $onListData)) {
-            var_dump('sudo -S npx forever stop '."examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
-            var_dump('sudo -S rm -f '."examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
+            var_dump('sudo -S npx forever stop ' . "examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
+            var_dump('sudo -S rm -f ' . "examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
             shell_exec('sudo -S npx forever stop ' . "examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
             sleep(1);
             shell_exec('sudo -S rm -f ' . "examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
@@ -79,7 +73,7 @@ try{
     }
     $db->closeDB();
     sleep(5);
-}catch (Exception $exception){
+} catch (Exception $exception) {
     var_dump($exception->getMessage());
     exit(0);
 }
