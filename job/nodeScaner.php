@@ -72,7 +72,7 @@ try {
         }
     }
     $db->closeDB();
-    sleep(5);
+    sleep(3);
 } catch (Exception $exception) {
     var_dump($exception->getMessage());
     exit(0);
