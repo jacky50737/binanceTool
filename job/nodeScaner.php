@@ -12,7 +12,7 @@ require_once '/home/cryptoharvester/public_html/binanceToolApi/class/autoload.ph
 $db = DataBaseTool::getInstance();
 while(date('s')< 58){
     $onListData = $db->checkUserFeatureStatus("AUTO_ORDER_NOTIFY");
-//var_dump($onListData);
+var_dump($onListData);
 
 //取得本機forever列表並轉換成陣列格式
     $listRows = shell_exec('npx forever list');
@@ -42,8 +42,8 @@ while(date('s')< 58){
 //關閉已被停用的執行並刪除檔案
     foreach ($liveAccountList as $row){
         if (!in_array($row['API_KEY'],$onListData)){
-//        var_dump('npx forever stop '."examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
-//        var_dump('rm -f '."examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
+        var_dump('npx forever stop '."examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
+        var_dump('rm -f '."examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
             shell_exec('npx forever stop '."examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
             shell_exec('rm -f '."examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
         }
@@ -61,9 +61,9 @@ while(date('s')< 58){
             }
         }
         if (!in_array($userData['API_KEY'],$liveAccountListOnlyKey)){
-//        var_dump("touch examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
-//        var_dump("\cp examples/ws-userdata.ts examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
-//        var_dump("npx forever --minUptime=1000 --spinSleepTime=1000 start -c ts-node examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
+        var_dump("touch examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
+        var_dump("\cp examples/ws-userdata.ts examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
+        var_dump("npx forever --minUptime=1000 --spinSleepTime=1000 start -c ts-node examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
             shell_exec("touch examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
             shell_exec("\cp examples/ws-userdata.ts examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
             shell_exec("npx forever --minUptime=1000 --spinSleepTime=1000 start -c ts-node examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
