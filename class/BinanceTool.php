@@ -28,6 +28,17 @@ class BinanceTool
         $this->apiSecret = $apiSecret;
     }
 
+    public function checkKeySecretLen(): bool
+    {
+        if(strlen($this->apiKey) != 64){
+            return false;
+        }
+        if(strlen($this->apiSecret) != 64){
+            return false;
+        }
+        return true;
+    }
+
     public function transferStockStatus(string $orderSide, string $positionSide): string
     {
         $orderStatus = "異常";
