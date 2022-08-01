@@ -7,9 +7,9 @@
  */
 
 declare(strict_types=1);
-echo 7777; exit();
-require_once 'class/autoload.php';
 
+require_once 'class/autoload.php';
+echo 7777; exit();
 header('Content-Type: application/json; charset=utf-8');
 
 if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
