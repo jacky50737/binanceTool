@@ -8,14 +8,24 @@
 
 class BinanceTool
 {
+    private static BinanceTool $instance;
     private string $apiSecret;
     private string $apiKey;
     private string $baseUrl = "https://fapi.binance.com/";
     private CurlTool $curlTool;
 
+    public static function getInstance(): BinanceTool
+    {
+        if (!self::$instance) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
     public function __construct()
     {
-        $this->curlTool = new CurlTool();
+        $this->curlTool = CurlTool::getInstance();
     }
 
     public function setApiKey(string $apiKey): void

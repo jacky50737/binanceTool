@@ -11,12 +11,12 @@ class DataBaseTool
     /**
      * @var
      */
-    private static $instance;
+    private static DataBaseTool $instance;
 
     /**
      * @return DataBaseTool
      */
-    public static function getInstance()
+    public static function getInstance(): DataBaseTool
     {
         if (!self::$instance) {
             self::$instance = new self();

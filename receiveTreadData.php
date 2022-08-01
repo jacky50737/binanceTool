@@ -25,8 +25,8 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
     $rowData['realisedProfit'] = $_GET['realisedProfit'];
 
     $db = DataBaseTool::getInstance();
-    $lineTool = new LineNotify();
-    $binanceTool = new BinanceTool();
+    $lineTool = LineNotify::getInstance();
+    $binanceTool = BinanceTool::getInstance();
     try {
         $accessToken = $db->getLineToken($_GET["API_KEY"]);
         $nickName = $db->getNickName($_GET["API_KEY"]);

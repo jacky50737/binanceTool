@@ -8,6 +8,18 @@
 
 class CurlTool
 {
+
+    private static CurlTool $instance;
+
+    public static function getInstance(): CurlTool
+    {
+        if (!self::$instance) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
     /**
      * URL 路徑 HEADER 內容
      * @param string $url
@@ -15,7 +27,7 @@ class CurlTool
      * @param array $payload
      * @return false|mixed
      */
-    public function doPost(string $url,array $header,array $payload)
+    public function doPost(string $url,array $header,array $payload): mixed
     {
         try {
             set_time_limit(0);
