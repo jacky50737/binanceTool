@@ -7,18 +7,18 @@
  */
 
 require_once '../class/autoload.php';
-
-$db = DataBaseTool::getInstance();
-$lineTool = LineNotify::getInstance();
-$binanceTool = BinanceTool::getInstance();
-
-try {
-
-    $checkList = $db->checkUserFeatureStatus('AUTO_WALLET_NOTIFY');
-    foreach ($checkList as $row){
-        var_dump($row);
-    }
-
-} catch (Exception $exception) {
-    $lineTool->sendToAdmin($exception->getMessage());
-}
+echo 77777;
+//$db = DataBaseTool::getInstance();
+//$lineTool = LineNotify::getInstance();
+//$binanceTool = BinanceTool::getInstance();
+//
+//try {
+//
+//    $checkList = $db->checkUserFeatureStatus('AUTO_WALLET_NOTIFY');
+//    foreach ($checkList as $row){
+//        var_dump($row);
+//    }
+//
+//} catch (Exception $exception) {
+//    $lineTool->sendToAdmin($exception->getMessage());
+//}
