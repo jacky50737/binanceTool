@@ -17,7 +17,8 @@ try {
     foreach ($checkList as $row){
         $key = $row;
         $secret = $db->getApiSecret($key);
-        var_dump($key,$secret);
+        var_dump($key);
+        var_dump($secret);
     }
 
 } catch (Exception $exception) {
