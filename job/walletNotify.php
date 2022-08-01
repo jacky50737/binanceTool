@@ -7,14 +7,16 @@
  */
 
 require_once '../class/autoload.php';
-
+echo 0000;
 $db = DataBaseTool::getInstance();
+echo 1111;
 $lineTool = LineNotify::getInstance();
+echo 2222;
 $binanceTool = BinanceTool::getInstance();
-
+echo 3333;
 try {
-
     $checkList = $db->checkUserFeatureStatus('AUTO_WALLET_NOTIFY');
+    var_dump($checkList);
     foreach ($checkList as $row){
         var_dump($row);
     }
