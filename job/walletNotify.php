@@ -7,10 +7,10 @@
  */
 
 require_once '../class/autoload.php';
-echo 77777;
-//$db = DataBaseTool::getInstance();
-//$lineTool = LineNotify::getInstance();
-//$binanceTool = BinanceTool::getInstance();
+
+$db = DataBaseTool::getInstance();
+$lineTool = LineNotify::getInstance();
+$binanceTool = BinanceTool::getInstance();
 //
 //try {
 //
