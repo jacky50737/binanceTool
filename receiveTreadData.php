@@ -7,7 +7,7 @@
  */
 
 declare(strict_types=1);
-
+echo 7777; exit();
 require_once 'class/autoload.php';
 
 header('Content-Type: application/json; charset=utf-8');
