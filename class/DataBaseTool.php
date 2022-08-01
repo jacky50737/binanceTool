@@ -11,7 +11,7 @@ class DataBaseTool
     /**
      * @var
      */
-    private static DataBaseTool $instance;
+    private static $instance;
 
     /**
      * @return DataBaseTool
