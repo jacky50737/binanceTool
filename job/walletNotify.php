@@ -23,7 +23,7 @@ try {
         $lineToken = $db->getLineToken($key);
         $data = $binanceTool->getAccountInfo();
         $msg = "\n帳戶名稱：" . $nickName . "\n" .
-            "帳戶資產(USDT)：" . number_format($data['totalInitialMargin'], 2) . "\n" .
+            "帳戶資產(USDT)：" . number_format($data['totalMarginBalance'], 2) . "\n" .
             "錢包餘額(USDT)：" . number_format($data['totalWalletBalance'], 2) . "\n" .
             "可用金額(USDT)：" . number_format($data['availableBalance'], 2) . "\n" .
             "當前浮虧(USDT)：" . number_format($data['totalUnrealizedProfit'], 2) . "\n" .
