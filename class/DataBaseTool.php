@@ -300,6 +300,28 @@ class DataBaseTool
     }
 
     /**
+     * 取的APIKEY的SECRET
+     * @param string $apiKey
+     * @return bool|array
+     */
+    public function getApiSecret(string $apiKey): bool|array
+    {
+        $sqlQuery = "SELECT API_SECRET FROM BINANCE_API_KEY WHERE API_KEY = '" . strval($apiKey) . "';";
+
+        if ($this->connection->query($sqlQuery)) {
+            $rows = $this->connection->query($sqlQuery)->fetch_all();
+            if (is_array($rows)) {
+                $data = [];
+                foreach ($rows as $row){
+                    $data[] = $row[0];
+                }
+                return $data;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 取得Line TOKEN
      * @param string $apiKey
      * @return bool|array
@@ -336,7 +358,7 @@ class DataBaseTool
     }
 
     /**
-     * 取的API的KEY跟SECRET
+     * 取的APIKEY的NickName
      * @param string $apiKey
      * @return bool|array
      */
