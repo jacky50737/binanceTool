@@ -20,7 +20,14 @@ try {
         $binanceTool->setApiKey($key);
         $binanceTool->setApiSecret($secret);
         $data = $binanceTool->getAccountInfo();
-        var_dump($data);
+        $msg = "帳戶名稱：Binance-8 合約\n" .
+            "帳戶資產(USDT)：".number_format($data['totalInitialMargin'],2)."\n" .
+            "錢包餘額(USDT)：".number_format($data['totalWalletBalance'],2)."\n" .
+            "可用金額(USDT)：".number_format($data['availableBalance'],2)."\n" .
+            "當前浮虧(USDT)：".number_format($data['totalUnrealizedProfit'],2)."\n" .
+//            "累計盈虧(USDT)：".number_format()."\n" .
+            "當前保證金率：".number_format($data['totalMaintMargin']/$data['totalMarginBalance']*100,2)."%";
+        $lineTool->sendToAdmin($msg);
     }
 
 } catch (Exception $exception) {
