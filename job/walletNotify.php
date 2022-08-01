@@ -19,8 +19,9 @@ try {
         $secret = $db->getApiSecret($key)[0];
         $binanceTool->setApiKey($key);
         $binanceTool->setApiSecret($secret);
+        $nickName = $db->getNickName($key);
         $data = $binanceTool->getAccountInfo();
-        $msg = "\n帳戶名稱：Binance-8 合約\n" .
+        $msg = "\n帳戶名稱：".$nickName."\n" .
             "帳戶資產(USDT)：".number_format($data['totalInitialMargin'],2)."\n" .
             "錢包餘額(USDT)：".number_format($data['totalWalletBalance'],2)."\n" .
             "可用金額(USDT)：".number_format($data['availableBalance'],2)."\n" .
