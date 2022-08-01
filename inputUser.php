@@ -6,7 +6,7 @@
  * 專案名稱binanceTool
  */
 
-require_once __DIR__ . '/class/autoload.php';
+require_once 'class/autoload.php';
 
 header('Content-Type: application/json');
 
