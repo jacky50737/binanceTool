@@ -16,9 +16,11 @@ try {
     $checkList = $db->checkUserFeatureStatus('AUTO_WALLET_NOTIFY');
     foreach ($checkList as $row){
         $key = $row;
-        $secret = $db->getApiSecret($key);
-        var_dump($key);
-        var_dump($secret);
+        $secret = $db->getApiSecret($key)[0];
+        $binanceTool->setApiKey($key);
+        $binanceTool->setApiSecret($secret);
+        $data = $binanceTool->getAccountInfo();
+        var_dump($data);
     }
 
 } catch (Exception $exception) {
