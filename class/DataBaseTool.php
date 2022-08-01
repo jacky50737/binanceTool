@@ -16,7 +16,7 @@ class DataBaseTool
     /**
      * @return DataBaseTool
      */
-    public static function getInstance(): DataBaseTool
+    public static function getInstance()
     {
         if (!self::$instance) {
             self::$instance = new self();

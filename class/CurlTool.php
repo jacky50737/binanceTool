@@ -9,9 +9,9 @@
 class CurlTool
 {
 
-    private static CurlTool $instance;
+    private static $instance;
 
-    public static function getInstance(): CurlTool
+    public static function getInstance()
     {
         if (!self::$instance) {
             self::$instance = new self();

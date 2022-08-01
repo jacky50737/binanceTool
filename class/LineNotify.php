@@ -8,14 +8,14 @@
 
 class LineNotify
 {
-    private static LineNotify $instance;
+    private static $instance;
     private string $token = "";
     private CurlTool $curl;
 
     /**
      * @return LineNotify
      */
-    public static function getInstance(): LineNotify
+    public static function getInstance()
     {
         if (!self::$instance) {
             self::$instance = new self();
