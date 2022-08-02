@@ -23,6 +23,7 @@ try {
         $nickName = $db->getNickName($key);
         $lineToken = $db->getLineToken($key);
         $data = $binanceTool->getAccountInfo();
+        var_dump("帳戶:".(empty($data['totalMarginBalance'])?"0":number_format($data['totalMarginBalance'], 2)));
         $msg = "\n帳戶名稱：" . $nickName . "\n" .
             "帳戶資產(USDT)：" . (empty($data['totalMarginBalance'])?"0":number_format($data['totalMarginBalance'], 2)) . "\n" .
             "錢包餘額(USDT)：" . (empty($data['totalWalletBalance'])?"0":number_format($data['totalWalletBalance'], 2)) . "\n" .
