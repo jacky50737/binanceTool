@@ -30,12 +30,15 @@ try {
                 "可用金額(USDT)：" . number_format($data['availableBalance'], 2) . "\n" .
                 "當前浮虧(USDT)：" . number_format($data['totalUnrealizedProfit'], 2) . "\n" .
                 "當前保證金率：" . number_format($data['totalMaintMargin'] / $data['totalMarginBalance'] * 100, 2) . "%";
-            $lineTool->setToken($lineToken);
-            $lineTool->doLineNotify($msg);
-            echo '已發送通知到KEY：'.$key."\n";
+
+
         }else{
-            echo '錢包尚無資產KEY：'.$key."\n";
+            $msg = "\n帳戶名稱：" . $nickName . "\n" .
+                "您的錢包暫無任何資產!";
         }
+        $lineTool->setToken($lineToken);
+        $lineTool->doLineNotify($msg);
+        echo '已發送通知到KEY：'.$key."\n";
     }
     echo "job結束\n";
 } catch (Exception $exception) {
