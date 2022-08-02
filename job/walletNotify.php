@@ -27,7 +27,7 @@ try {
         var_dump("帳戶資料2:".(empty($data['totalWalletBalance'])?"0":number_format($data['totalWalletBalance'], 2)));
         var_dump("帳戶資料3:".(empty($data['availableBalance'])?"0":number_format($data['availableBalance'], 2)));
         var_dump("帳戶資料4:".(empty($data['totalUnrealizedProfit'])?"0":number_format($data['totalUnrealizedProfit'], 2)));
-        var_dump("帳戶資料5:".(empty($data['totalMaintMargin'])?"0":number_format($data['totalMaintMargin'] / $data['totalMarginBalance'] * 100, 2));
+        var_dump("帳戶資料5:".(empty($data['totalMaintMargin'])?"0":number_format($data['totalMaintMargin'] / $data['totalMarginBalance'] * 100, 2)));
         $msg = "\n帳戶名稱：" . $nickName . "\n" .
             "帳戶資產(USDT)：" . (empty($data['totalMarginBalance'])?"0":number_format($data['totalMarginBalance'], 2)) . "\n" .
             "錢包餘額(USDT)：" . (empty($data['totalWalletBalance'])?"0":number_format($data['totalWalletBalance'], 2)) . "\n" .
