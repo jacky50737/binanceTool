@@ -23,13 +23,13 @@ try {
         $nickName = $db->getNickName($key);
         $lineToken = $db->getLineToken($key);
         $data = $binanceTool->getAccountInfo();
-        if($data['totalMarginBalance'] != "0.00000000"){
+        if($data['totalMarginBalance'] != 0){
             $msg = "\n帳戶名稱：" . $nickName . "\n" .
-                "帳戶資產(USDT)：" . (($data['totalMarginBalance'] != 0)?"0":number_format($data['totalMarginBalance'], 2)) . "\n" .
-                "錢包餘額(USDT)：" . (($data['totalWalletBalance'] != 0)?"0":number_format($data['totalWalletBalance'], 2)) . "\n" .
-                "可用金額(USDT)：" . (($data['availableBalance'] != 0)?"0":number_format($data['availableBalance'], 2)) . "\n" .
-                "當前浮虧(USDT)：" . (($data['totalUnrealizedProfit'] != 0)?"0":number_format($data['totalUnrealizedProfit'], 2)) . "\n" .
-                "當前保證金率：" . (($data['totalMarginBalance'] != 0)?"0":number_format($data['totalMaintMargin'] / $data['totalMarginBalance'] * 100, 2)) . "%";
+                "帳戶資產(USDT)：" . number_format($data['totalMarginBalance'], 2) . "\n" .
+                "錢包餘額(USDT)：" . number_format($data['totalWalletBalance'], 2) . "\n" .
+                "可用金額(USDT)：" . number_format($data['availableBalance'], 2) . "\n" .
+                "當前浮虧(USDT)：" . number_format($data['totalUnrealizedProfit'], 2) . "\n" .
+                "當前保證金率：" . number_format($data['totalMaintMargin'] / $data['totalMarginBalance'] * 100, 2) . "%";
             $lineTool->setToken($lineToken);
             $lineTool->doLineNotify($msg);
             echo '已發送通知到KEY：'.$key."\n";
