@@ -29,9 +29,14 @@ try {
             "可用金額(USDT)：" . (empty($data['availableBalance'])?"0":number_format($data['availableBalance'], 2)) . "\n" .
             "當前浮虧(USDT)：" . (empty($data['totalUnrealizedProfit'])?"0":number_format($data['totalUnrealizedProfit'], 2)) . "\n" .
             "當前保證金率：" . (empty($data['totalMaintMargin'])?"0":number_format($data['totalMaintMargin'] / $data['totalMarginBalance'] * 100, 2)) . "%";
-        $lineTool->setToken($lineToken);
-        $lineTool->doLineNotify($msg);
-        echo '發送到KEY：'.$key."\n";
+        if(!empty($data['totalWalletBalance'])){
+            $lineTool->setToken($lineToken);
+            $lineTool->doLineNotify($msg);
+            echo '已發送通知到KEY：'.$key."\n";
+        }else{
+            echo '錢包尚無資產KEY：'.$key."\n";
+        }
+
     }
     echo "job結束\n";
 } catch (Exception $exception) {
