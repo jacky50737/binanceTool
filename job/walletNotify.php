@@ -11,9 +11,10 @@ require_once '../class/autoload.php';
 $db = DataBaseTool::getInstance();
 $lineTool = LineNotify::getInstance();
 $binanceTool = BinanceTool::getInstance();
-
+echo "job開始!\n";
 try {
     $checkList = $db->checkUserFeatureStatus('AUTO_WALLET_NOTIFY');
+    var_dump($checkList);
     foreach ($checkList as $row) {
         $key = $row;
         $secret = $db->getApiSecret($key)[0];
@@ -23,16 +24,17 @@ try {
         $lineToken = $db->getLineToken($key);
         $data = $binanceTool->getAccountInfo();
         $msg = "\n帳戶名稱：" . $nickName . "\n" .
-            "帳戶資產(USDT)：" . number_format($data['totalMarginBalance'], 2) . "\n" .
-            "錢包餘額(USDT)：" . number_format($data['totalWalletBalance'], 2) . "\n" .
-            "可用金額(USDT)：" . number_format($data['availableBalance'], 2) . "\n" .
-            "當前浮虧(USDT)：" . number_format($data['totalUnrealizedProfit'], 2) . "\n" .
-//            "累計盈虧(USDT)：".number_format()."\n" .
-            "當前保證金率：" . number_format($data['totalMaintMargin'] / $data['totalMarginBalance'] * 100, 2) . "%";
+            "帳戶資產(USDT)：" . (empty($data['totalMarginBalance'])?"0":number_format($data['totalMarginBalance'], 2)) . "\n" .
+            "錢包餘額(USDT)：" . (empty($data['totalWalletBalance'])?"0":number_format($data['totalWalletBalance'], 2)) . "\n" .
+            "可用金額(USDT)：" . (empty($data['availableBalance'])?"0":number_format($data['availableBalance'], 2)) . "\n" .
+            "當前浮虧(USDT)：" . (empty($data['totalUnrealizedProfit'])?"0":number_format($data['totalUnrealizedProfit'], 2)) . "\n" .
+            "當前保證金率：" . (empty($data['totalMaintMargin'])?"0":number_format($data['totalMaintMargin'] / $data['totalMarginBalance'] * 100, 2)) . "%";
         $lineTool->setToken($lineToken);
         $lineTool->doLineNotify($msg);
+        echo '發送到KEY：'.$key."\n";
     }
-
+    echo "job結束\n";
 } catch (Exception $exception) {
+    echo '發生錯誤：'.$exception->getMessage();
     $lineTool->sendToAdmin($exception->getMessage());
 }
