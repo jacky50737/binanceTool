@@ -261,6 +261,24 @@ class DataBaseTool
     }
 
     /**
+     * 更新使用者名稱
+     * @param string $nickName
+     * @param string $apiKey
+     * @return bool
+     */
+    public function updateUserName(string $nickName, string $apiKey): bool
+    {
+        $sqlQuery = "UPDATE BINANCE_API_KEY SET NICK_NAME='".$nickName."'WHERE API_KEY='" . $apiKey . "'";
+
+        for ($i = 0; $i < 5; $i++) {
+            if ($this->connection->query($sqlQuery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 刪除使用者帳戶
      * @param string $apiKey
      * @return bool
