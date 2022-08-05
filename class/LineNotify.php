@@ -75,7 +75,7 @@ class LineNotify
 
         $payload['message'] = strval($msg);
 
-        $token = 'Rci96B8Gvlgu7tuvOfTufJ6E5VWsUqHFwhTqYDc78To';
+        $token = 'gEUyWFxGu74kORojtNpYS8Sscwobo0fTSqCe1l8xLKQ';
 
         $curl = $this->curl;
         $header = array('Authorization:Bearer ' . $token);

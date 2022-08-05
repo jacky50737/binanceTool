@@ -11,7 +11,12 @@ declare(strict_types=1);
 require_once 'class/autoload.php';
 
 header('Content-Type: application/json; charset=utf-8');
-
+$lineTool = LineNotify::getInstance();
+$lineTool->sendToAdmin(__FILE__."\n輸入：\n".print_r($_GET));
+$data = [
+    'status' => '400',
+    'msg' => '初始化',
+];
 if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
     $rowData = [];
     $rowData['symbol'] = $_GET['symbol'];
@@ -25,14 +30,15 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
     $rowData['realisedProfit'] = $_GET['realisedProfit'];
 
     $db = DataBaseTool::getInstance();
-    $lineTool = LineNotify::getInstance();
     $binanceTool = BinanceTool::getInstance();
 
     try {
         $accessToken = $db->getLineToken($_GET["API_KEY"]);
         $nickName = $db->getNickName($_GET["API_KEY"]);
         $lineTool->setToken($accessToken);
+
         $orderStatus = $binanceTool->transferStockStatus($rowData['orderSide'],$rowData['positionSide']);
+
         $notifyString  = "\n帳戶名稱：".$nickName;
         $notifyString .= "\n幣種：".$rowData['symbol'];
         $notifyString .= "\n狀態：".$orderStatus;
@@ -40,6 +46,7 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
         $notifyString .= "\n成交數量：".$rowData['originalQuantity'];
         $notifyString .= "\n交易手續費：".$rowData['commissionAmount'];
         $notifyString .= "\n實現利潤：".$rowData['realisedProfit'];
+
         $logStatus = "NEW";
         if($lineTool->doLineNotify($notifyString)){
             $logStatus = "SEND";
@@ -56,19 +63,41 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
                 'msg' => '新增完成，但未發送成功',
             ];
         }
-    } catch (Exception $e) {
+    } catch (Exception $exception) {
         $data = [
             'status' => '400',
             'msg' => '發生未知的錯誤',
-            'error' => $e->getMessage()
+            'error' => $exception->getMessage()
         ];
     }
     $db->closeDB();
-} else {
+}
+//elseif (isset($_GET["API_KEY"]) and $_GET['asset'] == 'USDT'){
+//    $rowData = [];
+//    $rowData['asset'] = $_GET['asset'];
+//    $rowData['balanceChange'] = $_GET['balanceChange'];
+//    $rowData['crossWalletBalance'] = $_GET['crossWalletBalance'];
+//    $rowData['walletBalance'] = $_GET['walletBalance'];
+//    $rowData['updateEventType'] = $_GET['updateEventType'];
+//
+//    $db = DataBaseTool::getInstance();
+//
+//    try {
+//
+//    }catch (Exception $exception){
+//        $data = [
+//            'status' => '400',
+//            'msg' => '發生未知的錯誤',
+//            'error' => $exception->getMessage()
+//        ];
+//    }
+//}
+else {
     $data = [
         'status' => '200',
         'msg' => '參數錯誤',
     ];
 }
+$lineTool->sendToAdmin(__FILE__."\n輸出：\n".print_r($data));
 echo json_encode($data);
 exit(0);
