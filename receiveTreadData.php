@@ -12,7 +12,6 @@ require_once 'class/autoload.php';
 
 header('Content-Type: application/json; charset=utf-8');
 $lineTool = LineNotify::getInstance();
-$lineTool->sendToAdmin(__FILE__."\n輸入：\n".print_r($_GET));
 $data = [
     'status' => '400',
     'msg' => '初始化',
@@ -28,6 +27,8 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
     $rowData['originalQuantity'] = $_GET['originalQuantity'];
     $rowData['commissionAmount'] = $_GET['commissionAmount'];
     $rowData['realisedProfit'] = $_GET['realisedProfit'];
+
+    $lineTool->sendToAdmin(__FILE__."\n輸入：\n".print_r($rowData));
 
     $db = DataBaseTool::getInstance();
     $binanceTool = BinanceTool::getInstance();
@@ -50,6 +51,7 @@ if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
         $logStatus = "NEW";
         if($lineTool->doLineNotify($notifyString)){
             $logStatus = "SEND";
+            $lineTool->sendToAdmin(__FILE__."\n輸出：\n".print_r($notifyString));
         }
         $db->upLoadTreadLog($_GET["API_KEY"], $rowData,$logStatus);
         if($logStatus == "SEND"){
@@ -98,6 +100,5 @@ else {
         'msg' => '參數錯誤',
     ];
 }
-$lineTool->sendToAdmin(__FILE__."\n輸出：\n".print_r($data));
 echo json_encode($data);
 exit(0);
