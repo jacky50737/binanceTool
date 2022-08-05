@@ -11,6 +11,7 @@ declare(strict_types=1);
 require_once 'class/autoload.php';
 
 header('Content-Type: application/json; charset=utf-8');
+
 $db = DataBaseTool::getInstance();
 $binanceTool = BinanceTool::getInstance();
 

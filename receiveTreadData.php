@@ -13,7 +13,10 @@ require_once 'class/autoload.php';
 header('Content-Type: application/json; charset=utf-8');
 $lineTool = LineNotify::getInstance();
 $helpTool = Help::getInstance();
-$lineTool->sendToAdmin(__FILE__."\n輸入：\n".$helpTool->mixArray($_GET));
+$lineTool->sendToAdmin(__FILE__."\nGET輸入：\n".$helpTool->mixArray($_GET));
+if(!empty($_POST)){
+    $lineTool->sendToAdmin(__FILE__."\nPOST輸入：\n".$helpTool->mixArray($_POST));
+}
 
 $data = [
     'status' => '400',
