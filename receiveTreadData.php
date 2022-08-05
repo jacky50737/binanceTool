@@ -15,8 +15,12 @@ $lineTool = LineNotify::getInstance();
 $helpTool = Help::getInstance();
 $lineTool->sendToAdmin(__FILE__."\nGET輸入：\n".$helpTool->mixArray($_GET));
 try {
-    $postData = json_decode(file_get_contents('php://input'),true);
-    $lineTool->sendToAdmin(__FILE__."\nPOST輸入：\n".$helpTool->mixArray($postData));
+    parse_str(file_get_contents('php://input'),$postData);
+//    $postData = ;
+    if(is_array($postData)){
+        $postData = $helpTool->mixArray($postData);
+    }
+    $lineTool->sendToAdmin(__FILE__."\nPOST輸入：\n".$postData);
 }catch (Exception $exception){
     $lineTool->sendToAdmin(__FILE__."\n非POST輸入：\n".$exception->getMessage());
 }
