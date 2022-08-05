@@ -15,8 +15,8 @@ $lineTool = LineNotify::getInstance();
 $helpTool = Help::getInstance();
 $lineTool->sendToAdmin(__FILE__."\nGET輸入：\n".$helpTool->mixArray($_GET));
 try {
-    parse_str(file_get_contents('php://input'),$postData);
-//    $postData = ;
+    $postData = file_get_contents('php://input');
+    $postData = json_decode($postData['data']);
     if(is_array($postData)){
         $postData = $helpTool->mixArray($postData);
     }
