@@ -15,7 +15,6 @@ $db = DataBaseTool::getInstance();
 $lineTool = LineNotify::getInstance();
 $binanceTool = BinanceTool::getInstance();
 
-$lineTool->sendToAdmin(__FILE__."\n輸入：\n".print_r($_GET));
 $data = [
     'status' => '400',
     'msg' => '初始化',
@@ -49,6 +48,6 @@ if (isset($_GET["API_KEY"])) {
         'msg' => '參數錯誤',
     ];
 }
-$lineTool->sendToAdmin(__FILE__."\n輸出：\n".print_r($data));
+
 echo json_encode($data);
 exit(0);
