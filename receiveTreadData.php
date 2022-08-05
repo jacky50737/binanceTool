@@ -14,15 +14,17 @@ header('Content-Type: application/json; charset=utf-8');
 $lineTool = LineNotify::getInstance();
 $helpTool = Help::getInstance();
 $lineTool->sendToAdmin(__FILE__."\nGET輸入：\n".$helpTool->mixArray($_GET));
-
+try {
+    $postData = json_decode(file_get_contents('php://input'),true);
+    $lineTool->sendToAdmin(__FILE__."\nPOST輸入：\n".$helpTool->mixArray($postData));
+}catch (Exception $exception){
+    $lineTool->sendToAdmin(__FILE__."\n非POST輸入：\n".$exception->getMessage());
+}
 $data = [
     'status' => '400',
     'msg' => '初始化',
 ];
 if (isset($_GET["API_KEY"]) and $_GET['orderStatus'] == "FILLED") {
-    if($_GET["API_KEY"] == 'WK0AaBNAfdukp7RHhFH6M2qJkzH2hyulkypc22O5qY8rpPUEv5yQNeKeFGPgMFrM'){
-        $lineTool->sendToAdmin(__FILE__."\nPOST輸入：\n".$helpTool->mixArray($_POST));
-    }
     $rowData = [];
     $rowData['symbol'] = $_GET['symbol'];
     $rowData['orderId'] = $_GET['orderId'];
