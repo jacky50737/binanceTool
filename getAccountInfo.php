@@ -12,7 +12,6 @@ require_once 'class/autoload.php';
 
 header('Content-Type: application/json; charset=utf-8');
 $db = DataBaseTool::getInstance();
-$lineTool = LineNotify::getInstance();
 $binanceTool = BinanceTool::getInstance();
 
 $data = [
@@ -26,21 +25,22 @@ if (isset($_GET["API_KEY"])) {
     $binanceTool->setApiKey($key);
     $binanceTool->setApiSecret($secret);
     $nickName = $db->getNickName($key);
-    $lineToken = $db->getLineToken($key);
-    $data = $binanceTool->getAccountInfo();
-    if($data['totalMarginBalance'] != 0){
+    $rows = $binanceTool->getAccountInfo();
+    if($rows['totalMarginBalance'] != 0){
         $msg = "\n帳戶名稱：" . $nickName . "\n" .
-            "帳戶資產(USDT)：" . number_format($data['totalMarginBalance'], 2) . "\n" .
-            "錢包餘額(USDT)：" . number_format($data['totalWalletBalance'], 2) . "\n" .
-            "可用金額(USDT)：" . number_format($data['availableBalance'], 2) . "\n" .
-            "當前浮虧(USDT)：" . number_format($data['totalUnrealizedProfit'], 2) . "\n" .
-            "當前保證金率：" . number_format($data['totalMaintMargin'] / $data['totalMarginBalance'] * 100, 2) . "%";
+            "帳戶資產(USDT)：" . number_format($rows['totalMarginBalance'], 2) . "\n" .
+            "錢包餘額(USDT)：" . number_format($rows['totalWalletBalance'], 2) . "\n" .
+            "可用金額(USDT)：" . number_format($rows['availableBalance'], 2) . "\n" .
+            "當前浮虧(USDT)：" . number_format($rows['totalUnrealizedProfit'], 2) . "\n" .
+            "當前保證金率：" . number_format($rows['totalMaintMargin'] / $rows['totalMarginBalance'] * 100, 2) . "%";
     }else{
         $msg = "\n帳戶名稱：" . $nickName . "\n" .
             "您的錢包暫無任何資產!";
     }
-    $lineTool->setToken($lineToken);
-    $lineTool->doLineNotify($msg);
+    $data = [
+        'status' => '200',
+        'msg' => $msg,
+    ];
 
 }else {
     $data = [
