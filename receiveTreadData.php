@@ -14,14 +14,20 @@ header('Content-Type: application/json; charset=utf-8');
 $lineTool = LineNotify::getInstance();
 $helpTool = Help::getInstance();
 $lineTool->sendToAdmin(__FILE__."\nGET輸入：\n".$helpTool->mixArray($_GET));
-//try {
-//    parse_str(file_get_contents('php://input'), $postData);
-//    $postData = json_decode($postData['data']);
-//    $postData = $helpTool->mixArray((array)$postData);
-//    $lineTool->sendToAdmin(__FILE__."\nPOST輸入：\n".$postData);
-//}catch (Exception $exception){
-//    $lineTool->sendToAdmin(__FILE__."\n非POST輸入：\n".$exception->getMessage());
-//}
+$postData = [];
+try {
+    parse_str(file_get_contents('php://input'), $postData);
+    if(isset($postData['data']) and is_string($postData['data'])){
+        $postData = json_decode($postData['data']);
+        $postMsgData = $helpTool->mixArray((array)$postData);
+    }else{
+        $postMsgData = "無輸入";
+    }
+
+    $lineTool->sendToAdmin(__FILE__."\nPOST輸入：\n".$postMsgData);
+}catch (Exception $exception){
+    $lineTool->sendToAdmin(__FILE__."\nPOST異常：\n".$exception->getMessage());
+}
 $data = [
     'status' => '400',
     'msg' => '初始化',
