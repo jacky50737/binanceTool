@@ -61,6 +61,9 @@ class BinanceTool
                     case 'SHORT':
                         $orderStatus = '平空';
                         break;
+                    case 'BOTH':
+                        $orderStatus = '買入';
+                        break;
                 }
                 break;
             case 'SELL':
@@ -70,6 +73,9 @@ class BinanceTool
                         break;
                     case 'SHORT':
                         $orderStatus = '開空';
+                        break;
+                    case 'BOTH':
+                        $orderStatus = '賣出';
                         break;
                 }
                 break;
