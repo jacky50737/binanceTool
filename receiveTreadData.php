@@ -18,7 +18,6 @@ $lineTool->sendToAdmin(__FILE__."\nGET輸入：\n".$helpTool->mixArray($_GET));
 $postData = [];
 try {
     parse_str(file_get_contents('php://input'), $postData);
-var_dump($postData);
     if(isset($postData['data']) and is_string($postData['data'])){
         $postData = json_decode($postData['data']);
         $postMsgData = $helpTool->mixArray((array)$postData);
@@ -50,18 +49,18 @@ if (isset($_GET["API_KEY"]) and $_GET["API_KEY"] =="WK0AaBNAfdukp7RHhFH6M2qJkzH2
             $lineTool->sendToAdmin(__FILE__."\n輸出：\n".$notifyArray['msg']);
         }
 
-//        $db->upLoadTreadLog($_GET["API_KEY"], (array)$notifyArray['data'],$logStatus);
-//        if($logStatus == "SEND"){
-//            $data = [
-//                'status' => '201',
-//                'msg' => '完全新增完成',
-//            ];
-//        }else{
-//            $data = [
-//                'status' => '200',
-//                'msg' => '新增完成，但未發送成功',
-//            ];
-//        }
+        $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
+        if($logStatus == "SEND"){
+            $data = [
+                'status' => '201',
+                'msg' => '完全新增完成',
+            ];
+        }else{
+            $data = [
+                'status' => '200',
+                'msg' => '新增完成，但未發送成功',
+            ];
+        }
     } catch (Exception $exception) {
         $data = [
             'status' => '400',
@@ -73,7 +72,7 @@ if (isset($_GET["API_KEY"]) and $_GET["API_KEY"] =="WK0AaBNAfdukp7RHhFH6M2qJkzH2
 }
 else {
     $data = [
-        'status' => '200',
+        'status' => '400',
         'msg' => '參數錯誤',
     ];
 }

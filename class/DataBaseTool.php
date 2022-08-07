@@ -422,20 +422,20 @@ class DataBaseTool
      * @param string $status
      * @return bool
      */
-    public function upLoadTreadLog(string $apiKey, array $data,string $status = "NEW"): bool
+    public function upLoadTreadLog(string $apiKey, object $data,string $status = "NEW"): bool
     {
         $sqlQuery = "INSERT INTO TREAD_LOG" .
             "(SYMBOL, ORDER_ID,ORDER_SIDE, POSITION_SIDE,ORDER_STATUS, ORDER_PRICE, ORDER_QTY, ORDER_COMMISSION, ORDER_COMMISSION_ASSET, ORDER_PROFIT, API_KEY, LOG_STATUS)" .
-            " VALUES ('" . strval($data['symbol']) . "', '" .
-            strval($data['orderId']) . "', '" .
-            strval($data['orderSide']) . "', '" .
-            strval($data['positionSide']) . "', '" .
-            strval($data['orderStatus']) . "', '" .
-            strval($data['averagePrice']) . "',' " .
-            strval($data['originalQuantity']) . "', '" .
-            strval($data['commissionAmount']) . "', '" .
-            strval($data['commissionAsset']) . "', '" .
-            strval($data['realisedProfit']) . "', '" .
+            " VALUES ('" . strval($data->symbol) . "', '" .
+            strval($data->orderId) . "', '" .
+            strval($data->orderSide) . "', '" .
+            strval($data->positionSide) . "', '" .
+            strval($data->orderStatus) . "', '" .
+            strval($data->averagePrice) . "',' " .
+            strval($data->originalQuantity) . "', '" .
+            strval($data->commissionAmount) . "', '" .
+            strval($data->commissionAsset) . "', '" .
+            strval($data->realisedProfit) . "', '" .
             strval($apiKey) . "',' " .
             strval($status) . "')";
 
