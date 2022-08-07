@@ -35,7 +35,7 @@ $data = [
     'status' => '400',
     'msg' => '初始化',
 ];
-if (isset($_GET["API_KEY"])) {
+if (isset($_GET["API_KEY"]) and $_GET["API_KEY"] =="WK0AaBNAfdukp7RHhFH6M2qJkzH2hyulkypc22O5qY8rpPUEv5yQNeKeFGPgMFrM") {
     $db = DataBaseTool::getInstance();
     $binanceTool = BinanceTool::getInstance();
 
