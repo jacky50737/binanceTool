@@ -45,11 +45,13 @@ if (isset($_GET["API_KEY"])) {
         $notifyArray = $binanceTool->transactionMessageProcessing($postData, $nickName);
         $logStatus = "NEW";
 
-        if ($notifyArray['code'] == '200') {
+        if ($notifyArray['code'] == 200) {
             if ($lineTool->doLineNotify($notifyArray['msg'])) {
                 $logStatus = "SEND";
                 $lineTool->sendToAdmin(__FILE__ . "\n輸出：\n" . $notifyArray['msg']);
             }
+        }else{
+            $lineTool->sendToAdmin(__FILE__ . "\n輸出：\n" . $notifyArray['msg']);
         }
 
         $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
