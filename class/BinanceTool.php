@@ -141,7 +141,6 @@ class BinanceTool
             switch ($tradeMsg->eventType) {
                 case "ORDER_TRADE_UPDATE":
                     switch ($tradeMsg->order->orderStatus) {
-                        case 'NEW':
                         case 'FILLED':
                             $order = $tradeMsg->order;
                             $orderStatus = $this->transferStockStatus($order->orderSide, $order->positionSide);
