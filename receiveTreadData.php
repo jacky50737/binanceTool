@@ -50,18 +50,18 @@ if (isset($_GET["API_KEY"]) and $_GET["API_KEY"] =="WK0AaBNAfdukp7RHhFH6M2qJkzH2
             $lineTool->sendToAdmin(__FILE__."\n輸出：\n".$notifyArray['msg']);
         }
 
-        $db->upLoadTreadLog($_GET["API_KEY"], (array)$notifyArray['data'],$logStatus);
-        if($logStatus == "SEND"){
-            $data = [
-                'status' => '201',
-                'msg' => '完全新增完成',
-            ];
-        }else{
-            $data = [
-                'status' => '200',
-                'msg' => '新增完成，但未發送成功',
-            ];
-        }
+//        $db->upLoadTreadLog($_GET["API_KEY"], (array)$notifyArray['data'],$logStatus);
+//        if($logStatus == "SEND"){
+//            $data = [
+//                'status' => '201',
+//                'msg' => '完全新增完成',
+//            ];
+//        }else{
+//            $data = [
+//                'status' => '200',
+//                'msg' => '新增完成，但未發送成功',
+//            ];
+//        }
     } catch (Exception $exception) {
         $data = [
             'status' => '400',
