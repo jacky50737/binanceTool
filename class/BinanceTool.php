@@ -155,6 +155,8 @@ class BinanceTool
                             $logData = $order;
                             $code = '200';
                             break;
+                        default:
+                            $code = '400';
                     }
                 break;
 
