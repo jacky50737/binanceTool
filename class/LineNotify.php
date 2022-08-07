@@ -81,11 +81,12 @@ class LineNotify
 
         $curl = $this->curl;
 
-        for ($i = 0; $i < 1; $i++) {
+        for ($i = 0; $i < count($token)-1; $i++) {
             $header = array('Authorization:Bearer ' . $token[$i]);
             $results = $curl->doPost($url, $header, $payload);
             if (!is_null($results->status) && !is_null($results->message)) {
                 var_dump($results->status);
+                var_dump($results->message);
                 if ($results->message == "ok" || $results->status == 200) {
                     $i = count($token);
                 }
