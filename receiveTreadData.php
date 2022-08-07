@@ -35,8 +35,7 @@ $data = [
     'status' => '400',
     'msg' => '初始化',
 ];
-var_dump(777);exit(0);
-if (isset($_GET["API_KEY"])) {
+if (isset($_GET["API_KEY"]) and $_GET["API_KEY"] =="WK0AaBNAfdukp7RHhFH6M2qJkzH2hyulkypc22O5qY8rpPUEv5yQNeKeFGPgMFrM") {
     $db = DataBaseTool::getInstance();
     $binanceTool = BinanceTool::getInstance();
 
@@ -44,8 +43,8 @@ if (isset($_GET["API_KEY"])) {
         $accessToken = $db->getLineToken($_GET["API_KEY"]);
         $nickName = $db->getNickName($_GET["API_KEY"]);
         $lineTool->setToken($accessToken);
-        $notifyArray = $binanceTool->transactionMessageProcessing($postData, $nickName);
-
+//        $notifyArray = $binanceTool->transactionMessageProcessing($postData, $nickName);
+        $notifyArray = ['code'=>777,'msg'=>"測試",'data'=>"TTT"];
         $logStatus = "NEW";
         if($lineTool->doLineNotify($notifyArray['msg'])){
             $logStatus = "SEND";
