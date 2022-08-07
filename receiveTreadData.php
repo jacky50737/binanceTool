@@ -44,17 +44,17 @@ if (isset($_GET["API_KEY"])) {
         $lineTool->setToken($accessToken);
         $notifyArray = $binanceTool->transactionMessageProcessing($postData, $nickName);
         $logStatus = "NEW";
-
-        if ($notifyArray['code'] == 200) {
+var_dump($notifyArray);
+        if ($notifyArray['code'] == '200') {
             if ($lineTool->doLineNotify($notifyArray['msg'])) {
                 $logStatus = "SEND";
                 $lineTool->sendToAdmin(__FILE__ . "\n輸出：\n" . $notifyArray['msg']);
+                $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
             }
         }else{
-            $lineTool->sendToAdmin(__FILE__ . "\n輸出：\n" . $notifyArray['msg']);
+            $lineTool->sendToAdmin(__FILE__ . "\n輸出({$notifyArray['code']})：\n" . $notifyArray['msg']);
         }
 
-        $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
         if($logStatus == "SEND"){
             $data = [
                 'status' => '201',
@@ -66,6 +66,7 @@ if (isset($_GET["API_KEY"])) {
                 'msg' => '新增完成，但未發送成功',
             ];
         }
+
     } catch (Exception $exception) {
         $data = [
             'status' => '400',

@@ -134,7 +134,7 @@ class BinanceTool
      */
     public function transactionMessageProcessing(object $tradeMsg, string $nickName): array
     {
-        $code = 0000;
+        $code = '0000';
         $msg = "";
         $logData = [];
         if (isset($tradeMsg->eventType)) {
@@ -153,19 +153,19 @@ class BinanceTool
                             $notifyString .= "\n實現利潤：" . $order->realisedProfit;
                             $msg = $notifyString;
                             $logData = $order;
-                            $code = 200;
+                            $code = '200';
                             break;
                         default:
-                            $code = 400;
+                            $code = '400';
                     }
                 break;
 
                 default:
-                    $code = 400;
+                    $code = '400';
                     $msg = '無法辨識的狀態';
             }
         }else{
-            $code = 400;
+            $code = '400';
             $msg = '無法辨識的輸入';
         }
 
