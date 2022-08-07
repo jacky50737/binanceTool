@@ -13,12 +13,12 @@ require_once 'class/autoload.php';
 header('Content-Type: application/json; charset=utf-8');
 $lineTool = LineNotify::getInstance();
 $helpTool = Help::getInstance();
-if(empty(!$_GET)){
-    $lineTool->sendToAdmin(__FILE__."\nGET輸入：\n".$helpTool->mixArray($_GET));
-}
+$lineTool->sendToAdmin(__FILE__."\nGET輸入：\n".$helpTool->mixArray($_GET));
+
 $postData = [];
 try {
     parse_str(file_get_contents('php://input'), $postData);
+var_dump($postData);
     if(isset($postData['data']) and is_string($postData['data'])){
         $postData = json_decode($postData['data']);
         $postMsgData = $helpTool->mixArray((array)$postData);
