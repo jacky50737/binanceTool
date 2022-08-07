@@ -12,7 +12,8 @@ try {
     //撈DB中的執行名單
     $db = DataBaseTool::getInstance();
     $onListData = $db->checkUserFeatureStatus("AUTO_ORDER_NOTIFY");
-    var_dump($onListData);
+    // var_dump($onListData);
+    echo "ListDataCount:".count($onListData);
 
 //取得本機forever列表並轉換成陣列格式
     $listRows = shell_exec('sudo -S npx forever list');
@@ -42,11 +43,11 @@ try {
 //關閉已被停用的執行並刪除檔案
     foreach ($liveAccountList as $row) {
         if (!in_array($row['API_KEY'], $onListData)) {
-            var_dump('sudo -S npx forever stop ' . "examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
-            var_dump('sudo -S rm -f ' . "examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
-            shell_exec('sudo -S npx forever stop ' . "examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
+            var_dump('sudo -S npx forever stop ' . "runningList/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
+            var_dump('sudo -S rm -f ' . "runningList/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
+            shell_exec('sudo -S npx forever stop ' . "runningList/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
             sleep(1);
-            shell_exec('sudo -S rm -f ' . "examples/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
+            shell_exec('sudo -S rm -f ' . "runningList/ws-userdata-{$row['API_KEY']}-{$row['API_SECRET']}.ts");
         }
     }
 //取得DB列表上需要執行的API_SECRET
@@ -62,12 +63,12 @@ try {
             }
         }
         if (!in_array($userData['API_KEY'], $liveAccountListOnlyKey)) {
-            var_dump("sudo -S touch examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
-            var_dump("sudo -S \cp examples/ws-userdata.ts examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
-            var_dump("sudo -S npx forever --minUptime=1000 --spinSleepTime=1000 start -c ts-node examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
-            shell_exec("sudo -S touch examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
-            shell_exec("sudo -S \cp examples/ws-userdata.ts examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
-            shell_exec("sudo -S npx forever --minUptime=1000 --spinSleepTime=1000 start -c ts-node examples/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
+            var_dump("sudo -S touch runningList/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
+            var_dump("sudo -S \cp runningList/ws-userdata.ts runningList/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
+            var_dump("sudo -S npx forever --minUptime=1000 --spinSleepTime=1000 start -c ts-node runningList/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
+            shell_exec("sudo -S touch runningList/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
+            shell_exec("sudo -S \cp runningList/ws-userdata.ts runningList/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
+            shell_exec("sudo -S npx forever --minUptime=1000 --spinSleepTime=1000 start -c ts-node runningList/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
             sleep(1);
         }
     }
@@ -77,4 +78,3 @@ try {
     var_dump($exception->getMessage());
     exit(0);
 }
-

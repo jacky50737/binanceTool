@@ -340,6 +340,28 @@ class DataBaseTool
     }
 
     /**
+     * 取的APIKEY的本金
+     * @param string $apiKey
+     * @return bool|array
+     */
+    public function getUserCapital(string $apiKey): bool|array
+    {
+        $sqlQuery = "SELECT CAPITAL FROM BINANCE_API_KEY WHERE API_KEY = '" . strval($apiKey) . "';";
+
+        if ($this->connection->query($sqlQuery)) {
+            $rows = $this->connection->query($sqlQuery)->fetch_all();
+            if (is_array($rows)) {
+                $data = [];
+                foreach ($rows as $row){
+                    $data[] = $row[0];
+                }
+                return $data[0];
+            }
+        }
+        return false;
+    }
+
+    /**
      * 取得Line TOKEN
      * @param string $apiKey
      * @return bool|array
@@ -403,7 +425,7 @@ class DataBaseTool
     public function upLoadTreadLog(string $apiKey, array $data,string $status = "NEW"): bool
     {
         $sqlQuery = "INSERT INTO TREAD_LOG" .
-            "(SYMBOL, ORDER_ID,ORDER_SIDE, POSITION_SIDE,ORDER_STATUS, ORDER_PRICE, ORDER_QTY, ORDER_COMMISSION, ORDER_PROFIT, API_KEY, LOG_STATUS)" .
+            "(SYMBOL, ORDER_ID,ORDER_SIDE, POSITION_SIDE,ORDER_STATUS, ORDER_PRICE, ORDER_QTY, ORDER_COMMISSION, ORDER_COMMISSION_ASSET, ORDER_PROFIT, API_KEY, LOG_STATUS)" .
             " VALUES ('" . strval($data['symbol']) . "', '" .
             strval($data['orderId']) . "', '" .
             strval($data['orderSide']) . "', '" .
@@ -412,6 +434,7 @@ class DataBaseTool
             strval($data['averagePrice']) . "',' " .
             strval($data['originalQuantity']) . "', '" .
             strval($data['commissionAmount']) . "', '" .
+            strval($data['commissionAsset']) . "', '" .
             strval($data['realisedProfit']) . "', '" .
             strval($apiKey) . "',' " .
             strval($status) . "')";

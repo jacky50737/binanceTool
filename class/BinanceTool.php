@@ -1,4 +1,7 @@
 <?php
+
+use JetBrains\PhpStorm\Pure;
+
 /**
  * 開發者 User
  * 創建於 2022/7/4
@@ -124,5 +127,50 @@ class BinanceTool
             }
         }
         return implode('&', $query_array);
+    }
+
+    /**
+     * @param object $tradeMsg
+     * @param string $nickName
+     * @return array
+     */
+    public function transactionMessageProcessing(object $tradeMsg, string $nickName): array
+    {
+        $code = '0000';
+        $msg = "";
+        $logData = [];
+        if (isset($tradeMsg->eventType)) {
+            switch ($tradeMsg->eventType) {
+                case "ORDER_TRADE_UPDATE":
+                    switch ($tradeMsg->order->orderStatus) {
+                        case 'NEW':
+                        case 'FILLED':
+                            $order = $tradeMsg->order;
+                            $orderStatus = $this->transferStockStatus($order->orderSide, $order->positionSide);
+                            $notifyString = "\n帳戶名稱：" . $nickName;
+                            $notifyString .= "\n幣種：" . $order->symbol;
+                            $notifyString .= "\n狀態：" . $orderStatus;
+                            $notifyString .= "\n成交均價：" . $order->averagePrice;
+                            $notifyString .= "\n成交數量：" . $order->originalQuantity;
+                            $notifyString .= "\n手續費(" . $order->commissionAsset . ")：" . $order->commissionAmount;
+                            $notifyString .= "\n實現利潤：" . $order->realisedProfit;
+                            $msg = $notifyString;
+
+                            $logData = $order;
+
+                            break;
+                    }
+                break;
+
+                default:
+                    $code = '400';
+                    $msg = '無法辨識的狀態';
+            }
+        }else{
+            $code = '400';
+            $msg = '無法辨識的輸入';
+        }
+
+        return ['code'=>$code,'msg'=>$msg,'data'=>$logData];
     }
 }
