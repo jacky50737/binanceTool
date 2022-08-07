@@ -43,15 +43,14 @@ if (isset($_GET["API_KEY"]) and $_GET["API_KEY"] =="WK0AaBNAfdukp7RHhFH6M2qJkzH2
         $accessToken = $db->getLineToken($_GET["API_KEY"]);
         $nickName = $db->getNickName($_GET["API_KEY"]);
         $lineTool->setToken($accessToken);
-//        $notifyArray = $binanceTool->transactionMessageProcessing($postData, $nickName);
-        $notifyArray = ['code'=>777,'msg'=>"測試",'data'=>"TTT"];
+        $notifyArray = $binanceTool->transactionMessageProcessing($postData, $nickName);
         $logStatus = "NEW";
         if($lineTool->doLineNotify($notifyArray['msg'])){
             $logStatus = "SEND";
             $lineTool->sendToAdmin(__FILE__."\n輸出：\n".$notifyArray['msg']);
         }
 
-        $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
+        $db->upLoadTreadLog($_GET["API_KEY"], (array)$notifyArray['data'],$logStatus);
         if($logStatus == "SEND"){
             $data = [
                 'status' => '201',
