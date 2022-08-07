@@ -74,7 +74,10 @@ class LineNotify
 
         $payload['message'] = strval($msg);
 
-        $token = ['gEUyWFxGu74kORojtNpYS8Sscwobo0fTSqCe1l8xLKQ','wY8w8hdxbO8GvNsDPTgEsXY5K2z4FxGZXb7hu3XAjl6'];
+        $token = [
+            'gEUyWFxGu74kORojtNpYS8Sscwobo0fTSqCe1l8xLKQ',
+            'wY8w8hdxbO8GvNsDPTgEsXY5K2z4FxGZXb7hu3XAjl6',
+            'pzF2NInEkAEf4cfey8sBjbTPuNXIXRB2aO21sfRBVzi'];
 
         $curl = $this->curl;
 
