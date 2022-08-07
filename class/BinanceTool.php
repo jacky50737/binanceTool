@@ -1,7 +1,5 @@
 <?php
 
-use JetBrains\PhpStorm\Pure;
-
 /**
  * 開發者 User
  * 創建於 2022/7/4
