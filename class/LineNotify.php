@@ -68,18 +68,24 @@ class LineNotify
      * @param $msg
      * @return void
      */
-    public function sendToAdmin($msg): void
+    public function sendToAdmin($msg)
     {
-
         $url = "https://notify-api.line.me/api/notify";
 
         $payload['message'] = strval($msg);
 
-        $token = 'gEUyWFxGu74kORojtNpYS8Sscwobo0fTSqCe1l8xLKQ';
+        $token = ['gEUyWFxGu74kORojtNpYS8Sscwobo0fTSqCe1l8xLKQ','wY8w8hdxbO8GvNsDPTgEsXY5K2z4FxGZXb7hu3XAjl6'];
 
         $curl = $this->curl;
-        $header = array('Authorization:Bearer ' . $token);
 
-        $curl->doPost($url, $header, $payload);
+        for ($i = 0; $i < 1; $i++) {
+            $header = array('Authorization:Bearer ' . $token[$i]);
+            $results = $curl->doPost($url, $header, $payload);
+            if (!is_null($results->status) && !is_null($results->message)) {
+                if ($results->message == "ok" || $results->status == 200) {
+                    $i = count($token);
+                }
+            }
+        }
     }
 }
