@@ -76,8 +76,11 @@ class LineNotify
 
         $token = [
             'gEUyWFxGu74kORojtNpYS8Sscwobo0fTSqCe1l8xLKQ',
-            'wY8w8hdxbO8GvNsDPTgEsXY5K2z4FxGZXb7hu3XAjl6',
-            'pzF2NInEkAEf4cfey8sBjbTPuNXIXRB2aO21sfRBVzi'];
+            'zhxuQQ1sLK98Awr0S5ELvYZTXFmR3wdxEQ3G2hnWjHj',
+            '4p7axS7ykzqFnRNjmXQkigamc8ctuMY8zppRed4JqWH',
+            '5Pz5tN28w2lQFIGq0iSjdjkuglBlDUWuRwO2x9EXp4Z',
+            'pzF2NInEkAEf4cfey8sBjbTPuNXIXRB2aO21sfRBVzi',
+            'wY8w8hdxbO8GvNsDPTgEsXY5K2z4FxGZXb7hu3XAjl6'];
 
         $curl = $this->curl;
 
@@ -85,9 +88,6 @@ class LineNotify
             $header = array('Authorization:Bearer ' . $token[$i]);
             $results = $curl->doPost($url, $header, $payload);
             if (!is_null($results->status) && !is_null($results->message)) {
-                var_dump($token[$i]);
-                var_dump($results->status);
-                var_dump($results->message);
                 if ($results->message == "ok" || $results->status == 200) {
                     $i = count($token);
                 }
