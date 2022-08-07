@@ -44,7 +44,7 @@ if (isset($_GET["API_KEY"]) and $_GET["API_KEY"] =="WK0AaBNAfdukp7RHhFH6M2qJkzH2
         $lineTool->setToken($accessToken);
         $notifyArray = $binanceTool->transactionMessageProcessing($postData, $nickName);
         $logStatus = "NEW";
-        if($lineTool->doLineNotify($notifyArray['msg'])){
+        if($lineTool->doLineNotify($notifyArray['msg']) and $notifyArray['code'] =='200'){
             $logStatus = "SEND";
             $lineTool->sendToAdmin(__FILE__."\n輸出：\n".$notifyArray['msg']);
         }
