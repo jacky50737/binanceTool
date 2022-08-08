@@ -34,7 +34,7 @@ $data = [
     'status' => '400',
     'msg' => '初始化',
 ];
-if (isset($_GET["API_KEY"])) {
+if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
     $db = DataBaseTool::getInstance();
     $binanceTool = BinanceTool::getInstance();
 
@@ -48,7 +48,7 @@ if (isset($_GET["API_KEY"])) {
         if ($notifyArray['code'] == '200') {
             if ($lineTool->doLineNotify($notifyArray['msg'])) {
                 $logStatus = "SEND";
-                $lineTool->sendToAdmin(__FILE__ . "\n輸出：\n" . $notifyArray['msg']);
+                $lineTool->sendToAdmin(__FILE__ . "\nAPIKEY：{$_GET["API_KEY"]}\n輸出：\n" . $notifyArray['msg']);
                 $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
             }
         }
