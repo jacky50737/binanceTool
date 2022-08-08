@@ -38,7 +38,8 @@ try {
         }
         $lineTool->setToken($lineToken);
         $lineTool->doLineNotify($msg);
-        echo '已發送通知到KEY：'.$key."\n";
+        $timeNow = date("Y-m-d h:i:sa");
+        echo "[{$timeNow}]".'已發送通知到KEY：'.$key."\n";
     }
     echo "job結束\n";
 } catch (Exception $exception) {
