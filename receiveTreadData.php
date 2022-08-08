@@ -24,8 +24,9 @@ try {
     }else{
         $postMsgData = "無輸入";
     }
-
-    $lineTool->sendToAdmin("\nAPIKEY：{$_GET["API_KEY"]}\nPOST輸入：\n".$postMsgData);
+    if ($postData->eventType =="ORDER_TRADE_UPDATE"){
+        $lineTool->sendToAdmin("\nAPIKEY：{$_GET["API_KEY"]}\nPOST輸入：\n".$postMsgData);
+    }
 }catch (Exception $exception){
     $postMsgData = "異常->".$exception->getMessage();
     $lineTool->sendToAdmin("\nAPIKEY：{$_GET["API_KEY"]}\nPOST異常：\n".$exception->getMessage());
