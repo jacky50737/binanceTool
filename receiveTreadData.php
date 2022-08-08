@@ -51,9 +51,10 @@ if (isset($_GET["API_KEY"])) {
                 $lineTool->sendToAdmin(__FILE__ . "\n輸出：\n" . $notifyArray['msg']);
                 $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
             }
-        }else{
-            $lineTool->sendToAdmin(__FILE__ . "\n輸出({$notifyArray['code']})：\n" . $notifyArray['msg']);
         }
+//        else{
+//            $lineTool->sendToAdmin(__FILE__ . "\n輸出({$notifyArray['code']})：\n" . $notifyArray['msg']);
+//        }
 
         if($logStatus == "SEND"){
             $data = [
