@@ -17,9 +17,9 @@ class LogFileTool
 
     public function writeLog($msg): void
     {
-        $timeNow = time();
+        $timeNow = date("Y-m-d h:i:sa");
         $file = fopen($this->logFilePath, "a+");
-        fwrite($file, $msg . "\n----------------{$timeNow}-------------------");
+        fwrite($file, $msg . "\n----------------{$timeNow}-------------------\n");
         fclose($file);
     }
 }
