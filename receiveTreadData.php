@@ -74,7 +74,7 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
         }
 
     } catch (Exception $exception) {
-        $lineTool->sendToAdmin( "\n發生未知的錯誤：".$exception->getMessage());
+//        $lineTool->sendToAdmin( "\n發生未知的錯誤：".$exception->getMessage());
         $data = [
             'status' => '400',
             'msg' => '發生未知的錯誤',
