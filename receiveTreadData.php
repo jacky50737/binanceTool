@@ -13,6 +13,7 @@ require_once 'class/autoload.php';
 header('Content-Type: application/json; charset=utf-8');
 $lineTool = LineNotify::getInstance();
 $helpTool = Help::getInstance();
+$log = LogFileTool::getInstance();
 //$lineTool->sendToAdmin(__FILE__."\nGET輸入：\n".$helpTool->mixArray($_GET));
 
 $postData = [];
@@ -51,6 +52,7 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
             if ($lineTool->doLineNotify($notifyArray['msg'])) {
                 $logStatus = "SEND";
                 $msg = "APIKEY：{$_GET["API_KEY"]}\n輸出：\n" . $notifyArray['msg'];
+                $log->writeLog($msg);
                 $lineTool->sendToAdmin("\n".$msg);
                 $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
             }
