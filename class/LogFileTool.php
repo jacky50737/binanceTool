@@ -17,7 +17,7 @@ class LogFileTool
 
     public function writeLog($msg): void
     {
-        $file = fopen($this->logFilePath, "w+");
+        $file = fopen($this->logFilePath, "a");
         fwrite($file, $msg . "\n");
         fclose($file);
     }
