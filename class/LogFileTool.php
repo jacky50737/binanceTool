@@ -19,7 +19,7 @@ class LogFileTool
     {
         $timeNow = date("Y-m-d h:i:sa");
         $file = fopen($this->logFilePath, "a+");
-        fwrite($file, $msg . "\n----------------{$timeNow}-------------------\n");
+        fwrite($file, "\n----------------{$timeNow}-------------------\n".$msg."\n----------------End-------------------\n" );
         fclose($file);
     }
 }
