@@ -13,6 +13,7 @@ require_once 'class/autoload.php';
 header('Content-Type: application/json; charset=utf-8');
 $lineTool = LineNotify::getInstance();
 $helpTool = Help::getInstance();
+$log = GcpLogTool::getInstance();
 //$lineTool->sendToAdmin(__FILE__."\nGET輸入：\n".$helpTool->mixArray($_GET));
 
 $postData = [];
@@ -49,7 +50,9 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
         if ($notifyArray['code'] == '200') {
             if ($lineTool->doLineNotify($notifyArray['msg'])) {
                 $logStatus = "SEND";
-                $lineTool->sendToAdmin(__FILE__ . "\nAPIKEY：{$_GET["API_KEY"]}\nPOST輸入：.$postMsgData.\n輸出：\n" . $notifyArray['msg']);
+                $msg = "APIKEY：{$_GET["API_KEY"]}\nPOST輸入：.$postMsgData.\n輸出：\n" . $notifyArray['msg'];
+                $log->write_log('cryptoharvester-main','cryptoharvester_Log',$msg);
+                $lineTool->sendToAdmin(__FILE__ . "\n".$msg);
                 $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
             }
         }
