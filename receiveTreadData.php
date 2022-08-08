@@ -25,10 +25,10 @@ try {
         $postMsgData = "無輸入";
     }
 
-//    $lineTool->sendToAdmin(__FILE__."\nPOST輸入：\n".$postMsgData);
+    $lineTool->sendToAdmin("APIKEY：{$_GET["API_KEY"]}\nPOST輸入：\n".$postMsgData);
 }catch (Exception $exception){
     $postMsgData = "異常->".$exception->getMessage();
-//    $lineTool->sendToAdmin(__FILE__."\nPOST異常：\n".$exception->getMessage());
+    $lineTool->sendToAdmin("APIKEY：{$_GET["API_KEY"]}\nPOST異常：\n".$exception->getMessage());
 }
 
 $data = [
@@ -49,7 +49,7 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
         if ($notifyArray['code'] == '200') {
             if ($lineTool->doLineNotify($notifyArray['msg'])) {
                 $logStatus = "SEND";
-                $msg = "APIKEY：{$_GET["API_KEY"]}\nPOST輸入：.$postMsgData.\n輸出：\n" . $notifyArray['msg'];
+                $msg = "APIKEY：{$_GET["API_KEY"]}\n輸出：\n" . $notifyArray['msg'];
                 $lineTool->sendToAdmin(__FILE__ . "\n".$msg);
                 $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
             }
