@@ -15,7 +15,8 @@ $lineTool = LineNotify::getInstance();
 $helpTool = Help::getInstance();
 $log = LogFileTool::getInstance();
 //$lineTool->sendToAdmin(__FILE__."\nGET輸入：\n".$helpTool->mixArray($_GET));
-
+$logUUID = $helpTool->getUid();
+$log->setUid($logUUID);
 $postData = [];
 try {
     parse_str(file_get_contents('php://input'), $postData);
