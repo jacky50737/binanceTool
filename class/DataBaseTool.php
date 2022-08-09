@@ -279,6 +279,24 @@ class DataBaseTool
     }
 
     /**
+     * 更新使用者名稱
+     * @param string $acessToken
+     * @param string $lineId
+     * @return bool
+     */
+    public function updateUserLineToken(string $acessToken, string $lineId): bool
+    {
+        $sqlQuery = "UPDATE BINANCE_API_KEY SET ACCESS_TOKEN='".$acessToken."'WHERE LINE_ID='" . $lineId . "'";
+
+        for ($i = 0; $i < 5; $i++) {
+            if ($this->connection->query($sqlQuery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 刪除使用者帳戶
      * @param string $apiKey
      * @return bool
