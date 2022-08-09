@@ -32,6 +32,8 @@ try {
     $postMsgData = "異常->".$exception->getMessage();
     $lineTool->sendToAdmin("\nAPIKEY：{$_GET["API_KEY"]}\nPOST異常：\n".$exception->getMessage());
 }
+$msg = "APIKEY：{$_GET["API_KEY"]}\n輸入：\n" . $postMsgData;
+$log->writeLog($msg);
 
 $data = [
     'status' => '400',
