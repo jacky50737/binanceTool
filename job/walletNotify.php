@@ -31,6 +31,8 @@ try {
                 "可用金額(USDT)：" . number_format($data['availableBalance'], 2) . "\n" .
                 "當前浮虧(USDT)：" . number_format($data['totalUnrealizedProfit'], 2) . "\n" .
                 "當前保證金率：" . number_format($data['totalMaintMargin'] / $data['totalMarginBalance'] * 100, 2) . "%";
+            var_dump($capital);
+            var_dump($capital > 0);
             if ($capital > 0) {
                 $msg .= "\n" . "當前獲利率：" . ($data['totalMarginBalance']-$capital) / $capital . "%";
             }
