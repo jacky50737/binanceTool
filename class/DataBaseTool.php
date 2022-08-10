@@ -123,6 +123,25 @@ class DataBaseTool
     }
 
     /**
+     * 更新使用者本金
+     * @param string $apiKey
+     * @param string $capital
+     * @return bool
+     */
+    public function updateUserCapital(string $apiKey, string $capital): bool
+    {
+        $sqlQuery = "UPDATE BINANCE_API_KEY SET CAPITAL='".$capital."' WHERE ACCOUNT_KEY='" . $apiKey ."';";
+
+        for ($i = 0; $i < 5; $i++) {
+
+            if ($this->connection->query($sqlQuery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 新增使用者功能設定檔
      * @param string $apiKey
      * @param string $featureName
