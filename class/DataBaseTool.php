@@ -389,11 +389,7 @@ class DataBaseTool
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
             if (is_array($rows)) {
-                $data = [];
-                foreach ($rows as $row){
-                    $data[] = $row[0];
-                }
-                return $data[0];
+                return $rows[0];
             }
         }
         return false;
