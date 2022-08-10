@@ -32,9 +32,7 @@ try {
                 "當前浮虧(USDT)：" . number_format($data['totalUnrealizedProfit'], 2) . "\n" .
                 "當前保證金率：" . number_format($data['totalMaintMargin'] / $data['totalMarginBalance'] * 100, 2) . "%";
             if ($capital > 0) {
-                var_dump($data['totalMarginBalance']);
-                var_dump($capital);
-                $msg .= "\n" . "當前獲利率：" . number_format($data['totalMarginBalance'] / $capital, 2) . "%";
+                $msg .= "\n" . "當前獲利率：" . number_format(($data['totalMarginBalance']-$capital) / $capital, 2) . "%";
             }
 
         } else {

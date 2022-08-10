@@ -378,6 +378,7 @@ class DataBaseTool
 
     /**
      * 取的APIKEY的本金
+     * 記的從[0]拿資料
      * @param string $apiKey
      * @return bool|array
      */
@@ -387,13 +388,11 @@ class DataBaseTool
 
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
-            var_dump($rows);
             if (is_array($rows)) {
                 $data = [];
                 foreach ($rows as $row){
                     $data[] = $row[0];
                 }
-                var_dump($data);
                 return $data[0];
             }
         }
