@@ -130,8 +130,8 @@ class DataBaseTool
      */
     public function updateUserCapital(string $apiKey, int $capital): bool
     {
-        $sqlQuery = "UPDATE BINANCE_API_KEY SET CAPITAL=".$capital." WHERE ACCOUNT_KEY='" . $apiKey ."';";
-var_dump($sqlQuery);
+        $sqlQuery = "UPDATE BINANCE_API_KEY SET CAPITAL=".$capital." WHERE API_KEY='" . $apiKey ."';";
+
         for ($i = 0; $i < 5; $i++) {
 
             if ($this->connection->query($sqlQuery)) {
