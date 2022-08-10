@@ -128,9 +128,9 @@ class DataBaseTool
      * @param string $capital
      * @return bool
      */
-    public function updateUserCapital(string $apiKey, string $capital): bool
+    public function updateUserCapital(string $apiKey, int $capital): bool
     {
-        $sqlQuery = "UPDATE BINANCE_API_KEY SET CAPITAL='".$capital."' WHERE ACCOUNT_KEY='" . $apiKey ."';";
+        $sqlQuery = "UPDATE BINANCE_API_KEY SET CAPITAL=".$capital." WHERE ACCOUNT_KEY='" . $apiKey ."';";
 
         for ($i = 0; $i < 5; $i++) {
 
