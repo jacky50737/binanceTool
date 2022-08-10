@@ -393,6 +393,7 @@ class DataBaseTool
                 foreach ($rows as $row){
                     $data[] = $row[0];
                 }
+                var_dump($data);
                 return $data[0];
             }
         }
