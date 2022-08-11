@@ -11,11 +11,15 @@ require_once 'class/autoload.php';
 header('Content-Type: application/json');
 
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
-    $checkTag=true;
-    foreach ($_GET as &$item){
+    $checkTag = true;
+    foreach ($_GET as $key => &$item) {
         $item = htmlentities($item);
-        if(empty($item)){
+        if (empty($item)) {
             $checkTag = false;
+        }
+
+        if ($_GET[$key] == 0) {
+            $checkTag = true;
         }
     }
     if($checkTag){
