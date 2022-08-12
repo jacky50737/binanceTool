@@ -10,7 +10,7 @@ require_once 'class/autoload.php';
 
 header('Content-Type: application/json');
 
-if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
+//if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
     $lineTool = LineNotify::getInstance();
     if (!empty($_GET['SEND_UID'])){
@@ -20,7 +20,7 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     }
 
 //    var_dump($checkList);
-    $msg = $_GET['SEND_MSG'];
+    $msg = $_GET['SEND_MSG']?:'測試訊息';
     foreach ($checkList as $row) {
         var_dump($row);
 //        $lineTool->setToken($row);
@@ -30,10 +30,10 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
         'status' => '200',
         'msg' => '群發完成!',
     ];
-} else {
-    $data = [
-        'status' => '400',
-        'msg' => '密碼錯誤',
-    ];
-}
+//} else {
+//    $data = [
+//        'status' => '400',
+//        'msg' => '密碼錯誤',
+//    ];
+//}
 echo json_encode($data);
