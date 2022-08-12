@@ -100,6 +100,7 @@ class DataBaseTool
 
     /**
      * 查詢所有使用者的LineAccusesToken列表
+     * @param $userID
      * @return array|bool
      */
     public function checkUserAccusesToken($userID = []): bool|array
