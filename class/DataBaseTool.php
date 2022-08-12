@@ -105,9 +105,9 @@ class DataBaseTool
     public function checkUserAccusesToken($userID = []): bool|array
     {
         if(empty($userID)){
-            $sqlQuery = "SELECT DISTINCT ACCOUNT_KEY FROM BINANCE_API_KEY ;";
+            $sqlQuery = "SELECT DISTINCT ACCESS_TOKEN FROM BINANCE_API_KEY ;";
         }else{
-            $sqlQuery = "SELECT DISTINCT ACCOUNT_KEY FROM BINANCE_API_KEY WHERE IN (" . implode(',', $userID) . ");";
+            $sqlQuery = "SELECT DISTINCT ACCESS_TOKEN FROM BINANCE_API_KEY WHERE IN (" . implode(',', $userID) . ");";
         }
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
