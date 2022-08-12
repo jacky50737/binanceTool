@@ -19,7 +19,7 @@ header('Content-Type: application/json');
         $checkList = $db->checkUserAccusesToken();
     }
 
-//    var_dump($checkList);
+    var_dump($checkList);
     $msg = $_GET['SEND_MSG']?:'測試訊息';
     foreach ($checkList as $row) {
         var_dump($row);
