@@ -14,7 +14,7 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
     $lineTool = LineNotify::getInstance();
     $listData = explode(',',$_GET['SEND_UID']);
-    var_dump($listData);
+//    var_dump($listData);
     if (!empty($listData)){
         $checkList = $db->checkUserAccusesToken($listData);
     }else{
@@ -24,9 +24,9 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
 //    var_dump($checkList);
     $msg = $_GET['SEND_MSG']?:'測試訊息';
     foreach ($checkList as $row) {
-        var_dump($row);
-//        $lineTool->setToken($row);
-//        $lineTool->doLineNotify($msg);
+//        var_dump($row);
+        $lineTool->setToken($row);
+        $lineTool->doLineNotify($msg);
     }
     $data = [
         'status' => '200',
