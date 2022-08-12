@@ -13,8 +13,12 @@ header('Content-Type: application/json');
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
     $lineTool = LineNotify::getInstance();
+    if (!empty($_GET['SEND_UID'])){
+        $checkList = $db->checkUserAccusesToken($_GET['SEND_UID']);
+    }else{
+        $checkList = $db->checkUserAccusesToken();
+    }
 
-    $checkList = $db->checkUserAccusesToken();
 //    var_dump($checkList);
     $msg = $_GET['SEND_MSG'];
     foreach ($checkList as $row) {

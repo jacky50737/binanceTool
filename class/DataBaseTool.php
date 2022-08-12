@@ -102,10 +102,13 @@ class DataBaseTool
      * 查詢所有使用者的LineAccusesToken列表
      * @return array|bool
      */
-    public function checkUserAccusesToken(): bool|array
+    public function checkUserAccusesToken($userID = []): bool|array
     {
-        $sqlQuery = "SELECT DISTINCT ACCOUNT_KEY FROM BINANCE_API_KEY ;";
-
+        if(empty($userID)){
+            $sqlQuery = "SELECT DISTINCT ACCOUNT_KEY FROM BINANCE_API_KEY ;";
+        }else{
+            $sqlQuery = "SELECT DISTINCT ACCOUNT_KEY FROM BINANCE_API_KEY WHERE IN (" . implode(',', $userID) . ")";
+        }
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
             if (is_array($rows)) {
