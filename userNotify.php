@@ -13,9 +13,9 @@ header('Content-Type: application/json');
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
     $lineTool = LineNotify::getInstance();
-    $listData = explode(',',$_GET['SEND_UID']);
 //    var_dump($listData);
-    if (!empty($listData)){
+    if (isset($_GET['SEND_UID'])){
+        $listData = explode(',',$_GET['SEND_UID']);
         $checkList = $db->checkUserAccusesToken($listData);
     }else{
         $checkList = $db->checkUserAccusesToken();
