@@ -23,26 +23,29 @@ try {
         $nickName = $db->getNickName($key);
         $lineToken = $db->getLineToken($key);
         $data = $binanceTool->getAccountInfo();
-        if($data['totalMarginBalance'] != 0){
+        $capital = $db->getUserCapital($key)[0];
+        if ($data['totalMarginBalance'] != 0) {
             $msg = "\n帳戶名稱：" . $nickName . "\n" .
                 "帳戶資產(USDT)：" . number_format($data['totalMarginBalance'], 2) . "\n" .
                 "錢包餘額(USDT)：" . number_format($data['totalWalletBalance'], 2) . "\n" .
                 "可用金額(USDT)：" . number_format($data['availableBalance'], 2) . "\n" .
                 "當前浮虧(USDT)：" . number_format($data['totalUnrealizedProfit'], 2) . "\n" .
                 "當前保證金率：" . number_format($data['totalMaintMargin'] / $data['totalMarginBalance'] * 100, 2) . "%";
+            if ($capital > 0) {
+                $msg .= "\n" . "當前獲利率：" . number_format((($data['totalMarginBalance']-$capital) / $capital)*100, 2) . "%";
+            }
 
-
-        }else{
+        } else {
             $msg = "\n帳戶名稱：" . $nickName . "\n" .
                 "您的錢包暫無任何資產!";
         }
         $lineTool->setToken($lineToken);
         $lineTool->doLineNotify($msg);
-        $timeNow = date("Y-m-d h:i:sa",strtotime('+8 hours'));
-        echo "[{$timeNow}]".'已發送通知到KEY：'.$key."\n";
+        $timeNow = date("Y-m-d h:i:sa", strtotime('+8 hours'));
+        echo "[{$timeNow}]" . '已發送通知到KEY：' . $key . "\n";
     }
     echo "job結束\n";
 } catch (Exception $exception) {
-    echo '發生錯誤：'.$exception->getMessage();
+    echo '發生錯誤：' . $exception->getMessage();
     $lineTool->sendToAdmin($exception->getMessage());
 }

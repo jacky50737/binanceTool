@@ -146,6 +146,25 @@ class DataBaseTool
     }
 
     /**
+     * 更新使用者本金
+     * @param string $apiKey
+     * @param int $capital
+     * @return bool
+     */
+    public function updateUserCapital(string $apiKey, int $capital): bool
+    {
+        $sqlQuery = "UPDATE BINANCE_API_KEY SET CAPITAL=".$capital." WHERE API_KEY='" . $apiKey ."';";
+
+        for ($i = 0; $i < 5; $i++) {
+
+            if ($this->connection->query($sqlQuery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 新增使用者功能設定檔
      * @param string $apiKey
      * @param string $featureName
@@ -382,6 +401,7 @@ class DataBaseTool
 
     /**
      * 取的APIKEY的本金
+     * 記的從[0]拿資料
      * @param string $apiKey
      * @return bool|array
      */
@@ -392,11 +412,7 @@ class DataBaseTool
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
             if (is_array($rows)) {
-                $data = [];
-                foreach ($rows as $row){
-                    $data[] = $row[0];
-                }
-                return $data[0];
+                return $rows[0];
             }
         }
         return false;
