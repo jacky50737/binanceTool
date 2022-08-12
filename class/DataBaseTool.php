@@ -109,6 +109,7 @@ class DataBaseTool
         }else{
             $sqlQuery = "SELECT DISTINCT ACCESS_TOKEN FROM BINANCE_API_KEY WHERE IN (" . implode(',', $userID) . ");";
         }
+        var_dump($sqlQuery);
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
             if (is_array($rows)) {
