@@ -28,9 +28,10 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
         $lineTool->setToken($row);
         $lineTool->doLineNotify($msg);
     }
+    $countL = count($checkList);
     $data = [
         'status' => '200',
-        'msg' => '群發完成!',
+        'msg' => "群發{$countL}完成!",
     ];
 } else {
     $data = [
