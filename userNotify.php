@@ -14,7 +14,7 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
     $lineTool = LineNotify::getInstance();
 //    var_dump($listData);
-    if (isset($_GET['SEND_UID'])){
+    if (!empty($_GET['SEND_UID'])){
         $listData = explode(',',$_GET['SEND_UID']);
         $checkList = $db->checkUserAccusesToken($listData);
     }else{
