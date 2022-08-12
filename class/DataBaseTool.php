@@ -98,6 +98,29 @@ class DataBaseTool
         return false;
     }
 
+    /**
+     * 查詢所有使用者的LineAccusesToken列表
+     * @return array|bool
+     */
+    public function checkUserAccusesToken(): bool|array
+    {
+        $sqlQuery = "SELECT DISTINCT ACCOUNT_KEY FROM BINANCE_API_KEY ;";
+
+        if ($this->connection->query($sqlQuery)) {
+            $rows = $this->connection->query($sqlQuery)->fetch_all();
+            if (is_array($rows)) {
+                $data = [];
+                foreach ($rows as $row) {
+                    if (is_string($row[0])) {
+                        $data[] = $row[0];
+                    }
+                }
+                return $data;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * 更新使用者功能設定檔
