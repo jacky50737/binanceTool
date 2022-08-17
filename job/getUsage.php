@@ -20,7 +20,7 @@ try {
     $msg .="\n總使用者數：".$userCount;
     $msg .="\n----目前通知串接狀況----";
     $msg .="\n開平倉帳戶數：".$autoOrderNotifyCount;
-    $msg .="\n定時資產帳戶數：".$autoOrderNotifyCount;
+    $msg .="\n定時資產帳戶數：".$autoWalletNotify;
     $lineTool->sendToAdmin($msg);
     echo "job結束\n";
 } catch (Exception $exception) {
