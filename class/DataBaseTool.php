@@ -245,6 +245,23 @@ class DataBaseTool
     }
 
     /**
+     * 檢查串接功能中的使用者數量
+     * @param string $featureName
+     * @return bool
+     */
+    public function checkFeatureCount(string $featureName): bool
+    {
+        $sqlQuery = "SELECT count(*) FROM ACCOUNT_FEATURE WHERE FEATURE_NAME = '" . strval($featureName) . "' AND STATUS = 'ENABLE';";
+
+        if ($this->connection->query($sqlQuery)) {
+            if ($this->connection->query($sqlQuery)->fetch_row()[0] >= 1) {
+                return $this->connection->query($sqlQuery)->fetch_row()[0];
+            }
+        }
+        return false;
+    }
+
+    /**
      * 檢查使用者暱稱是否已存在
      * @param string $lineId
      * @param string $nickName
