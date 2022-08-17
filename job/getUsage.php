@@ -3,6 +3,9 @@ require_once '../class/autoload.php';
 
 $lineTool = LineNotify::getInstance();
 $helpTool = Help::getInstance();
+$log = LogFileTool::getInstance();
+$logUUID = $helpTool->getUid();
+$log->setUid($logUUID);
 echo "job開始!\n";
 try {
     $cpu = $helpTool->get_server_cpu_usage();
