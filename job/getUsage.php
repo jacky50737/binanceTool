@@ -13,9 +13,11 @@ try {
     $ram = $helpTool->get_server_memory_usage();
     $autoOrderNotifyCount = $db->checkFeatureCount('AUTO_ORDER_NOTIFY');
     $autoWalletNotify = $db->checkFeatureCount('AUTO_WALLET_NOTIFY');
+    $userCount = $db->checkUserCount();
     $msg = "\n----目前主機狀況----";
     $msg .="\nCPU：".$cpu;
     $msg .="\nRAM：".$ram;
+    $msg .="\n總使用者數：".$userCount;
     $msg .="\n----目前通知串接狀況----";
     $msg .="\n開平倉帳戶數：".$autoOrderNotifyCount;
     $msg .="\n定時資產帳戶數：".$autoOrderNotifyCount;

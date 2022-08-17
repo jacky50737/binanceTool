@@ -245,11 +245,26 @@ class DataBaseTool
     }
 
     /**
+     * 總使用者數量
+     */
+    public function checkUserCount()
+    {
+        $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY ;";
+
+        if ($this->connection->query($sqlQuery)) {
+            if ($this->connection->query($sqlQuery)->fetch_row()[0] >= 1) {
+                return $this->connection->query($sqlQuery)->fetch_row()[0];
+            }
+        }
+        return false;
+    }
+
+    /**
      * 檢查串接功能中的使用者數量
      * @param string $featureName
-     * @return bool
+     * @return false|mixed
      */
-    public function checkFeatureCount(string $featureName): bool
+    public function checkFeatureCount(string $featureName): mixed
     {
         $sqlQuery = "SELECT count(*) FROM ACCOUNT_FEATURE WHERE FEATURE_NAME = '" . strval($featureName) . "' AND STATUS = 'ENABLE';";
 
@@ -267,7 +282,7 @@ class DataBaseTool
      * @param string $nickName
      * @return bool
      */
-    public function checkUserNickName(string $lineId, string $nickName): bool
+    public function checkUserNickName(string $lineId, string $nickName)
     {
         $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "' AND NICK_NAME = '" . strval($nickName) . "';";
 
