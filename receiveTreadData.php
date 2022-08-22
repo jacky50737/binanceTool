@@ -57,13 +57,14 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
                 $logStatus = "SEND";
                 $log->writeLog($msg);
                 $lineTool->sendToAdmin("\n".$msg);
-                $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
             }
         }
         else{
             $log->writeLog($msg);
 //            $lineTool->sendToAdmin(__FILE__ . "\n輸出({$notifyArray['code']})：\n" . $notifyArray['msg']);
         }
+
+        $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
 
         if($logStatus == "SEND"){
             $data = [
