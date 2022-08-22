@@ -19,7 +19,7 @@ class Help
         return self::$instance;
     }
 
-    function mixArray($array): string
+    public function mixArray($array): string
     {
         $data = "";
         foreach ($array as $key => $value) {
@@ -47,7 +47,7 @@ class Help
         return $data;
     }
 
-    function getUid(): string
+    public function getUid(): string
     {
         mt_srand((double)microtime()*10000);//optional for php 4.2.0 and up.
         $charid = strtoupper(md5(uniqid(rand(), true)));
@@ -63,7 +63,7 @@ class Help
      * 取得主機RAM使用狀況
      * @return string
      */
-    function get_server_memory_usage()
+    public function get_server_memory_usage()
     {
 
         $free = shell_exec('free');
@@ -81,7 +81,7 @@ class Help
      * 取得主機CPU使用狀況
      * @return string
      */
-    function get_server_cpu_usage()
+    public function get_server_cpu_usage()
     {
 
 //        $load = sys_getloadavg();
@@ -103,4 +103,24 @@ class Help
         return $load."%";
 
     }
+
+    /**
+     * 將Array格式整理
+     * @param array $ogArray
+     * @return array
+     */
+    public function reArrayKey(array $ogArray){
+        $newArray = [];
+        foreach ($ogArray as $key => $row){
+            if(is_string($key)){
+                $newArray[$key] = $row;
+            }
+        }
+
+        if(empty($newArray)){
+            $newArray = $ogArray;
+        }
+
+        return $newArray;
+     }
 }
