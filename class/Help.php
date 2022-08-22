@@ -109,10 +109,10 @@ class Help
      * @param array $ogArray
      * @return array
      */
-    public function reArrayKey(array $ogArray){
+    public function reArrayFromKey(array $ogArray){
         $newArray = [];
         foreach ($ogArray as $key => $row){
-            if(is_string($key)){
+            if(!is_numeric($key)){
                 $newArray[$key] = $row;
             }
         }
