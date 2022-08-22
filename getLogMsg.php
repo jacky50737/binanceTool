@@ -14,7 +14,8 @@ header('Content-Type: application/json');
 
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
-    $arrLog = $db->getTreadLog($_GET['API_KEY']);
+    $arrLog = $db->getTreadLogByOrderId($_GET['ORDER_ID']);
+//    $arrLog = $db->getTreadLog($_GET['API_KEY']);
     $data = [
         'status' => '200',
         'msg' => '資料',

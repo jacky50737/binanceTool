@@ -509,10 +509,54 @@ class DataBaseTool
         return false;
     }
 
+    public function getTreadLogByOrderId($orderId){
+        $sqlQuery = "SELECT * FROM TREAD_LOG WHERE ORDER_ID = '" . strval($orderId) . "';";
+
+        if ($this->connection->query($sqlQuery)) {
+            if ($this->connection->query($sqlQuery)->fetch_all()[0]) {
+                var_dump($this->connection->query($sqlQuery)->fetch_array());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 建立訂單
+     * @param string $apiKey
+     * @param object $data
+     * @param string $status
+     * @return bool
+     */
+    public function insertTreadLog(string $apiKey, object $data,string $status = "NEW"): bool
+    {
+        $sqlQuery = "INSERT INTO TREAD_LOG" .
+            "(SYMBOL, ORDER_ID,ORDER_SIDE, POSITION_SIDE,ORDER_STATUS, ORDER_PRICE, ORDER_QTY, ORDER_COMMISSION, ORDER_COMMISSION_ASSET, ORDER_PROFIT, API_KEY, LOG_STATUS)" .
+            " VALUES ('" . strval($data->symbol) . "', '" .
+            strval($data->orderId) . "', '" .
+            strval($data->orderSide) . "', '" .
+            strval($data->positionSide) . "', '" .
+            strval($data->orderStatus) . "', '" .
+            strval($data->averagePrice) . "',' " .
+            strval($data->originalQuantity) . "', '" .
+            strval($data->commissionAmount) . "', '" .
+            strval($data->commissionAsset) . "', '" .
+            strval($data->realisedProfit) . "', '" .
+            strval($apiKey) . "',' " .
+            strval($status) . "')";
+
+        for ($i = 0; $i < 5; $i++) {
+            if ($this->connection->query($sqlQuery) == TRUE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * 寫入交易並回傳成功與否
      * @param string $apiKey
-     * @param array $data
+     * @param object $data
      * @param string $status
      * @return bool
      */
