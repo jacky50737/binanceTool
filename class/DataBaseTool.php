@@ -514,7 +514,7 @@ class DataBaseTool
         $sqlQuery = "SELECT * FROM TREAD_LOG WHERE ORDER_ID = '" . strval($orderId) . "' AND ORDER_STATUS IN ('".implode("','",$status)."');";
 
         if ($this->connection->query($sqlQuery)) {
-            if ($this->connection->query($sqlQuery)->fetch_all()[0]) {
+            if ($this->connection->query($sqlQuery)->fetch_array()) {
                 return $this->connection->query($sqlQuery)->fetch_all();
             }
         }
