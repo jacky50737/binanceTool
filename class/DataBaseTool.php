@@ -515,7 +515,7 @@ class DataBaseTool
 
         if ($this->connection->query($sqlQuery)) {
             if ($this->connection->query($sqlQuery)->fetch_array()) {
-                return $this->connection->query($sqlQuery)->fetch_all();
+                return $this->connection->query($sqlQuery)->fetch_array();
             }
         }
         return false;
