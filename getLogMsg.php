@@ -18,9 +18,9 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
     $arrLog = $db->getTreadLogByOrderId($_GET['ORDER_ID'],['PARTIALLY_FILLED','FILLED']);
     var_dump(77777);
     var_dump($arrLog);
-    foreach ($arrLog as &$log){
-        $log = $help->reArrayFromKey($log);
-    }
+//    foreach ($arrLog as &$log){
+//        $log = $help->reArrayFromKey($log);
+//    }
     var_dump(88888);
     var_dump($arrLog);
     if($arrLog){
