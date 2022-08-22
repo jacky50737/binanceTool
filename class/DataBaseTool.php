@@ -509,12 +509,12 @@ class DataBaseTool
         return false;
     }
 
-    public function getTreadLogByOrderId($orderId){
-        $sqlQuery = "SELECT * FROM TREAD_LOG WHERE ORDER_ID = '" . strval($orderId) . "';";
+    public function getTreadLogByOrderId($orderId,$status){
+        $sqlQuery = "SELECT * FROM TREAD_LOG WHERE ORDER_ID = '" . strval($orderId) . "' AND ORDER_STATUS IN ('".explode("','",$status)."');";
 
         if ($this->connection->query($sqlQuery)) {
             if ($this->connection->query($sqlQuery)->fetch_all()[0]) {
-                return $this->connection->query($sqlQuery)->fetch_all()[0];
+                return $this->connection->query($sqlQuery)->fetch_all();
             }
         }
         return false;

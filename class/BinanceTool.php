@@ -155,6 +155,17 @@ class BinanceTool
                             $logData = $order;
                             $code = '200';
                             break;
+                        case 'NEW':
+                        case 'PARTIALLY_FILLED':
+                        case 'CANCELED':
+                        case 'EXPIRED':
+                        case 'NEW_INSURANCE':
+                        case 'NEW_ADL':
+                            $order = $tradeMsg->order;
+                            $logData = $order;
+                            $code = '201';
+                            $msg = "資料新增完成";
+                            break;
                         default:
                             $code = '400';
                     }
