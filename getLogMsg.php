@@ -21,6 +21,7 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
     foreach ($arrLog as &$log){
         $log = $help->reArrayFromKey($log);
     }
+    var_dump(88888);
     var_dump($arrLog);
     if($arrLog){
         $data = [
