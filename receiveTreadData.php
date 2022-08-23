@@ -49,7 +49,17 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
         $accessToken = $db->getLineToken($_GET["API_KEY"]);
         $nickName = $db->getNickName($_GET["API_KEY"]);
         $lineTool->setToken($accessToken);
-        $notifyArray = $binanceTool->transactionMessageProcessing($postData, $nickName);
+
+        $totalFeeAndFit = [];
+        if(isset($postData->order->orderStatus) and $postData->order->orderStatus == 'FILLED'){
+            $arrLog = $db->getTreadLogByOrderId($postData->order->orderId,['PARTIALLY_FILLED','FILLED']);
+            foreach ($arrLog as &$logData){
+                $logData = $helpTool->reArrayFromKey($logData);
+            }
+            $totalFeeAndFit = $binanceTool->calculateCommissionAndProfit($arrLog);
+        }
+
+        $notifyArray = $binanceTool->transactionMessageProcessing($postData, $nickName, $totalFeeAndFit);
         $logStatus = "NEW";
         $msg = "APIKEY：{$_GET["API_KEY"]}\n輸出：\n" . $notifyArray['msg'];
 

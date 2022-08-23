@@ -130,12 +130,12 @@ class BinanceTool
     /**
      * @param object $tradeMsg
      * @param string $nickName
+     * @param array $extend
      * @return array
      */
-    public function transactionMessageProcessing(object $tradeMsg, string $nickName): array
+    public function transactionMessageProcessing(object $tradeMsg, string $nickName, array $extend = []): array
     {
-        $code = '0000';
-        $msg = "";
+        $msg = [];
         $logData = [];
         if (isset($tradeMsg->eventType)) {
             switch ($tradeMsg->eventType) {
@@ -149,8 +149,13 @@ class BinanceTool
                             $notifyString .= "\n狀態：" . $orderStatus;
                             $notifyString .= "\n成交均價：" . $order->averagePrice;
                             $notifyString .= "\n成交數量：" . $order->originalQuantity;
-                            $notifyString .= "\n手續費(" . $order->commissionAsset . ")：" . $order->commissionAmount;
-                            $notifyString .= "\n實現利潤：" . $order->realisedProfit;
+                            if(!empty($extend)){
+                                $notifyString .= "\n手續費(" . $order->commissionAsset . ")：" . $extend['totalCommission'];
+                                $notifyString .= "\n實現利潤：" . $extend['totalProfit'];
+                            }else{
+                                $notifyString .= "\n手續費(" . $order->commissionAsset . ")：" . $order->commissionAmount;
+                                $notifyString .= "\n實現利潤：" . $order->realisedProfit;
+                            }
                             $msg = $notifyString;
                             $logData = $order;
                             $code = '200';
