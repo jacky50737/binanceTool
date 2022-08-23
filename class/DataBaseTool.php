@@ -218,7 +218,7 @@ class DataBaseTool
      * @return bool
      */
     public function tagTreadLog(string $orderId){
-        $sqlQuery = "UPDATE TREAD_LOG SET LOG_STATUS='SEND' WHERE ORDER_ID='" . $orderId . "'";
+        $sqlQuery = "UPDATE TREAD_LOG SET LOG_STATUS='SEND' WHERE ORDER_ID='" . $orderId . "';";
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery)) {
                 return true;
