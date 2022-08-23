@@ -190,6 +190,7 @@ class BinanceTool
 
         foreach ($orderData as $data) {
             foreach ($data as $row) {
+                var_dump($row);
                 if (isset($row['orderCommission'])) {
                     $totalCommission = $totalCommission + floatval($row['orderCommission']);
                 }
