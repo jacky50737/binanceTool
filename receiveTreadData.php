@@ -23,11 +23,12 @@ try {
     if(isset($postData['data']) and is_string($postData['data'])){
         $postData = json_decode($postData['data']);
         $postMsgData = $helpTool->mixArray((array)$postData);
+
+        if ($postData->eventType =="ORDER_TRADE_UPDATE"){
+            $lineTool->sendToAdmin("\nAPIKEY：{$_GET["API_KEY"]}\nPOST輸入：\n".$postMsgData);
+        }
     }else{
         $postMsgData = "無輸入";
-    }
-    if ($postData->eventType =="ORDER_TRADE_UPDATE"){
-        $lineTool->sendToAdmin("\nAPIKEY：{$_GET["API_KEY"]}\nPOST輸入：\n".$postMsgData);
     }
 }catch (Exception $exception){
     $postMsgData = "異常->".$exception->getMessage();
