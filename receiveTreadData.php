@@ -54,7 +54,6 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
 
         $totalFeeAndFit = [];
         if(isset($postData->order->orderStatus) and $postData->order->orderStatus == 'FILLED'){
-            var_dump($postData->order->orderId);
             $arrLog = $db->getTreadLogByOrderId($postData->order->orderId,['PARTIALLY_FILLED','FILLED']);
             foreach ($arrLog as &$logData){
                 $logData = $helpTool->reArrayFromKey($logData);
@@ -68,7 +67,6 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
         if ($notifyArray['code'] == '200') {
             if ($lineTool->doLineNotify($notifyArray['msg'])) {
                 $logStatus = "SEND";
-                var_dump(7777);
                 $db->tagTreadLog($postData->order->orderId);
                 $log->writeLog($msg);
                 $lineTool->sendToAdmin("\n".$msg);
