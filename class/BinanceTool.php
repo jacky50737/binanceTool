@@ -195,11 +195,11 @@ var_dump($extend);
         $totalProfit = 0;
 
         foreach ($orderData as $data) {
-            if (isset($data['orderCommission'])) {
+            if (isset($data['orderCommission']) and !empty($data['orderCommission'])) {
                 $totalCommission = $totalCommission + floatval($data['orderCommission']);
             }
 
-            if (isset($data['orderProfit'])) {
+            if (isset($data['orderProfit']) and !empty($data['orderProfit'])) {
                 $totalProfit = $totalProfit + floatval($data['orderProfit']);
             }
         }
