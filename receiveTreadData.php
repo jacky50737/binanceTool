@@ -81,7 +81,7 @@ var_dump($notifyArray['data']);
         }else{
             $data = [
                 'status' => '200',
-                'msg' => "新增{$is_Successes}，但未發送成功",
+                'msg' => "新增{$is_Successes}，並未發送成功",
             ];
         }
 
