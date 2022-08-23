@@ -67,8 +67,7 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
         if ($notifyArray['code'] == '200') {
             if ($lineTool->doLineNotify($notifyArray['msg'])) {
                 $logStatus = "SEND";
-                var_dump($postData->order->orderId);
-//                var_dump($db->tagTreadLog($postData->order->orderId));
+                $db->tagTreadLog(strval($postData->order->orderId));
                 $log->writeLog($msg);
                 $lineTool->sendToAdmin("\n".$msg);
             }
