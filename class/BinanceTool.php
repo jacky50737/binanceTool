@@ -149,14 +149,13 @@ class BinanceTool
                             $notifyString .= "\n狀態：" . $orderStatus;
                             $notifyString .= "\n成交均價：" . $order->averagePrice;
                             $notifyString .= "\n成交數量：" . $order->originalQuantity;
-//                            if(!empty($extend)){
-//                                $notifyString .= "\n手續費(" . $order->commissionAsset . ")：" . $extend['totalCommission'];
-//                                $notifyString .= "\n實現利潤：" . $extend['totalProfit'];
-//                            }else{
-var_dump($extend);
+                            if(!empty($extend)){
+                                $notifyString .= "\n手續費(" . $order->commissionAsset . ")：" . $extend['totalCommission'];
+                                $notifyString .= "\n實現利潤：" . $extend['totalProfit'];
+                            }else{
                                 $notifyString .= "\n手續費(" . $order->commissionAsset . ")：" . $order->commissionAmount;
                                 $notifyString .= "\n實現利潤：" . $order->realisedProfit;
-//                            }
+                            }
                             $msg = $notifyString;
                             $logData = $order;
                             $code = '200';
