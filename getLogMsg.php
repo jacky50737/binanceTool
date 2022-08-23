@@ -21,7 +21,8 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
         $log = $help->reArrayFromKey($log);
     }
     $totalFeeAndFit = $binanceTool->calculateCommissionAndProfit($arrLog);
-    var_dump($totalFeeAndFit);
+    $is = $db->tagTreadLog($_GET['ORDER_ID']);
+    var_dump($is);
     if($arrLog){
         $data = [
             'status' => '200',
