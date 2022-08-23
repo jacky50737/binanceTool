@@ -49,6 +49,8 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
         $accessToken = $db->getLineToken($_GET["API_KEY"]);
         $nickName = $db->getNickName($_GET["API_KEY"]);
         $lineTool->setToken($accessToken);
+        $logStatus = "NEW";
+        $is_Successes = $db->upLoadTreadLog($_GET["API_KEY"], $postData->order,$logStatus);
 
         $totalFeeAndFit = [];
         if(isset($postData->order->orderStatus) and $postData->order->orderStatus == 'FILLED'){
@@ -58,14 +60,14 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
             }
             $totalFeeAndFit = $binanceTool->calculateCommissionAndProfit($arrLog);
         }
-
         $notifyArray = $binanceTool->transactionMessageProcessing($postData, $nickName, $totalFeeAndFit);
-        $logStatus = "NEW";
+
         $msg = "APIKEY：{$_GET["API_KEY"]}\n輸出：\n" . $notifyArray['msg'];
 
         if ($notifyArray['code'] == '200') {
             if ($lineTool->doLineNotify($notifyArray['msg'])) {
                 $logStatus = "SEND";
+                $db->tagTreadLog($postData->order->orderId);
                 $log->writeLog($msg);
                 $lineTool->sendToAdmin("\n".$msg);
             }
@@ -75,7 +77,7 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
 //            $lineTool->sendToAdmin(__FILE__ . "\n輸出({$notifyArray['code']})：\n" . $notifyArray['msg']);
         }
 
-        $is_Successes = $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
+//        $is_Successes = $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
 
         if($is_Successes){
             $is_Successes = '完成';
