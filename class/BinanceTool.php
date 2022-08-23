@@ -189,15 +189,13 @@ class BinanceTool
         $totalProfit = 0;
 
         foreach ($orderData as $data) {
-            foreach ($data as $row) {
-                var_dump($row);
-                if (isset($row['orderCommission'])) {
-                    $totalCommission = $totalCommission + floatval($row['orderCommission']);
-                }
+            var_dump($data);
+            if (isset($data['orderCommission'])) {
+                $totalCommission = $totalCommission + floatval($data['orderCommission']);
+            }
 
-                if (isset($row['orderProfit'])) {
-                    $totalProfit = $totalProfit + floatval($row['orderProfit']);
-                }
+            if (isset($data['orderProfit'])) {
+                $totalProfit = $totalProfit + floatval($data['orderProfit']);
             }
         }
 
