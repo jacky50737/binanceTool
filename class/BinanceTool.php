@@ -198,6 +198,6 @@ class BinanceTool
             }
         }
 
-        return ['totalCommission' => round($totalCommission,2), 'totalProfit' => round($totalProfit,2)];
+        return ['totalCommission' => number_format($totalCommission,2), 'totalProfit' => number_format($totalProfit,2)];
     }
 }
