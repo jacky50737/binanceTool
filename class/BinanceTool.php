@@ -182,4 +182,24 @@ class BinanceTool
 
         return ['code'=>$code,'msg'=>$msg,'data'=>$logData];
     }
+
+    public function calculateCommissionAndProfit($orderData)
+    {
+        $totalCommission = 0;
+        $totalProfit = 0;
+
+        foreach ($orderData as $data) {
+            foreach ($data as $row) {
+                if (isset($row['orderCommission'])) {
+                    $totalCommission += $row['orderCommission'];
+                }
+
+                if (isset($row['orderProfit'])) {
+                    $totalProfit += $row['orderProfit'];
+                }
+            }
+        }
+
+        return ['totalCommission' => $totalCommission, 'totalProfit' => $totalProfit];
+    }
 }

@@ -15,11 +15,13 @@ header('Content-Type: application/json');
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
     $help = Help::getInstance();
     $db = DataBaseTool::getInstance();
+    $binanceTool = BinanceTool::getInstance();
     $arrLog = $db->getTreadLogByOrderId($_GET['ORDER_ID'],['PARTIALLY_FILLED','FILLED']);
     foreach ($arrLog as &$log){
         $log = $help->reArrayFromKey($log);
     }
-var_dump($arrLog);
+    $totalFeeAndFit = $binanceTool->calculateCommissionAndProfit($arrLog);
+    var_dump($totalFeeAndFit);
     if($arrLog){
         $data = [
             'status' => '200',
