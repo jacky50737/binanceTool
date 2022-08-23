@@ -76,12 +76,12 @@ var_dump($notifyArray['data']);
         if($logStatus == "SEND"){
             $data = [
                 'status' => '201',
-                'msg' => '新增完成',
+                'msg' => "新增{$is_Successes},並發送成功",
             ];
         }else{
             $data = [
                 'status' => '200',
-                'msg' => '新增完成，但未發送成功',
+                'msg' => "新增{$is_Successes}，但未發送成功",
             ];
         }
 
