@@ -512,9 +512,11 @@ class DataBaseTool
     public function getTreadLogByOrderId($orderId,$status){
 
         $sqlQuery = "SELECT * FROM TREAD_LOG WHERE ORDER_ID = '" . strval($orderId) . "' AND ORDER_STATUS IN ('".implode("','",$status)."');";
-var_dump($sqlQuery);
+
         if ($this->connection->query($sqlQuery)) {
             if ($this->connection->query($sqlQuery)->fetch_array()) {
+                var_dump($this->connection->query($sqlQuery)->fetch_array());
+                var_dump($this->connection->query($sqlQuery)->fetch_all());
                 return $this->connection->query($sqlQuery)->fetch_array();
             }
         }
