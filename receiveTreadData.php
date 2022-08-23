@@ -65,12 +65,18 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
 //            $lineTool->sendToAdmin(__FILE__ . "\n輸出({$notifyArray['code']})：\n" . $notifyArray['msg']);
         }
 var_dump($notifyArray['data']);
-        $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
+        $is_Successes = $db->upLoadTreadLog($_GET["API_KEY"], $notifyArray['data'],$logStatus);
+
+        if($is_Successes){
+            $is_Successes = '完成';
+        }else{
+            $is_Successes = '失敗';
+        }
 
         if($logStatus == "SEND"){
             $data = [
                 'status' => '201',
-                'msg' => '完全新增完成',
+                'msg' => '新增完成',
             ];
         }else{
             $data = [
