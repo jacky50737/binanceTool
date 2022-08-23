@@ -576,7 +576,7 @@ class DataBaseTool
             strval($data->realisedProfit) . "', '" .
             strval($apiKey) . "',' " .
             strval($status) . "')";
-
+var_dump($sqlQuery);
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery) == TRUE) {
                 return true;
