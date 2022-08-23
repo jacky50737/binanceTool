@@ -189,7 +189,6 @@ class BinanceTool
         $totalProfit = 0;
 
         foreach ($orderData as $data) {
-            var_dump($data);
             if (isset($data['orderCommission'])) {
                 $totalCommission = $totalCommission + floatval($data['orderCommission']);
             }
@@ -199,6 +198,6 @@ class BinanceTool
             }
         }
 
-        return ['totalCommission' => $totalCommission, 'totalProfit' => $totalProfit];
+        return ['totalCommission' => round($totalCommission,2), 'totalProfit' => round($totalProfit,2)];
     }
 }
