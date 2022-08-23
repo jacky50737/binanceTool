@@ -104,6 +104,7 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
             'msg' => '發生未知的錯誤',
             'error' => $exception->getMessage()
         ];
+        var_dump($data);
     }
     $db->closeDB();
 }
