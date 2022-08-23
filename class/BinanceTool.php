@@ -153,10 +153,10 @@ class BinanceTool
 //                                $notifyString .= "\n手續費(" . $order->commissionAsset . ")：" . $extend['totalCommission'];
 //                                $notifyString .= "\n實現利潤：" . $extend['totalProfit'];
 //                            }else{
-                        var_dump($extend);
+
                                 $notifyString .= "\n手續費(" . $order->commissionAsset . ")：" . $order->commissionAmount;
                                 $notifyString .= "\n實現利潤：" . $order->realisedProfit;
-                            }
+//                            }
                             $msg = $notifyString;
                             $logData = $order;
                             $code = '200';
