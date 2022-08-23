@@ -111,14 +111,9 @@ class Help
      */
     public function reArrayFromKey(array $ogArray){
         $newArray = [];
-        var_dump($ogArray);
+        $keyName = ['orderId', 'orderCommission', 'orderCommissionAsset', 'orderProfit'];
         foreach ($ogArray as $key => $row){
-            var_dump($row);
-            var_dump(is_numeric($key));
-            var_dump(is_string($key));
-//            if(!is_numeric($key)){
-//                $newArray[$key] = $row;
-//            }
+            $newArray[$keyName[$key]] = $row;
         }
 
         if(empty($newArray)){
