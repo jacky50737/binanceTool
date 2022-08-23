@@ -15,7 +15,7 @@ header('Content-Type: application/json');
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
     $help = Help::getInstance();
     $db = DataBaseTool::getInstance();
-    $arrLog = $db->getTreadLogByOrderId($_GET['ORDER_ID'],['NEW','PARTIALLY_FILLED','FILLED']);
+    $arrLog = $db->getTreadLogByOrderId($_GET['ORDER_ID'],['PARTIALLY_FILLED','FILLED']);
     var_dump($arrLog);
     foreach ($arrLog as $log){
         var_dump(77777);
