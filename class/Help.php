@@ -111,6 +111,7 @@ class Help
      */
     public function reArrayFromKey(array $ogArray){
         $newArray = [];
+        var_dump($ogArray);
         foreach ($ogArray as $key => $row){
             var_dump($row);
             var_dump(is_numeric($key));
