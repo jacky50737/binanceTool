@@ -79,9 +79,14 @@ class DataBaseTool
      * @param string $featureName
      * @return array|bool
      */
-    public function checkUserFeatureStatus(string $featureName): bool|array
+    public function checkUserFeatureStatus(string $featureName = ""): bool|array
     {
-        $sqlQuery = "SELECT ACCOUNT_KEY FROM ACCOUNT_FEATURE WHERE FEATURE_NAME ='" . $featureName . "' AND STATUS ='ENABLE' AND EXPIRED_DAY > CURRENT_TIMESTAMP;";
+        if(!empty($featureName)){
+            $sqlQuery = "SELECT ACCOUNT_KEY FROM ACCOUNT_FEATURE WHERE FEATURE_NAME ='" . $featureName . "' AND STATUS ='ENABLE' AND EXPIRED_DAY > CURRENT_TIMESTAMP;";
+        }else{
+            $sqlQuery = "SELECT ACCOUNT_KEY FROM ACCOUNT_FEATURE WHERE STATUS ='ENABLE';";
+        }
+
 
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
@@ -135,11 +140,16 @@ class DataBaseTool
      * @param string $expiredDay
      * @return bool
      */
-    public function updateUserFeature(string $apiKey, string $featureName, string $status, string $expiredDay): bool
+    public function updateUserFeature(string $apiKey, string $featureName, string $status, string $expiredDay = ""): bool
     {
-        $sqlQuery = "UPDATE ACCOUNT_FEATURE SET STATUS='".$status."' , EXPIRED_DAY ='".$expiredDay.
-            "' WHERE ACCOUNT_KEY='" . $apiKey .
-            "' AND FEATURE_NAME='".$featureName."';";
+        if(!empty($expiredDay)){
+            $sqlQuery = "UPDATE ACCOUNT_FEATURE SET STATUS='".$status."' , EXPIRED_DAY ='".$expiredDay.
+                "' WHERE ACCOUNT_KEY='" . $apiKey .
+                "' AND FEATURE_NAME='".$featureName."';";
+        }else{
+            $sqlQuery = "UPDATE ACCOUNT_FEATURE SET STATUS='".$status."' WHERE ACCOUNT_KEY='" . $apiKey . "';";
+        }
+
 
         for ($i = 0; $i < 5; $i++) {
 
