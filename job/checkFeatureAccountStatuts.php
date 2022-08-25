@@ -27,7 +27,7 @@ try {
             echo "關閉{$is_Successes}!\n";
             $lineTool->sendToAdmin("\n關閉{$is_Successes}!\n");
         }
-        echo "檢查完畢!";
+        echo "檢查完畢!\n";
     }
     echo "job結束\n";
 } catch (Exception $exception) {
