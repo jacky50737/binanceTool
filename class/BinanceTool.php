@@ -153,11 +153,11 @@ class BinanceTool
                             $notifyString .= "\n實現利潤：" . $extend['totalProfit'];
 
                             //開/盈/虧表情功能
-                            if(intval($extend['totalProfit'])>0){
+                            if(floatval($extend['totalProfit'])>0){
                                 $notifyString = "\n😆😆😆" . $notifyString;
-                            }elseif (intval($extend['totalProfit'])<0){
+                            }elseif (floatval($extend['totalProfit'])<0){
                                 $notifyString = "\n😢😢😢" . $notifyString;
-                            }elseif (intval($extend['totalProfit']) == 0){
+                            }elseif (floatval($extend['totalProfit']) == 0){
                                 $notifyString = "\n😎😎😎" . $notifyString;
                             }
 
