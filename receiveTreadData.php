@@ -25,7 +25,7 @@ try {
         $postMsgData = $helpTool->mixArray((array)$postData);
 
         if ($postData->eventType =="ORDER_TRADE_UPDATE"){
-            $lineTool->sendToAdmin("\nAPIKEY：{$_GET["API_KEY"]}\nPOST輸入：\n".$postMsgData);
+            $lineTool->sendToAdmin("\nAPIKEY：{$_GET["API_KEY"]}\nPOST輸入：\n".$helpTool->orderLogNotifyFormat($postMsgData));
         }
     }else{
         $postMsgData = "無輸入";
