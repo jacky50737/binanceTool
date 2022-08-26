@@ -70,7 +70,7 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
                 $logStatus = "SEND";
                 $db->tagTreadLog(strval($postData->order->orderId));
                 $log->writeLog($msg);
-                $lineTool->sendToAdmin("\n".$msg);
+                $lineTool->sendToAdmin("\n".$helpTool->orderLogNotifyFormat($msg));
             }
         }
         else{

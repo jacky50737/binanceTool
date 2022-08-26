@@ -83,8 +83,6 @@ class Help
      */
     public function get_server_cpu_usage()
     {
-
-//        $load = sys_getloadavg();
         $stat1 = file('/proc/stat');
         sleep(1);
         $stat2 = file('/proc/stat');
@@ -101,7 +99,6 @@ class Help
         $load = (100 - $cpu['idle']);
 
         return $load."%";
-
     }
 
     /**
@@ -109,7 +106,8 @@ class Help
      * @param array $ogArray
      * @return array
      */
-    public function reArrayFromKey(array $ogArray){
+    public function reArrayFromKey(array $ogArray)
+    {
         $newArray = [];
         $keyName = ['orderId', 'orderCommission', 'orderCommissionAsset', 'orderProfit'];
         foreach ($ogArray as $key => $row){
@@ -121,5 +119,45 @@ class Help
         }
 
         return $newArray;
-     }
+    }
+
+    /**
+     * @param $orderMsg
+     * @return array|string|string[]
+     */
+    public function orderLogNotifyFormat($orderMsg)
+    {
+        $orderMsg = str_replace('eventType','事件類型',$orderMsg);
+        $orderMsg = str_replace('transactionTime','搓合時間',$orderMsg);
+        $orderMsg = str_replace('eventTime','事件時間',$orderMsg);
+        $orderMsg = str_replace('order|symbol','交易對',$orderMsg);
+        $orderMsg = str_replace('order|clientOrderId','客戶端ID',$orderMsg);
+        $orderMsg = str_replace('order|orderSide','訂單方向',$orderMsg);
+        $orderMsg = str_replace('order|orderType','訂單類型',$orderMsg);
+        $orderMsg = str_replace('order|timeInForce','有效方式',$orderMsg);
+        $orderMsg = str_replace('order|originalQuantity','訂單原始數量',$orderMsg);
+        $orderMsg = str_replace('order|originalPrice','訂單原始價格',$orderMsg);
+        $orderMsg = str_replace('order|averagePrice','訂單平均價格',$orderMsg);
+        $orderMsg = str_replace('order|stopPrice','止損價',$orderMsg);
+        $orderMsg = str_replace('order|executionType','事件執行類型',$orderMsg);
+        $orderMsg = str_replace('order|orderStatus','訂單當前狀態',$orderMsg);
+        $orderMsg = str_replace('order|orderId','訂單ID',$orderMsg);
+        $orderMsg = str_replace('order|lastFilledQuantity','訂單最後成交量',$orderMsg);
+        $orderMsg = str_replace('order|lastFilledPrice','訂單最後成交價格',$orderMsg);
+        $orderMsg = str_replace('order|commissionAmount','訂單手續費量',$orderMsg);
+        $orderMsg = str_replace('order|commissionAsset','訂單手續費單位',$orderMsg);
+        $orderMsg = str_replace('order|orderTradeTime','成交時間',$orderMsg);
+        $orderMsg = str_replace('order|tradeId','成交ID',$orderMsg);
+        $orderMsg = str_replace('order|bidsNotional','買單淨值',$orderMsg);
+        $orderMsg = str_replace('order|asksNotional','賣單淨值',$orderMsg);
+        $orderMsg = str_replace('order|isMakerTrade','是否為市價單',$orderMsg);
+        $orderMsg = str_replace('order|isReduceOnly','是否只減倉',$orderMsg);
+        $orderMsg = str_replace('order|stopPriceWorkingType','止損動作類型',$orderMsg);
+        $orderMsg = str_replace('order|originalOrderType','原始訂單類型',$orderMsg);
+        $orderMsg = str_replace('order|positionSide','持倉方向',$orderMsg);
+        $orderMsg = str_replace('order|isCloseAll','是否全部平倉',$orderMsg);
+        $orderMsg = str_replace('order|realisedProfit','已實現獲利',$orderMsg);
+
+        return $orderMsg;
+    }
 }
