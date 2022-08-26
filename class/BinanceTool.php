@@ -152,6 +152,15 @@ class BinanceTool
                             $notifyString .= "\n手續費(" . $order->commissionAsset . ")：" . $extend['totalCommission'];
                             $notifyString .= "\n實現利潤：" . $extend['totalProfit'];
 
+                            //開/盈/虧表情功能
+                            if(intval($extend['totalProfit'])>0){
+                                $notifyString = "\n😆😆😆" . $notifyString;
+                            }elseif (intval($extend['totalProfit'])<0){
+                                $notifyString = "\n😢😢😢" . $notifyString;
+                            }elseif (intval($extend['totalProfit']) == 0){
+                                $notifyString = "\n😎😎😎" . $notifyString;
+                            }
+
                             $msg = $notifyString;
                             $logData = $order;
                             $code = '200';
