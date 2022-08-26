@@ -138,7 +138,6 @@ class Help
         $orderMsg = str_replace('order|originalQuantity','訂單原始數量',$orderMsg);
         $orderMsg = str_replace('order|originalPrice','訂單原始價格',$orderMsg);
         $orderMsg = str_replace('order|averagePrice','訂單平均價格',$orderMsg);
-        $orderMsg = str_replace('order|stopPrice','止損價',$orderMsg);
         $orderMsg = str_replace('order|executionType','事件執行類型',$orderMsg);
         $orderMsg = str_replace('order|orderStatus','訂單當前狀態',$orderMsg);
         $orderMsg = str_replace('order|orderId','訂單ID',$orderMsg);
@@ -153,6 +152,7 @@ class Help
         $orderMsg = str_replace('order|isMakerTrade','是否為市價單',$orderMsg);
         $orderMsg = str_replace('order|isReduceOnly','是否只減倉',$orderMsg);
         $orderMsg = str_replace('order|stopPriceWorkingType','止損動作類型',$orderMsg);
+        $orderMsg = str_replace('order|stopPrice','止損價',$orderMsg);
         $orderMsg = str_replace('order|originalOrderType','原始訂單類型',$orderMsg);
         $orderMsg = str_replace('order|positionSide','持倉方向',$orderMsg);
         $orderMsg = str_replace('order|isCloseAll','是否全部平倉',$orderMsg);
