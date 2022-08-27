@@ -1,6 +1,0 @@
-##### THIS ALLOWS US TO DEPLOY THE SITE FROM A GIT REPO ######
----
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/cryptoharvester/public_html/binanceToolApi/
-    - /bin/cp -R .rayTest.php $DEPLOYPATH
