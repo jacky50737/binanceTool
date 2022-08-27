@@ -3,10 +3,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/cryptoharvester/public_html/binanceToolApi/
-    - /bin/cp -R .vscode $DEPLOYPATH
-    - /bin/cp -R assets $DEPLOYPATH
-    - /bin/cp -R css $DEPLOYPATH
-    - /bin/cp -R fonts $DEPLOYPATH
-    - /bin/cp -R img $DEPLOYPATH
-    - /bin/cp -R js $DEPLOYPATH
-    /bin/cp index.html $DEPLOYPATH
+    - /bin/cp -R .rayTest.php $DEPLOYPATH
