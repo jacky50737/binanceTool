@@ -6,7 +6,7 @@
  * 專案名稱binanceTool
  */
 declare(strict_types=1);
-
+//ForTest
 require_once 'class/autoload.php';
 
 header('Content-Type: application/json; charset=utf-8');
