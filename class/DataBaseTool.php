@@ -120,6 +120,14 @@ class DataBaseTool
                 $data = "";
                 foreach ($rows as $row) {
                     foreach($row as $key => $userData){
+                        switch($userData){
+                            case 'AUTO_WALLET_NOTIFY':
+                                $userData = '資產通知';
+                                break;
+                            case 'AUTO_ORDER_NOTIFY':
+                                $userData = '開平倉通知';
+                                break;
+                        }
                         $data .= $nameArray[$key]."：".$userData;
                     }
                     $data .= "\n";
