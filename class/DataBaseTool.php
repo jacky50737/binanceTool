@@ -133,7 +133,7 @@ class DataBaseTool
                                 $userData = '關';
                                 break;
                         }
-                        $data .= "\t".$nameArray[$key]."：".$userData;
+                        $data .= "\n".$nameArray[$key]."：".$userData;
                     }
                     $data .= "\n---\n";
                 }
