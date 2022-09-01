@@ -108,20 +108,21 @@ class DataBaseTool
      * @param string $line_Id
      * @return array|bool
      */
-    public function getUserFeatureStatus(string $line_Id): bool|array
+    public function getUserFeatureStatus(string $line_Id): bool|string
     {
         $sqlQuery = "SELECT BINANCE_API_KEY.NICK_NAME as NAME, FEATURE_NAME, STATUS, EXPIRED_DAY FROM ACCOUNT_FEATURE LEFT JOIN BINANCE_API_KEY on BINANCE_API_KEY.API_KEY = ACCOUNT_KEY WHERE BINANCE_API_KEY.LINE_ID = '".$line_Id."' ORDER by BINANCE_API_KEY.NICK_NAME";
 
-
+        $nameArray = ['NAME' => '帳戶','FEATURE_NAME'=>'功能名稱','STATUS'=>'狀態','EXPIRED_DAY'=>'過期時間'];
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
             if (is_array($rows)) {
                 var_dump($rows);
-                $data = [];
+                $data = "";
                 foreach ($rows as $row) {
-                    if (is_string($row[0])) {
-                        $data[] = $row[0];
+                    foreach($row as $userData){
+                        $data .= $nameArray[$userData]."：".$userData;
                     }
+                    $data .= "\n";
                 }
                 return $data;
             }
