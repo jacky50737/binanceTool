@@ -116,7 +116,6 @@ class DataBaseTool
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
             if (is_array($rows)) {
-                var_dump($rows);
                 $data = "";
                 foreach ($rows as $row) {
                     foreach($row as $key => $userData){
@@ -126,6 +125,12 @@ class DataBaseTool
                                 break;
                             case 'AUTO_ORDER_NOTIFY':
                                 $userData = '開平倉通知';
+                                break;
+                            case 'ENABLE':
+                                $userData = '開';
+                                break;
+                            case 'DISENABLE':
+                                $userData = '關';
                                 break;
                         }
                         $data .= "\t".$nameArray[$key]."：".$userData;
