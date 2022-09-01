@@ -135,7 +135,7 @@ class DataBaseTool
                         }
                         $data .= "\n".$nameArray[$key]."：".$userData;
                     }
-                    $data .= "\n---\n";
+                    $data .= "\n---";
                 }
                 return $data;
             }
