@@ -128,7 +128,7 @@ class DataBaseTool
                                 $userData = '開平倉通知';
                                 break;
                         }
-                        $data .= $nameArray[$key]."：".$userData;
+                        $data .= "\t".$nameArray[$key]."：".$userData;
                     }
                     $data .= "\n";
                 }
