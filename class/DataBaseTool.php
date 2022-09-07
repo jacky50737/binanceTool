@@ -129,7 +129,7 @@ class DataBaseTool
                             case 'ENABLE':
                                 $userData = '開';
                                 break;
-                            case 'DISENABLE':
+                            case 'DISABLE':
                                 $userData = '關';
                                 break;
                         }
