@@ -171,6 +171,30 @@ class DataBaseTool
         return false;
     }
 
+    /**
+     * 查詢使用者的AccusesToken列表
+     * @param $userID
+     * @return array|bool
+     */
+    public function checkUserAccusesTokenLlist($userID): bool|array
+    {
+        $sqlQuery = "SELECT API_KEY FROM BINANCE_API_KEY WHERE LINE_ID = '".$userID."';";
+
+        if ($this->connection->query($sqlQuery)) {
+            $rows = $this->connection->query($sqlQuery)->fetch_all();
+            if (is_array($rows)) {
+                $data = [];
+                foreach ($rows as $row) {
+                    if (is_string($row[0])) {
+                        $data[] = $row[0];
+                    }
+                }
+                return $data;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * 更新使用者功能設定檔
@@ -202,15 +226,15 @@ class DataBaseTool
 
     /**
      * 更新使用者功能過期時間
-     * @param string $apiKey
+     * @param array $apiKey
      * @param string $expiredDay
      * @return bool
      */
-    public function updateUserFeatureExpiredDay(string $apiKey, string $expiredDay = ""): bool
+    public function updateUserFeatureExpiredDay(array $apiKey, string $expiredDay = ""): bool
     {
-            $sqlQuery = "UPDATE ACCOUNT_FEATURE SET EXPIRED_DAY ='".$expiredDay.
-                "' WHERE ACCOUNT_KEY='" . $apiKey ."';";
 
+        
+        $sqlQuery = "UPDATE ACCOUNT_FEATURE SET EXPIRED_DAY ='".$expiredDay."' WHERE ACCOUNT_KEY IN ('" . implode("','", $apiKey) . "');";
 
         for ($i = 0; $i < 5; $i++) {
 

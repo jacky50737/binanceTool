@@ -14,9 +14,10 @@ header('Content-Type: application/json; charset=utf-8');
 
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
-    $apiTag = $db->checkApiKey($_GET['API_KEY']);
-    if(!empty($_GET['EXPIRED_DAY']) and $apiTag == true){
-        if($db->updateUserFeatureExpiredDay($_GET['API_KEY'],$_GET['EXPIRED_DAY'])){
+    $apiKey = $this->checkUserAccusesTokenLlist($_GET['LINE_ID']);
+    var_dump($apiKey);
+    if(!empty($_GET['EXPIRED_DAY']) and !empty($apiKey)){
+        if($db->updateUserFeatureExpiredDay($apiKey,$_GET['EXPIRED_DAY'])){
             $data = [
                 'status' => '201',
                 'msg' => '成功更新全功能過期時間為：'.$_GET['EXPIRED_DAY'],
