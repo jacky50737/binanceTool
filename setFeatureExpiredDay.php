@@ -15,7 +15,6 @@ header('Content-Type: application/json; charset=utf-8');
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
     $apiKey = $db->checkUserAccusesTokenLlist($_GET['LINE_ID']);
-    var_dump($apiKey);
     if(!empty($_GET['EXPIRED_DAY']) and !empty($apiKey)){
         if($db->updateUserFeatureExpiredDay($apiKey,$_GET['EXPIRED_DAY'])){
             $data = [
