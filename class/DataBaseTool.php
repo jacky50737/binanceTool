@@ -235,7 +235,7 @@ class DataBaseTool
 
         
         $sqlQuery = "UPDATE ACCOUNT_FEATURE SET EXPIRED_DAY ='".$expiredDay."' WHERE ACCOUNT_KEY IN ('" . implode("','", $apiKey) . "');";
-var_dump($sqlQuery);
+
         for ($i = 0; $i < 5; $i++) {
 
             if ($this->connection->query($sqlQuery)) {

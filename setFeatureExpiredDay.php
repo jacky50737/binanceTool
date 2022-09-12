@@ -24,7 +24,7 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
         }else{
             $data = [
                 'status' => '400',
-                'msg' => '更新失敗',
+                'msg' => '更新失敗，請注意時間是否合法!',
             ];
         }
     }else{
