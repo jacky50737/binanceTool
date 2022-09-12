@@ -201,6 +201,27 @@ class DataBaseTool
     }
 
     /**
+     * 更新使用者功能過期時間
+     * @param string $apiKey
+     * @param string $expiredDay
+     * @return bool
+     */
+    public function updateUserFeatureExpiredDay(string $apiKey, string $expiredDay = ""): bool
+    {
+            $sqlQuery = "UPDATE ACCOUNT_FEATURE SET EXPIRED_DAY ='".$expiredDay.
+                "' WHERE ACCOUNT_KEY='" . $apiKey ."';";
+
+
+        for ($i = 0; $i < 5; $i++) {
+
+            if ($this->connection->query($sqlQuery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 更新使用者本金
      * @param string $apiKey
      * @param int $capital
