@@ -144,6 +144,24 @@ class DataBaseTool
     }
 
     /**
+     * 查詢帳戶資產功能的合法列表
+     * @param string $line_Id
+     * @return array|bool
+     */
+    public function getUserWalletStatus(string $line_Id): bool|string
+    {
+        $sqlQuery = "SELECT BINANCE_API_KEY.NICK_NAME as NAME, ACCOUNT_KEY FROM ACCOUNT_FEATURE LEFT JOIN BINANCE_API_KEY on BINANCE_API_KEY.API_KEY = ACCOUNT_KEY WHERE STATUS = 'ENABLE' and FEATURE_NAME = 'AUTO_WALLET_NOTIFY' and BINANCE_API_KEY.LINE_ID = '".$line_Id."' ORDER by BINANCE_API_KEY.NICK_NAME";
+
+        if ($this->connection->query($sqlQuery)) {
+            $rows = $this->connection->query($sqlQuery)->fetch_all();
+            if (is_array($rows)) {
+                return $rows;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 查詢所有使用者的LineAccusesToken列表
      * @param $userID
      * @return array|bool
