@@ -148,13 +148,20 @@ class DataBaseTool
      * @param string $line_Id
      * @return array|bool
      */
-    public function getUserWalletStatus(string $line_Id): bool|array
+    public function getUserWalletStatus(string $line_Id): bool|string
     {
         $sqlQuery = "SELECT BINANCE_API_KEY.NICK_NAME as NAME, ACCOUNT_KEY FROM ACCOUNT_FEATURE LEFT JOIN BINANCE_API_KEY on BINANCE_API_KEY.API_KEY = ACCOUNT_KEY WHERE STATUS = 'ENABLE' and FEATURE_NAME = 'AUTO_WALLET_NOTIFY' and BINANCE_API_KEY.LINE_ID = '".$line_Id."' ORDER by BINANCE_API_KEY.NICK_NAME";
 
+        $nameArray = [ 'name','key'];
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
             if (is_array($rows)) {
+                $data = [];
+                foreach($rows as $nowRow => $row){
+                    foreach($row as $key => $value){
+                       $data[$nowRow][$nameArray[$key]] = $value;
+                    }
+                }
                 return $rows;
             }
         }
