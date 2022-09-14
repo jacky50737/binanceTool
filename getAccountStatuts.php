@@ -46,7 +46,7 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
         }
         $data = [
             'status' => '200',
-            'msg' => '已發送通知到Line Notify!!',
+            'msg' => "\nt查詢成功!!\n已發送通知至綁定的Line Notify!!',
         ];
     }
 } else {
