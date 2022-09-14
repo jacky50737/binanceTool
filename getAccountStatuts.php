@@ -16,7 +16,6 @@ $binanceTool = BinanceTool::getInstance();
 
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
     if (isset($_GET["LINE_ID"]) and !empty($_GET["LINE_ID"])) {
-        $db = DataBaseTool::getInstance();
         $result = $db->getUserWalletStatus($_GET["LINE_ID"]);
         foreach ($result as $row) {
             $key = $row['key'];
