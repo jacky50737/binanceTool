@@ -162,7 +162,7 @@ class DataBaseTool
                        $data[$nowRow][$nameArray[$key]] = $value;
                     }
                 }
-                return $rows;
+                return $data;
             }
         }
         return false;
