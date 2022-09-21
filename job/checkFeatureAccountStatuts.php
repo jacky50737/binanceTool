@@ -23,7 +23,7 @@ try {
         if(!$binanceTool->checkBinanceApi()){
             echo "發現APIKEY：$key 失效! 將進行關閉功能.....\n";
             $lineTool->sendToAdmin("\n發現APIKEY：$key 失效! 將進行關閉功能.....\n");
-            $is_Successes = $db->updateUserFeature($key,"關閉全功能",'DISABLE')?"成功":"失敗";
+            $is_Successes = $db->updateUserFeature($key,"關閉全功能",'EXPIRED')?"成功":"失敗";
             echo "關閉{$is_Successes}!\n";
             $lineTool->sendToAdmin("\n關閉{$is_Successes}!\n");
         }

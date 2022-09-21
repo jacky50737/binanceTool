@@ -132,6 +132,9 @@ class DataBaseTool
                             case 'DISABLE':
                                 $userData = '關';
                                 break;
+                            case 'EXPIRED':
+                                $userData = '已失效';
+                                break;
                         }
                         $data .= "\n".$nameArray[$key]."：".$userData;
                     }
