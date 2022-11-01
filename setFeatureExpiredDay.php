@@ -29,8 +29,8 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
         }
     }else{
         $data = [
-            'status' => '400',
-            'msg' => '參數錯誤',
+            'status' => '200',
+            'msg' => '設定成功，尚未有已串接功能需更新!',
         ];
     }
 } else {
