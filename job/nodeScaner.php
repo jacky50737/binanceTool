@@ -68,7 +68,7 @@ try {
 //             var_dump("sudo -S npx forever --minUptime=1000 --spinSleepTime=1000 start -c ts-node runningList/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
             shell_exec("sudo -S touch runningList/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
             shell_exec("sudo -S \cp runningList/ws-userdata.ts runningList/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
-            shell_exec("sudo -S npx forever --minUptime=1000 --spinSleepTime=1000 start -c ts-node runningList/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
+            shell_exec("sudo -S npx forever --minUptime=1000 --spinSleepTime=1000 start -a -l /dev/null -c ts-node runningList/ws-userdata-{$userData['API_KEY']}-{$userData['API_SECRET']}.ts");
             sleep(1);
         }
     }
