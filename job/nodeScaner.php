@@ -73,6 +73,8 @@ try {
         }
     }
     $db->closeDB();
+    //每秒清一次Log
+    shell_exec('sudo -S npx forever cleanlogs');
     sleep(1);
 } catch (Exception $exception) {
     var_dump($exception->getMessage());
