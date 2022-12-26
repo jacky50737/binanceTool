@@ -503,7 +503,7 @@ class DataBaseTool
      */
     public function updateUserName(string $nickName, string $apiKey): bool
     {
-        $sqlQuery = "UPDATE BINANCE_API_KEY SET NICK_NAME='".$nickName."'WHERE API_KEY='" . $apiKey . "'";
+        $sqlQuery = "UPDATE BINANCE_API_KEY SET NICK_NAME='".$nickName."'WHERE API_KEY='" . $apiKey . "';";
 
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery)) {
@@ -521,7 +521,7 @@ class DataBaseTool
      */
     public function updateUserLineToken(string $acessToken, string $lineId): bool
     {
-        $sqlQuery = "UPDATE BINANCE_API_KEY SET ACCESS_TOKEN='".$acessToken."'WHERE LINE_ID='" . $lineId . "'";
+        $sqlQuery = "UPDATE BINANCE_API_KEY SET ACCESS_TOKEN='".$acessToken."'WHERE LINE_ID='" . $lineId . "';";
 
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery)) {
@@ -536,16 +536,30 @@ class DataBaseTool
      * @param string $apiKey
      * @return bool
      */
-    public function deleteUser(string $apiKey): bool
+    public function deleteUser(string $apiKey, string $line_Id): bool
     {
-        $sqlQuery = "DELETE FROM BINANCE_API_KEY WHERE API_KEY='" . strval($apiKey) . "'";
+        $sqlQuery = "DELETE FROM BINANCE_API_KEY WHERE API_KEY='" . strval($apiKey) . "' AND LINE_ID='" . strval($line_Id) . "';";
+
+        $runStepOne = false;
+        $runStepTwo = false;
 
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery)) {
-                return true;
+                $runStepOne =  true;
             }
         }
-        return false;
+
+        if ($runStepOne) {
+            $sqlQuery = "DELETE FROM ACCOUNT_FEATURE WHERE API_KEY='" . strval($apiKey) . "';";
+            for ($i = 0; $i < 5; $i++) {
+                if ($this->connection->query($sqlQuery)) {
+                    $runStepTwo =  true;
+                }
+            }
+        }
+
+        $runTag = $runStepOne && $runStepTwo;
+        return $runTag;
     }
 
     /**
