@@ -44,6 +44,6 @@ try {
     }
     echo "job結束\n";
 } catch (Exception $exception) {
-//     echo '發生錯誤：' . $exception->getMessage();
+    echo '發生錯誤：' . $exception->getMessage();
     $lineTool->sendToAdmin($exception->getMessage());
 }
