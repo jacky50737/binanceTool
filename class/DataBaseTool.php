@@ -461,6 +461,7 @@ class DataBaseTool
         $sqlQuery = "SELECT API_LIMIT FROM ACCOUNT_LIMIT WHERE LINE_ID = '" . strval($uid) . "';";
 
         if ($this->connection->query($sqlQuery)) {
+            var_dump($this->connection->query($sqlQuery)->fetch_row());
             return $this->connection->query($sqlQuery)->fetch_row()[0];
         }
         return 2;
