@@ -109,7 +109,7 @@ class DataBaseTool
     public function getApiLimitExpirList()
     {
         $now = date('T-m-d H:i:s', strtotime('+8 hours'));
-        $sqlQuery = "SELECT LINE_ID,API_LIMIT  FROM ACCOUNT_LIMIT WHERE EXPIR_DAY <'" . $now . "';";
+        $sqlQuery = "SELECT LINE_ID,API_LIMIT  FROM ACCOUNT_LIMIT WHERE API_LIMIT > (2) AND EXPIR_DAY <'" . $now . "';";
 
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
