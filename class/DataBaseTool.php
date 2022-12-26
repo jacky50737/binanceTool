@@ -460,11 +460,13 @@ class DataBaseTool
         $sqlQuery = "SELECT API_LIMIT FROM ACCOUNT_LIMIT WHERE LINE_ID = '" . strval($lineId) . "';";
 
         if ($this->connection->query($sqlQuery)) {
+            if(is_null($this->connection->query($sqlQuery)->fetch_row()[0])){
+                return 2;
+            }
             if($this->connection->query($sqlQuery)->fetch_row()[0]){
                 return $this->connection->query($sqlQuery)->fetch_row()[0];
             }
         }
-        return 2;
     }
 
     /**
