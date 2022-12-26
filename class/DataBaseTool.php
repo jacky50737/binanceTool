@@ -515,7 +515,7 @@ class DataBaseTool
             "(LINE_ID, API_LIMIT, EXPIR_DAY)" .
             " VALUES ('" .
             strval($lineId) . "', '" .
-            strval($apiLimit) . "', '" .
+            intval($apiLimit) . "', '" .
             strval($expiredDay) . "')";
 
         for ($i = 0; $i < 5; $i++) {
@@ -546,13 +546,15 @@ class DataBaseTool
 
     /**
      * 更新使用者API串接上限與過期時間
-     * @param string $nickName
-     * @param string $apiKey
-     * @return bool
+     *
+     * @param string $lineId
+     * @param integer $apiLimit
+     * @param string $expiredDay
+     * @return boolean
      */
-    public function updateUserApiLimit(string $lineId, string $apiLimit, string $expiredDay): bool
+    public function updateUserApiLimit(string $lineId, int $apiLimit, string $expiredDay): bool
     {
-        $sqlQuery = "UPDATE ACCOUNT_LIMIT SET API_LIMIT='".$apiLimit."'AND EXPIR_DAY='" . $expiredDay ."'WHERE LINE_ID='" . $lineId . "';";
+        $sqlQuery = "UPDATE ACCOUNT_LIMIT SET API_LIMIT=".$apiLimit." AND EXPIR_DAY='" . $expiredDay ."'WHERE LINE_ID='" . $lineId . "';";
 
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery)) {
