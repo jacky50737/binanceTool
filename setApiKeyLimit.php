@@ -20,7 +20,7 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
             $newLimit = $db->checkApiKeyCountLimit($_GET['LINE_ID']);
             $data = [
                 'status' => '201',
-                'msg' => "成功更新Api串接數量：{$originLimit}->{$newLimit}\n到期時間為：".$time,
+                'msg' => "成功更新Api串接數量：{$originLimit}->{$newLimit}\n到期時間為：".$_GET['EXPIRED_DAY'],
             ];
         }else{
             $data = [
