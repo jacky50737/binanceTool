@@ -162,7 +162,7 @@ class DataBaseTool
                 $data = [];
                 foreach($rows as $nowRow => $row){
                     foreach($row as $key => $value){
-                       $data[$nowRow][$nameArray[$key]] = $value;
+                        $data[$nowRow][$nameArray[$key]] = $value;
                     }
                 }
                 return $data;
@@ -432,6 +432,38 @@ class DataBaseTool
             }
         }
         return false;
+    }
+
+    /**
+     * 檢查使用者API KEY串接數量
+     * @param string $apiKey
+     * @return bool
+     */
+    public function checkApiKeyCount(string $apiKey): bool
+    {
+        $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE API_KEY = '" . strval($apiKey) . "';";
+
+        if ($this->connection->query($sqlQuery)) {
+            if ($this->connection->query($sqlQuery)->fetch_row()[0] >= 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 檢查使用者API KEY可串接數量
+     *
+     * @param string $uid
+     */
+    public function checkApiKeyCountLimit(string $uid)
+    {
+        $sqlQuery = "SELECT API_LIMIT FROM ACCOUNT_LIMIT WHERE LINE_ID = '" . strval($uid) . "';";
+
+        if ($this->connection->query($sqlQuery)) {
+            return $this->connection->query($sqlQuery)->fetch_row()[0];
+        }
+        return 2;
     }
 
     /**
