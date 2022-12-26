@@ -513,12 +513,12 @@ class DataBaseTool
     public function inputUserApiKeyLimit(string $lineId, string $apiLimit, string $expiredDay): bool
     {
         $sqlQuery = "INSERT INTO ACCOUNT_LIMIT" .
-            "(LINE_ID, API_LIMIT, EXPIR_DAY)" .
+            "(LINE_ID, API_LIMIT, EXPIR_DAY, UPDATE_AT)" .
             " VALUES ('" .
             strval($lineId) . "', '" .
             intval($apiLimit) . "', '" .
-            strval($expiredDay) . "')";
-var_dump($sqlQuery);
+            strval($expiredDay) . "', '" .
+            strval(date('Y-m-d H:i:s',strtotime('now'))) . "')";
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery)) {
                 return true;
