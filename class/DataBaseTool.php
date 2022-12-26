@@ -436,12 +436,12 @@ class DataBaseTool
 
     /**
      * 檢查使用者API KEY串接數量
-     * @param string $apiKey
+     * @param string $lineId
      * @return bool
      */
-    public function checkApiKeyCount(string $apiKey): bool
+    public function checkApiKeyCount(string $lineId): bool
     {
-        $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE API_KEY = '" . strval($apiKey) . "';";
+        $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "';";
 
         if ($this->connection->query($sqlQuery)) {
             if ($this->connection->query($sqlQuery)->fetch_row()[0] >= 2) {
@@ -454,15 +454,16 @@ class DataBaseTool
     /**
      * 檢查使用者API KEY可串接數量
      *
-     * @param string $uid
+     * @param string $lineId
      */
-    public function checkApiKeyCountLimit(string $uid)
+    public function checkApiKeyCountLimit(string $lineId)
     {
-        $sqlQuery = "SELECT API_LIMIT FROM ACCOUNT_LIMIT WHERE LINE_ID = '" . strval($uid) . "';";
+        $sqlQuery = "SELECT API_LIMIT FROM ACCOUNT_LIMIT WHERE LINE_ID = '" . strval($lineId) . "';";
 
         if ($this->connection->query($sqlQuery)) {
-            var_dump($this->connection->query($sqlQuery)->fetch_row());
-            return $this->connection->query($sqlQuery)->fetch_row()[0];
+            if($this->connection->query($sqlQuery)->fetch_row()[0]){
+                return $this->connection->query($sqlQuery)->fetch_row()[0];
+            }
         }
         return 2;
     }
