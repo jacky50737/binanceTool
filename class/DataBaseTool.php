@@ -77,7 +77,7 @@ class DataBaseTool
     /**
      * 查詢特定功能的合法列表
      * @param string $featureName
-     * @return array|bool
+     * @return bool|array
      */
     public function checkUserFeatureStatus(string $featureName = ""): bool|array
     {
@@ -87,6 +87,30 @@ class DataBaseTool
             $sqlQuery = "SELECT ACCOUNT_KEY FROM ACCOUNT_FEATURE WHERE STATUS ='ENABLE';";
         }
 
+
+        if ($this->connection->query($sqlQuery)) {
+            $rows = $this->connection->query($sqlQuery)->fetch_all();
+            if (is_array($rows)) {
+                $data = [];
+                foreach ($rows as $row) {
+                    if (is_string($row[0])) {
+                        $data[] = $row[0];
+                    }
+                }
+                return $data;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * 查詢串接數量的過期列表
+     */
+    public function getApiLimitExpirList()
+    {
+        $now = date('T-m-d H:i:s', strtotime('now'));
+        $sqlQuery = "SELECT LINE_ID,API_LIMIT  FROM ACCOUNT_LIMIT WHERE EXPIR_DAY <'" . $now . "';";
+var_dump();
 
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();

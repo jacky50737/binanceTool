@@ -13,11 +13,10 @@ header('Content-Type: application/json; charset=utf-8');
 
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "GCP") {
     $db = DataBaseTool::getInstance();
-    $keyLimit = $db->checkApiKeyCountLimit($_GET['LINE_ID']);
-    $keyCount = $db->checkApiKeyCount($_GET['LINE_ID']);
+    $list = $db->getApiLimitExpirList();
     $data = [
         'status' => '200',
-        'msg' => "keyLimit={$keyLimit}, keyCount={$keyCount}",
+        'msg' => $list,
     ];
 } else {
     $data = [
