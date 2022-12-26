@@ -461,7 +461,10 @@ class DataBaseTool
 
         if ($this->connection->query($sqlQuery)) {
             if(is_null($this->connection->query($sqlQuery)->fetch_row())){
-                return 2;
+                if($this->inputUserApiKeyLimit($lineId, 2, date('Y-m-d 23:59:59', strtotime('now')))){
+                    return 2;
+                };
+                return 0;
             }
             if($this->connection->query($sqlQuery)->fetch_row()[0]){
                 return $this->connection->query($sqlQuery)->fetch_row()[0];
@@ -498,6 +501,32 @@ class DataBaseTool
     }
 
     /**
+     * 寫入使用者綁定上限
+     * @param string $nickName
+     * @param string $apiKey
+     * @param string $apiSecret
+     * @param string $lineId
+     * @param string $accessToken
+     * @return bool
+     */
+    public function inputUserApiKeyLimit(string $lineId, string $apiLimit, string $expiredDay): bool
+    {
+        $sqlQuery = "INSERT INTO ACCOUNT_LIMIT" .
+            "(LINE_ID, API_LIMIT, EXPIR_DAY)" .
+            " VALUES ('" .
+            strval($lineId) . "', '" .
+            strval($apiLimit) . "', '" .
+            strval($expiredDay) . "')";
+
+        for ($i = 0; $i < 5; $i++) {
+            if ($this->connection->query($sqlQuery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 更新使用者名稱
      * @param string $nickName
      * @param string $apiKey
@@ -506,6 +535,24 @@ class DataBaseTool
     public function updateUserName(string $nickName, string $apiKey): bool
     {
         $sqlQuery = "UPDATE BINANCE_API_KEY SET NICK_NAME='".$nickName."'WHERE API_KEY='" . $apiKey . "';";
+
+        for ($i = 0; $i < 5; $i++) {
+            if ($this->connection->query($sqlQuery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 更新使用者API串接上限與過期時間
+     * @param string $nickName
+     * @param string $apiKey
+     * @return bool
+     */
+    public function updateUserApiLimit(string $lineId, string $apiLimit, string $expiredDay): bool
+    {
+        $sqlQuery = "UPDATE ACCOUNT_LIMIT SET API_LIMIT='".$apiLimit."'AND EXPIR_DAY='" . $expiredDay ."'WHERE LINE_ID='" . $lineId . "';";
 
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery)) {
