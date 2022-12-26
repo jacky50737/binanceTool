@@ -46,10 +46,12 @@ try {
             }
             $msg ="關閉成功!\n";
             echo $msg;
-            $db->updateUserApiLimit($row[0], 2, date('Y-m-d H:i:s', strtotime('now')));
             $lineTool->sendToAdmin("\n$msg");
         }
-        
+        $db->updateUserApiLimit($row[0], 2, date('Y-m-d H:i:s', strtotime('now')));
+        $msg ="已重設UID：{$row[0]}為最大數量2!\n";
+        echo $msg;
+        $lineTool->sendToAdmin("\n$msg");
     }
     echo "job結束\n";
 } catch (Exception $exception) {
