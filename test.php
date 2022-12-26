@@ -14,9 +14,17 @@ header('Content-Type: application/json; charset=utf-8');
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "GCP") {
     $db = DataBaseTool::getInstance();
     $list = $db->getApiLimitExpirList();
+    $asc = [];
+    $desc = [];
+    foreach($list as $row){
+        $asc[] = $db->checkUserAccusesTokenLlist($row[0],'ASC');
+        $desc[] = $db->checkUserAccusesTokenLlist($row[0],'DESC');
+    }
     $data = [
         'status' => '200',
         'msg' => $list,
+        'asc' => $asc,
+        'desc' => $desc,
     ];
 } else {
     $data = [

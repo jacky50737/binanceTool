@@ -219,9 +219,9 @@ class DataBaseTool
      * @param $userID
      * @return array|bool
      */
-    public function checkUserAccusesTokenLlist($userID): bool|array
+    public function checkUserAccusesTokenLlist($userID, $sort = 'ASC'): bool|array
     {
-        $sqlQuery = "SELECT API_KEY FROM BINANCE_API_KEY WHERE LINE_ID = '".$userID."';";
+        $sqlQuery = "SELECT API_KEY FROM BINANCE_API_KEY WHERE LINE_ID = '".$userID."' ORDER BY id {$sort} ;";
 
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
