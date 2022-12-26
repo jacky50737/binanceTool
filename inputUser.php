@@ -13,26 +13,34 @@ header('Content-Type: application/json');
 if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
     $binance = BinanceTool::getInstance();
+    $keyLimit = @$db->checkApiKeyCountLimit($_GET['LINE_ID']) ?? 2;
     if (!$db->checkUserNickName($_GET['LINE_ID'], $_GET['NICK_NAME'])) {
         if(!$db->checkApiKey($_GET['API_KEY'])){
-            $binance->setApiKey($_GET['API_KEY']);
-            $binance->setApiSecret($_GET['API_SECRET']);
-            if ($binance->checkBinanceApi() and $binance->checkKeySecretLen()) {
-                if ($db->inputUser($_GET['NICK_NAME'], $_GET['API_KEY'], $_GET['API_SECRET'], $_GET['LINE_ID'], $_GET['ACCESS_TOKEN'])) {
-                    $data = [
-                        'status' => '200',
-                        'msg' => '使用者新增成功!',
-                    ];
+            if($db->checkApiKeyCount($_GET['LINE_ID']) < $keyLimit){
+                $binance->setApiKey($_GET['API_KEY']);
+                $binance->setApiSecret($_GET['API_SECRET']);
+                if ($binance->checkBinanceApi() and $binance->checkKeySecretLen()) {
+                    if ($db->inputUser($_GET['NICK_NAME'], $_GET['API_KEY'], $_GET['API_SECRET'], $_GET['LINE_ID'], $_GET['ACCESS_TOKEN'])) {
+                        $data = [
+                            'status' => '200',
+                            'msg' => '使用者新增成功!',
+                        ];
+                    } else {
+                        $data = [
+                            'status' => '400',
+                            'msg' => '使用者新增失敗!',
+                        ];
+                    }
                 } else {
                     $data = [
                         'status' => '400',
-                        'msg' => '使用者新增失敗!',
+                        'msg' => '無效的API!',
                     ];
                 }
-            } else {
+            }else{
                 $data = [
                     'status' => '400',
-                    'msg' => '無效的API!',
+                    'msg' => "已超出最大API KEY綁定上限：{$keyLimit}",
                 ];
             }
         }else{
