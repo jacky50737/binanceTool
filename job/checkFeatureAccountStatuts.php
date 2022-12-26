@@ -10,7 +10,7 @@ require_once '../class/autoload.php';
 $db = DataBaseTool::getInstance();
 $lineTool = LineNotify::getInstance();
 $binanceTool = BinanceTool::getInstance();
-// echo "job開始!\n";
+echo "job開始!\n";
 try {
     $checkList = $db->checkUserFeatureStatus();
     var_dump($checkList);
@@ -42,7 +42,7 @@ try {
         }
         $db->updateUserApiLimit($row[0], 2, date('Y-m-d H:i:s', strtotime('now')));
     }
-//     echo "job結束\n";
+    echo "job結束\n";
 } catch (Exception $exception) {
 //     echo '發生錯誤：' . $exception->getMessage();
     $lineTool->sendToAdmin($exception->getMessage());
