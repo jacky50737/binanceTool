@@ -437,18 +437,17 @@ class DataBaseTool
     /**
      * 檢查使用者API KEY串接數量
      * @param string $lineId
-     * @return bool
      */
-    public function checkApiKeyCount(string $lineId): bool
+    public function checkApiKeyCount(string $lineId)
     {
         $sqlQuery = "SELECT count(*) FROM BINANCE_API_KEY WHERE LINE_ID = '" . strval($lineId) . "';";
 
         if ($this->connection->query($sqlQuery)) {
-            if ($this->connection->query($sqlQuery)->fetch_row()[0] >= 2) {
-                return true;
+            if ($this->connection->query($sqlQuery)->fetch_row()[0]) {
+                return $this->connection->query($sqlQuery)->fetch_row()[0];
             }
         }
-        return false;
+        return 0;
     }
 
     /**
