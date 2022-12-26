@@ -550,7 +550,7 @@ class DataBaseTool
         }
 
         if ($runStepOne) {
-            $sqlQuery = "DELETE FROM ACCOUNT_FEATURE WHERE API_KEY='" . strval($apiKey) . "';";
+            $sqlQuery = "DELETE FROM ACCOUNT_FEATURE WHERE ACCOUNT_KEY='" . strval($apiKey) . "';";
             for ($i = 0; $i < 5; $i++) {
                 if ($this->connection->query($sqlQuery)) {
                     $runStepTwo =  true;
