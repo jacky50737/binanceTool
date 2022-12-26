@@ -110,7 +110,7 @@ class DataBaseTool
     {
         $now = date('T-m-d H:i:s', strtotime('+8 hours'));
         $sqlQuery = "SELECT LINE_ID,API_LIMIT  FROM ACCOUNT_LIMIT WHERE API_LIMIT > (2) AND EXPIR_DAY <'" . $now . "';";
-
+var_dump($sqlQuery);
         if ($this->connection->query($sqlQuery)) {
             $rows = $this->connection->query($sqlQuery)->fetch_all();
             return $rows;
