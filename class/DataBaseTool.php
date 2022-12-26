@@ -463,8 +463,9 @@ class DataBaseTool
             if(is_null($this->connection->query($sqlQuery)->fetch_row())){
                 if($this->inputUserApiKeyLimit($lineId, 2, date('Y-m-d 23:59:59', strtotime('now')))){
                     return 2;
+                }else{
+                    return 0;
                 };
-                return 0;
             }
             if($this->connection->query($sqlQuery)->fetch_row()[0]){
                 return $this->connection->query($sqlQuery)->fetch_row()[0];
@@ -517,7 +518,7 @@ class DataBaseTool
             strval($lineId) . "', '" .
             intval($apiLimit) . "', '" .
             strval($expiredDay) . "')";
-
+var_dump($sqlQuery);
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery)) {
                 return true;
