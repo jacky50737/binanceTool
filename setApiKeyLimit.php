@@ -16,7 +16,7 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     $db = DataBaseTool::getInstance();
     $originLimit = $db->checkApiKeyCountLimit($_GET['LINE_ID']);
     if($originLimit >= 2){
-        if($db->updateUserApiLimit($_GET['LINE_ID'], $_GET['API_LIMIT'], $_GET['EXPIRED_DAY'])){
+        if($db->updateUserApiLimit($_GET['LINE_ID'], (int)$_GET['API_LIMIT'], $_GET['EXPIRED_DAY'])){
             $newLimit = $db->checkApiKeyCountLimit($_GET['LINE_ID']);
             $data = [
                 'status' => '201',
