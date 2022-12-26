@@ -555,8 +555,8 @@ class DataBaseTool
      */
     public function updateUserApiLimit(string $lineId, int $apiLimit, string $expiredDay): bool
     {
-        $sqlQuery = "UPDATE ACCOUNT_LIMIT SET API_LIMIT=".$apiLimit." AND EXPIR_DAY='" . $expiredDay ."'WHERE LINE_ID='" . $lineId . "';";
-
+        $sqlQuery = "UPDATE ACCOUNT_LIMIT SET API_LIMIT='(".$apiLimit.")' AND EXPIR_DAY='" . $expiredDay ."'WHERE LINE_ID='" . $lineId . "';";
+var_dump($sqlQuery);
         for ($i = 0; $i < 5; $i++) {
             if ($this->connection->query($sqlQuery)) {
                 return true;
