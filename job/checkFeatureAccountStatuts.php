@@ -13,7 +13,7 @@ $binanceTool = BinanceTool::getInstance();
 // echo "job開始!\n";
 try {
     $checkList = $db->checkUserFeatureStatus();
-    var_dump($checkList);
+    // var_dump($checkList);
     foreach ($checkList as $row) {
         $key = $row;
         $secret = $db->getApiSecret($key)[0];
@@ -28,6 +28,18 @@ try {
             $lineTool->sendToAdmin("\n關閉{$is_Successes}!\n");
         }
 //         echo "檢查完畢!\n";
+    }
+
+    //取得過期列表
+    $expirList = $db->getApiLimitExpirList();
+    foreach($expirList as $row){
+        //取得串接帳號列表(倒序)
+        $userAccountList = $db->checkUserAccusesTokenLlist($row[0],'DESC');
+        $countNeedDelete = count($userAccountList) - 2;
+        for($i=0;$i<$countNeedDelete;$i++){
+            $db->deleteUser($userAccountList[$i], $row[0]);
+        }
+        $db->updateUserApiLimit($row[0], 2, date('Y-m-d H:i:s', strtotime('now')));
     }
 //     echo "job結束\n";
 } catch (Exception $exception) {
