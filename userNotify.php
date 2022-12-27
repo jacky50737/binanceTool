@@ -25,6 +25,9 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] == "幣安小工具GCP") {
     $msg = $_GET['SEND_MSG']?:'測試訊息';
     foreach ($checkList as $row) {
 //        var_dump($row);
+        if($row == "wDfvd2b5qfdpX5izFBVRYC0DBD8KmaoN0OX2uQEV7xU"){
+            continue;
+        }
         $lineTool->setToken($row);
         $lineTool->doLineNotify($msg);
     }
