@@ -14,6 +14,8 @@ echo "job開始!\n";
 try {
         $checkList = $db->checkUserFeatureStatus();
         // var_dump($checkList);
+        $countList = count($checkList);
+        echo "對帳號數：{$countList}進行檢查!\n";
         foreach ($checkList as $row) {
             $key = $row;
             $secret = $db->getApiSecret($key)[0];
@@ -27,12 +29,15 @@ try {
                 echo "關閉{$is_Successes}!\n";
                 $lineTool->sendToAdmin("\n關閉{$is_Successes}!\n");
             }
-    //         echo "檢查完畢!\n";
+
         }
+        echo "帳號有效期限檢查完畢!\n";
 
     //取得過期列表
     $expirList = $db->getApiLimitExpirList();
     // var_dump($expirList);
+    $countList = count($expirList);
+    echo "對過期列表數：{$countList}進行檢查!\n";
     foreach($expirList as $row){
         //取得串接帳號列表(倒序)
         $userAccountList = $db->checkUserAccusesTokenLlist($row[0],'DESC');
@@ -53,6 +58,7 @@ try {
         echo $msg;
         $lineTool->sendToAdmin("\n$msg");
     }
+    echo "帳號串接數過期列表檢查完畢!\n";
     echo "job結束\n";
 } catch (Exception $exception) {
     echo '發生錯誤：' . $exception->getMessage();
