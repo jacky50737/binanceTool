@@ -469,6 +469,7 @@ class DataBaseTool
      * 檢查使用者API KEY可串接數量
      *
      * @param string $lineId
+     * @return int|mixed|void
      */
     public function checkApiKeyCountLimit(string $lineId)
     {

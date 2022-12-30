@@ -30,29 +30,29 @@ try {
     //         echo "檢查完畢!\n";
         }
 
-//    //取得過期列表
-//    $expirList = $db->getApiLimitExpirList();
-//    // var_dump($expirList);
-//    foreach($expirList as $row){
-//        //取得串接帳號列表(倒序)
-//        $userAccountList = $db->checkUserAccusesTokenLlist($row[0],'DESC');
-//        $countNeedDelete = count($userAccountList) - 2;
-//        if($countNeedDelete > 0){
-//            $msg = "發現帳號 UID：$row[0] 超出最大可用串接數! 將進行關閉功能.....\n";
-//            echo $msg;
-//            $lineTool->sendToAdmin("\n{$msg}");
-//            for($i=0;$i<$countNeedDelete;$i++){
-//                $db->deleteUser($userAccountList[$i], $row[0]);
-//            }
-//            $msg ="關閉成功!\n";
-//            echo $msg;
-//            $lineTool->sendToAdmin("\n$msg");
-//        }
-//        $db->updateUserApiLimit($row[0], 2, date('Y-m-d H:i:s', strtotime('now')));
-//        $msg ="已重設UID：{$row[0]}為最大數量2!\n";
-//        echo $msg;
-//        $lineTool->sendToAdmin("\n$msg");
-//    }
+    //取得過期列表
+    $expirList = $db->getApiLimitExpirList();
+    // var_dump($expirList);
+    foreach($expirList as $row){
+        //取得串接帳號列表(倒序)
+        $userAccountList = $db->checkUserAccusesTokenLlist($row[0],'DESC');
+        $countNeedDelete = count($userAccountList) - 2;
+        if($countNeedDelete > 0){
+            $msg = "發現帳號 UID：$row[0] 超出最大可用串接數! 將進行關閉功能.....\n";
+            echo $msg;
+            $lineTool->sendToAdmin("\n{$msg}");
+            for($i=0;$i<$countNeedDelete;$i++){
+                $db->deleteUser($userAccountList[$i], $row[0]);
+            }
+            $msg ="關閉成功!\n";
+            echo $msg;
+            $lineTool->sendToAdmin("\n$msg");
+        }
+        $db->updateUserApiLimit($row[0], 2, date('Y-m-d H:i:s', strtotime('now')));
+        $msg ="已重設UID：{$row[0]}為最大數量2!\n";
+        echo $msg;
+        $lineTool->sendToAdmin("\n$msg");
+    }
     echo "job結束\n";
 } catch (Exception $exception) {
     echo '發生錯誤：' . $exception->getMessage();
