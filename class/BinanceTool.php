@@ -152,7 +152,7 @@ class BinanceTool
                             $notifyString .= "\n手續費(" . $order->commissionAsset . ")：" . $extend['totalCommission'];
                             $notifyString .= "\n實現利潤：" . $extend['totalProfit'];
                             if($order->commissionAsset == "USDT"){
-                                $notifyString .= "\n收益率：" . ($extend['totalProfit'] / ($order->averagePrice * $order->originalQuantity) * 100) . "%";
+                                $notifyString .= "\n收益率：" . round($extend['totalProfit'] / ($order->averagePrice * $order->originalQuantity) * 100,2) . "%";
                             }
 
 
