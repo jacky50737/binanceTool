@@ -16,7 +16,7 @@ if (isset($_GET["PASSWORD"]) and $_GET["PASSWORD"] =="幣安小工具GCP") {
     $help = Help::getInstance();
     $db = DataBaseTool::getInstance();
     $binanceTool = BinanceTool::getInstance();
-    $arrLog = $db->getTreadLogByOrderId($_GET['ORDER_ID'],['PARTIALLY_FILLED','FILLED']);
+    $arrLog = $db->getTreadLogByOrderId($_GET['ORDER_ID'],['PARTIALLY_FILLED','FILLED'],$_GET["API_KEY"]);
     foreach ($arrLog as &$log){
         $log = $help->reArrayFromKey($log);
     }

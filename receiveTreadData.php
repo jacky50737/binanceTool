@@ -59,7 +59,7 @@ if (isset($_GET["API_KEY"]) and !empty($_GET["API_KEY"])) {
         $totalFeeAndFit = [];
         if(isset($postData->order->orderStatus) and $postData->order->orderStatus == 'FILLED'){
             sleep(2);
-            $arrLog = $db->getTreadLogByOrderId($postData->order->orderId,['PARTIALLY_FILLED','FILLED']);
+            $arrLog = $db->getTreadLogByOrderId($postData->order->orderId,['PARTIALLY_FILLED','FILLED'],$_GET["API_KEY"]);
             foreach ($arrLog as &$logData){
                 $logData = $helpTool->reArrayFromKey($logData);
             }
